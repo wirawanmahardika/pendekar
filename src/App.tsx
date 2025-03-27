@@ -1,15 +1,16 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import Login from "./pages/Login"
-import Home from "./pages/Home"
-import Wrapper from "./components/wrapper"
+import Wrapper from "./components/Wrapper"
+import Dashboard from "./pages/Dashboard"
+import Perencanaan from "./pages/Perencanaan"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Wrapper />} >
-        <Route index element={<Home />} />
-
+        <Route index element={<Dashboard />} />
+        <Route path="perencanaan" element={<Perencanaan />} />
       </Route>
 
     </>

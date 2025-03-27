@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { motion } from 'framer-motion'
-import Sidebar from "./sidebar";
+import Sidebar from "./Sidebar";
 import { useState } from "react";
 
 export default function Wrapper() {
@@ -12,8 +12,8 @@ export default function Wrapper() {
             <Sidebar />
         </motion.div>
 
-        <div className={`bg-yellow-600 grow flex flex-col`}>
-            <div className="bg-white shadow-md h-[10vh] flex items-center justify-between px-5">
+        <motion.div animate={{ width: sidebarOpen ? '80%' : '100%' }} className={`bg-yellow-600 flex flex-col`}>
+            <div className="bg-white shadow-md py-3 flex items-center justify-between px-5">
                 <div className="flex items-center gap-x-4">
                     <svg onClick={() => setSidebarOpen(prev => !prev)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="size-8 cursor-pointer">
                         <path fillRule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
@@ -47,9 +47,9 @@ export default function Wrapper() {
                     </ul>
                 </div>
             </div>
-            <div className="bg-gray-200 grow">
+            <div className="bg-gray-200 grow overflow-y-auto">
                 <Outlet />
             </div>
-        </div>
+        </motion.div>
     </div>
 }

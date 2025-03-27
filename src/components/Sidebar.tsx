@@ -7,6 +7,7 @@ import { FaHandsHelping, FaRegCircle } from "react-icons/fa";
 import { GiBrickWall, GiVillage } from "react-icons/gi";
 import { MdTrendingUp } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
+import { NavLink } from "react-router-dom";
 
 
 export default function Sidebar() {
@@ -17,29 +18,29 @@ export default function Sidebar() {
         <nav className="flex flex-col mt-10 w-full gap-y-6">
             <span className="font-semibold">MENU</span>
 
-            <Nav text="Dashboard" icon={<BiSolidDashboard className="p-0 size-5" />} />
+            <Nav text="Dashboard" url="/" icon={<BiSolidDashboard className="p-0 size-5" />} />
             <NavWithSubNav text="Administrator" icon={<RiAdminLine className="p-0 size-5" />} subNavs={[
                 { text: 'Umum', url: '/umum' },
                 { text: 'Kependudukan', url: '/umum' },
             ]} />
-            <Nav text="Pembangunan" icon={<GiBrickWall className="p-0 size-5" />} />
+            <Nav text="Pembangunan" url="pembangunan" icon={<GiBrickWall className="p-0 size-5" />} />
             <NavWithSubNav text="Potensi" icon={<MdTrendingUp className="p-0 size-5" />} subNavs={[
                 { text: 'UMKM', url: '/umum' },
                 { text: 'Berita', url: '/umum' },
                 { text: 'Wisata', url: '/umum' },
             ]} />
-            <Nav text="Profil Desa" icon={<GiVillage className="p-0 size-5" />} />
-            <Nav text="Bansos" icon={<FaHandsHelping className="p-0 size-5" />} />
-            <Nav text="Perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />
+            <Nav text="Profil Desa" url="potensi" icon={<GiVillage className="p-0 size-5" />} />
+            <Nav text="Bansos" url="bansos" icon={<FaHandsHelping className="p-0 size-5" />} />
+            <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />
         </nav >
     </div >
 }
 
-function Nav({ icon, text }: { icon: JSX.Element, text: string }) {
-    return <a href="" className="flex items-center gap-x-2">
+function Nav({ icon, text, url }: { icon: JSX.Element, text: string, url: string }) {
+    return <NavLink to={url} className="flex items-center gap-x-2">
         {icon}
         <span>{text}</span>
-    </a>
+    </NavLink>
 }
 
 function NavWithSubNav(

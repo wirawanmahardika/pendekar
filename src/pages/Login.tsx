@@ -38,7 +38,7 @@ const LeftPart = () => {
 const RightPart = () => {
     const [showPass, setShowPass] = useState(false)
 
-    return <div className="bg-[#0077B2] relative rounded-l-2xl overflow-y-auto">
+    return <div className="bg-[#0077B2] relative rounded-l-2xl overflow-y-auto text-white">
         <div className="flex absolute left-9 top-9 gap-x-4">
             <img
                 className="size-14"
