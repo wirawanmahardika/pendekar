@@ -3,6 +3,7 @@ import Login from "./pages/Login"
 import Wrapper from "./components/Wrapper"
 import Dashboard from "./pages/Dashboard"
 import Perencanaan from "./pages/Perencanaan"
+import Pembangunan from "./pages/Pembagunan"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -11,6 +12,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Wrapper />} >
         <Route index element={<Dashboard />} />
         <Route path="perencanaan" element={<Perencanaan />} />
+        <Route path="pembangunan" element={<Pembangunan />} />
       </Route>
 
     </>
