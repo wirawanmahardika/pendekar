@@ -29,7 +29,7 @@ export default function Sidebar() {
                 { text: 'Berita', url: '/umum' },
                 { text: 'Wisata', url: '/umum' },
             ]} />
-            <Nav text="Profil Desa" url="potensi" icon={<GiVillage className="p-0 size-5" />} />
+            <Nav text="Profil Desa" url="profil-desa" icon={<GiVillage className="p-0 size-5" />} />
             <Nav text="Bansos" url="bansos" icon={<FaHandsHelping className="p-0 size-5" />} />
             <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />
         </nav >

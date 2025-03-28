@@ -6,7 +6,6 @@ import { useState } from "react";
 export default function Wrapper() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
 
-
     return <div className="h-screen w-screen bg-neutral-50 flex">
         <motion.div animate={{ width: sidebarOpen ? '20%' : '0' }} className="bg-[#0077B2] overflow-y-auto overflow-x-hidden">
             <Sidebar />
@@ -49,6 +48,10 @@ export default function Wrapper() {
             </div>
             <div className="bg-gray-200 grow overflow-y-auto">
                 <Outlet />
+
+                <div className="flex mt-auto justify-center items-center p-3 bg-white shadow text-blue-900 text-sm">
+                    <span>&copy; Powered By <span className="font-bold">PT Digidal Desa Indonesia</span></span>
+                </div>
             </div>
         </motion.div>
     </div>
