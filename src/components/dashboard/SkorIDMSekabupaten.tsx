@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FaChartBar, FaChartLine } from 'react-icons/fa';
 import { LuChartNoAxesCombined } from 'react-icons/lu';
 import SkorIDMSekabupatenChart from './charts/SkorIDMSekabupatenCharts';
+import ExportReportButton from '../ExportReportButton';
 
 
 export default function SkorIDMSekabupaten() {
@@ -10,7 +11,7 @@ export default function SkorIDMSekabupaten() {
     return <div className="p-4 bg-white rounded shadow mt-8">
         <div className="flex items-center justify-between">
             <h2 className="font-bold text-xl">Skor IDM Sekabupaten</h2>
-            <button type="button" className="rounded px-4 py-2 bg-sky-200 text-sky-600 hover:bg-sky-300">Export Report</button>
+            <ExportReportButton />
         </div>
 
         <div className="grid grid-cols-2 border border-gray-200 rounded mt-3 p-5  text-gray-700 ">

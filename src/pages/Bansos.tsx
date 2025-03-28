@@ -1,5 +1,7 @@
 import { BiSearch } from "react-icons/bi";
 import PageTitle from "../components/PageTitle";
+import ExportReportButton from "../components/ExportReportButton";
+import { tableHeaderStyle } from "../utils/themeSetting";
 
 export default function Bansos() {
     return <div className="px-4 py-10">
@@ -7,7 +9,7 @@ export default function Bansos() {
         <div className="p-4 bg-white rounded shadow mt-8">
             <div className="flex items-center justify-between">
                 <h2 className="font-bold text-xl">Rekap Penerima Bantuan Sosial</h2>
-                <button type="button" className="rounded px-4 py-2 bg-sky-200 text-sky-600 hover:bg-sky-300">Export Report</button>
+                <ExportReportButton />
             </div>
             <div className="flex gap-x-5 pt-2">
                 <div className="flex relative">
@@ -30,7 +32,7 @@ export default function Bansos() {
 
             <table className="overflow-x-auto min-w-full mt-5 text-center">
                 <thead>
-                    <tr className="bg-sky-300">
+                    <tr style={tableHeaderStyle}>
                         <th className="p-2 border font-semibold border-gray-300">No</th>
                         <th className="p-2 border font-semibold border-gray-300">Kecamatan</th>
                         <th className="p-2 border font-semibold border-gray-300">Desa</th>

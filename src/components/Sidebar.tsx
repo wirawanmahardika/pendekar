@@ -8,12 +8,14 @@ import { GiBrickWall, GiVillage } from "react-icons/gi";
 import { MdTrendingUp } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
+import { STRINGS } from "../utils/strings";
+import { KODE_SLUG } from "../utils/api";
 
 
 export default function Sidebar() {
     return <div className="flex flex-col items-center p-5 w-[20vw] text-white">
-        <h2 className="font-semibold text-3xl mt-3">SiCesa</h2>
-        <span className="text-yellow-300 text-sm mt-3">Sistem Cepat Informasi Desa</span>
+        <h2 className="font-semibold text-3xl mt-3">{STRINGS[KODE_SLUG].nama}</h2>
+        <span className="text-yellow-300 text-sm mt-3 capitalize">{STRINGS[KODE_SLUG].desc}</span>
 
         <nav className="flex flex-col mt-10 w-full gap-y-6">
             <span className="font-semibold">MENU</span>

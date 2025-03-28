@@ -2,12 +2,15 @@ import { Outlet } from "react-router-dom";
 import { motion } from 'framer-motion'
 import Sidebar from "./Sidebar";
 import { useState } from "react";
+import { sidebarStyle } from "../utils/themeSetting";
+import { STRINGS } from "../utils/strings";
+import { KODE_SLUG } from "../utils/api";
 
 export default function Wrapper() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
 
     return <div className="h-screen w-screen bg-neutral-50 flex">
-        <motion.div animate={{ width: sidebarOpen ? '20%' : '0' }} className="bg-[#0077B2] overflow-y-auto overflow-x-hidden">
+        <motion.div style={sidebarStyle} animate={{ width: sidebarOpen ? '20%' : '0' }} className="bg-[#0077B2] overflow-y-auto overflow-x-hidden">
             <Sidebar />
         </motion.div>
 
@@ -17,14 +20,14 @@ export default function Wrapper() {
                     <svg onClick={() => setSidebarOpen(prev => !prev)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="size-8 cursor-pointer">
                         <path fillRule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
                     </svg>
-                    <span className="font-semibold text-xl translate-y-0.5">SiCesa</span>
+                    <span className="font-semibold text-xl translate-y-0.5">{STRINGS[KODE_SLUG].nama}</span>
                 </div>
 
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className=" cursor-pointer">
                         <div className="flex gap-x-3 items-center text-blue-900 font-medium">
                             <img src="/img/icon/pengaduan.png" alt="" className="w-10" />
-                            <span>John Doe, S.STP., M.Si.</span>
+                            <span>{STRINGS[KODE_SLUG].nama_user}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-4 -ml-2">
                                 <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z" clipRule="evenodd" />
                             </svg>
@@ -32,9 +35,9 @@ export default function Wrapper() {
                     </div>
 
                     <ul tabIndex={0} className="dropdown-content rounded z-1 w-64 shadow-sm bg-white flex flex-col items-center">
-                        <div className="flex flex-col gap-y-0.5 items-center p-1">
-                            <span className="text-lg">John Doe</span>
-                            <span className="font-light text-sm text-gray-700">Bupati Ketapang</span>
+                        <div className="flex flex-col gap-y-0.5 items-center p-3 text-center">
+                            <span className="text-lg">{STRINGS[KODE_SLUG].nama_user}</span>
+                            <span className="font-light text-sm text-gray-700">{STRINGS[KODE_SLUG].jabatan_user}</span>
                         </div>
                         <a href="" className="flex gap-x-1 mt-2 w-full text-sm items-center bg-gray-300 p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-5">
