@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import useTitle from "../hooks/useTitle";
 
 export default function Perencanaan() {
-
+    useTitle('Perencanaan')
     return (
         <div className="p-4">
             <div className="bg-white p-5 rounded shadow">

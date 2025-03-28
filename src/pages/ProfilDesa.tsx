@@ -3,8 +3,11 @@ import PageTitle from "../components/PageTitle";
 import { GiWorld } from "react-icons/gi";
 import ExportReportButton from "../components/ExportReportButton";
 import { tableHeaderStyle } from "../utils/themeSetting";
+import useTitle from "../hooks/useTitle";
 
 export default function ProfilDesa() {
+    useTitle('Profile Desa')
+
     return <div className="px-4 py-10">
         <PageTitle title="PROFIL DESA/KELURAHAN" />
         <div className="p-4 bg-white rounded shadow mt-8">

@@ -1,6 +1,8 @@
 import { useState } from "react"
+import useTitle from "../hooks/useTitle"
 
 export default function Login() {
+    useTitle("Login")
     return <div className="h-screen w-screen grid grid-cols-2 bg-cover bg-bottom bg-no-repeat bg-[url(/img/login.png)]">
         <LeftPart />
         <RightPart />
