@@ -7,8 +7,8 @@ export default function Perencanaan() {
             <div className="bg-white p-5 rounded shadow">
                 <span className="text-base font-bold">Monitoring Perencanaan Desa</span>
                 <div className="grid grid-cols-3 gap-3 mb-16 mt-2">
-                    <div className="bg-[#AEDDF5] p-3 rounded shadow-sm text-[#056596]">
-                        <div className="bg-white p-2 rounded-md text-center w-full font-bold">Ringkasan Perencanaan Desa</div>
+                    <div className="bg-[#AEDDF5] p-3 rounded shadow-md text-[#056596] flex flex-col gap-y-1 py-4">
+                        <div className="bg-white p-1 rounded-md text-center w-full font-semibold">Ringkasan Perencanaan Desa</div>
 
                         <div className="flex justify-between p-2">
                             <div className="flex p-1 gap-x-3 items-center">
@@ -35,7 +35,7 @@ export default function Perencanaan() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col border rounded shadow-sm">
+                    <div className="flex flex-col border rounded shadow-md">
                         <div className="flex flex-col p-3 w-full gap-y-2">
                             <span className="font-bold">Status Perencanaan</span>
                             <div className="flex justify-around w-full mt-2">
@@ -71,7 +71,7 @@ export default function Perencanaan() {
 
                     </div>
 
-                    <div className="flex flex-col border p-5 rounded shadow-sm gap-y-3">
+                    <div className="flex flex-col border p-5 rounded shadow-md gap-y-3">
                         <span className="font-bold">Persentase Dokumen Yang Diunggah</span>
 
                         <div className="flex justify-between">
