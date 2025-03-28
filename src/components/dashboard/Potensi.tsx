@@ -1,65 +1,4 @@
-import ReactECharts from 'echarts-for-react';
-
-const BarChart = () => {
-    return <ReactECharts option={{
-        xAxis: { type: "category", data: ['Perikanan', "Pertanian", 'Perkebunan'] },
-        yAxis: { type: "value" },
-        series: [{
-            type: 'bar',
-            data: [120, 160, 150],
-            itemStyle: {
-                color: function (params: any) {
-                    const colors = ["#ff5733", "#33ff57", "#3357ff"]; // Warna berbeda untuk tiap kategori
-                    return colors[params.dataIndex % colors.length];
-                },
-            },
-            barWidth: 30
-        }]
-    }} />
-}
-
-const RadarChart = () => {
-    const option = {
-        radar: {
-            indicator: [
-                { name: "Attack", max: 100 },
-                { name: "Defense", max: 100 },
-                { name: "Speed", max: 100 },
-                { name: "Agility", max: 100 },
-                { name: "Endurance", max: 100 },
-                { name: "Strategy", max: 100 },
-            ],
-        },
-        series: [
-            {
-                name: "Team Comparison",
-                type: "radar",
-                data: [
-                    {
-                        value: [80, 90, 70, 85, 75, 95],
-                        name: "Team A",
-                        itemStyle: { color: "#ff5733" },
-                        areaStyle: { opacity: 0.2 },
-                    },
-                    {
-                        value: [60, 85, 80, 75, 95, 70],
-                        name: "Team B",
-                        itemStyle: { color: "#33ff57" },
-                        areaStyle: { opacity: 0.2 },
-                    },
-                    {
-                        value: [70, 60, 90, 95, 80, 85],
-                        name: "Team C",
-                        itemStyle: { color: "#3357ff" },
-                        areaStyle: { opacity: 0.2 },
-                    },
-                ],
-            },
-        ],
-    };
-
-    return <ReactECharts option={option} />
-}
+import { PotensiBarChart, PotensiRadarChart } from "./charts/PotensiCharts";
 
 export default function Potensi() {
     return <div className="p-4 bg-white rounded shadow mt-8">
@@ -84,14 +23,13 @@ export default function Potensi() {
                 <div className="rounded flex  col-span-2 flex-col border border-gray-300">
                     <span className="w-full bg-sky-200 rounded-t p-3 text-xl text-center font-semibold">Potensi Manusia</span>
                     <div className="overflow-y-auto">
-                        <BarChart />
+                        <PotensiBarChart />
                     </div>
                 </div>
 
                 <div className="rounded flex col-span-2 flex-col border border-gray-300">
                     <span className="w-full bg-sky-200 rounded-t p-3 text-xl text-center font-semibold">Potensi SDA</span>
                     <div className="overflow-y-auto h-full">
-                        <BarChart />
                     </div>
                 </div>
 
@@ -108,14 +46,14 @@ export default function Potensi() {
                 <div className="rounded flex col-span-2 flex-col border border-gray-300">
                     <span className="w-full bg-sky-200 rounded-t p-3 text-xl text-center font-semibold">Lembaga Kemsyarakatan</span>
                     <div className="overflow-y-auto ">
-                        <RadarChart />
+                        <PotensiRadarChart />
                     </div>
                 </div>
 
                 <div className="rounded flex col-span-2 flex-col border border-gray-300">
                     <span className="w-full bg-sky-200 rounded-t p-3 text-xl text-center font-semibold">Sarana Dan Prasarana</span>
                     <div className="flex flex-col overflow-y-auto h-full">
-                        <BarChart />
+                        <PotensiBarChart />
                     </div>
                 </div>
             </div>
