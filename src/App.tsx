@@ -3,6 +3,7 @@ import Login from "./pages/Login"
 import Wrapper from "./components/Wrapper"
 import Dashboard from "./pages/Dashboard"
 import Perencanaan from "./pages/Perencanaan"
+import Pembangunan from "./pages/Pembagunan"
 import Bansos from "./pages/Bansos"
 import ProfilDesa from "./pages/ProfilDesa"
 import UMKM from "./pages/UMKM"
@@ -17,7 +18,7 @@ const router = createBrowserRouter(
         <Route path="profil-desa" element={<ProfilDesa />} />
         <Route path="perencanaan" element={<Perencanaan />} />
         <Route path="umkm" element={<UMKM />} />
-        <Route path="umkm" element={<UMKM />} />
+        <Route path="pembangunan" element={<Pembangunan />} />
       </Route>
     </>
   )
