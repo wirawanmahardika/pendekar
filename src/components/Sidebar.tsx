@@ -23,13 +23,13 @@ export default function Sidebar() {
             <Nav text="Dashboard" url="/" icon={<BiSolidDashboard className="p-0 size-5" />} />
             <NavWithSubNav text="Administrator" icon={<RiAdminLine className="p-0 size-5" />} subNavs={[
                 { text: 'Umum', url: '/umum' },
-                { text: 'Kependudukan', url: '/umum' },
+                { text: 'Kependudukan', url: '/kependudukan' },
             ]} />
             <Nav text="Pembangunan" url="pembangunan" icon={<GiBrickWall className="p-0 size-5" />} />
             <NavWithSubNav text="Potensi" icon={<MdTrendingUp className="p-0 size-5" />} subNavs={[
-                { text: 'UMKM', url: '/umum' },
-                { text: 'Berita', url: '/umum' },
-                { text: 'Wisata', url: '/umum' },
+                { text: 'UMKM', url: '/umkm' },
+                { text: 'Berita', url: '/berita' },
+                { text: 'Wisata', url: '/wisata' },
             ]} />
             <Nav text="Profil Desa" url="profil-desa" icon={<GiVillage className="p-0 size-5" />} />
             <Nav text="Bansos" url="bansos" icon={<FaHandsHelping className="p-0 size-5" />} />
@@ -53,7 +53,7 @@ function NavWithSubNav(
     const defineHeightBySubNavs = () => {
         switch (subNavs.length) {
             case 1: return '20px'
-            case 2: return '50px'
+            case 2: return '55px'
             case 3: return '90px'
             default: return '0px'
         }
@@ -72,10 +72,10 @@ function NavWithSubNav(
         <motion.div initial={{ height: 0 }} animate={{ height: isOpen ? height : 0 }} className="overflow-hidden -my-3 w-full flex flex-col pl-5 gap-y-3">
             {
                 subNavs.map(nav => {
-                    return <div className="flex gap-x-2 items-center">
+                    return <NavLink to={nav.url} className="flex gap-x-2 items-center">
                         <FaRegCircle className="size-3" />
                         <span className="text-sm">{nav.text}</span>
-                    </div>
+                    </NavLink>
                 })
             }
         </motion.div>

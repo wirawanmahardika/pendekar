@@ -11,8 +11,14 @@ export const pageTitleStyle = {
     time: { backgroundColor: STRINGS[KODE_SLUG].theme.background_color }
 }
 
-export const tableHeaderStyle = {
-    backgroundColor: STRINGS[KODE_SLUG].theme.table_header_color,
-}
+export const tableHeaderStyle = { backgroundColor: STRINGS[KODE_SLUG].theme.table_header_color }
 
 export const sidebarStyle = { backgroundColor: STRINGS[KODE_SLUG].theme.background_color }
+
+
+export const loginTextStyle = {
+    color: STRINGS[KODE_SLUG].theme.text_color,
+    boxShadow: '6px 6px 0px ' + STRINGS[KODE_SLUG].theme.background_color
+}
+
+export const loginFormBacgkroundStyle = { backgroundColor: STRINGS[KODE_SLUG].theme.background_color }

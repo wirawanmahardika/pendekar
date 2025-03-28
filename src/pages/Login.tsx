@@ -1,5 +1,8 @@
 import { useState } from "react"
 import useTitle from "../hooks/useTitle"
+import { STRINGS } from "../utils/strings"
+import { KODE_SLUG } from "../utils/api"
+import { loginFormBacgkroundStyle, loginTextStyle } from "../utils/themeSetting"
 
 export default function Login() {
     useTitle("Login")
@@ -10,13 +13,16 @@ export default function Login() {
 }
 
 const LeftPart = () => {
+    const logoKabupaten = STRINGS[KODE_SLUG].logo_kab_url
+    const logoApp = STRINGS[KODE_SLUG].logo_dss_url
+
     return <div className="justify-center items-center flex flex-col w-full mx-auto relative">
-        <div className="flex absolute top-5 left-5 w-full gap-x-4">
-            <img src="/img/logo/logo.png" alt="logo-ketapang" className="w-8" />
-            <img src="/img/logo/sicesa.png" alt="sicesa" className="w-20" />
+        <div className="flex absolute top-5 left-5 w-full gap-x-4 h-fit">
+            <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
+            <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
         </div>
 
-        <div className="flex relative text-sm gap-x-16 bg-white w-2/3 translate-y-20 justify-evenly text-sky-700 font-bold px-3 py-1 rounded" style={{ boxShadow: '6px 6px 0px rgb(0,119,178)' }}>
+        <div style={loginTextStyle} className="flex relative text-sm gap-x-16 bg-white w-2/3 translate-y-20 justify-evenly font-bold px-3 py-1 rounded">
             <img src="/img/bupati.png" alt="" className="w-7/12 absolute bottom-full left-5" />
             <img src="/img/wakil.png" alt="" className="w-7/12 absolute bottom-full right-2" />
 
@@ -40,7 +46,7 @@ const LeftPart = () => {
 const RightPart = () => {
     const [showPass, setShowPass] = useState(false)
 
-    return <div className="bg-[#0077B2] relative rounded-l-2xl overflow-y-auto text-white">
+    return <div style={loginFormBacgkroundStyle} className="relative rounded-l-2xl overflow-y-auto text-white">
         <div className="flex absolute left-9 top-9 gap-x-4">
             <img
                 className="size-14"
@@ -50,8 +56,8 @@ const RightPart = () => {
             <div className="border-l-2 border-white"></div>
 
             <div className="flex flex-col justify-center font-semibold">
-                <span>SiCesa</span>
-                <span>Kabupaten Ketapang</span>
+                <span>{STRINGS[KODE_SLUG].nama}</span>
+                <span>{STRINGS[KODE_SLUG].kabkota}</span>
             </div>
         </div>
 

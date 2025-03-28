@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard"
 import Perencanaan from "./pages/Perencanaan"
 import Bansos from "./pages/Bansos"
 import ProfilDesa from "./pages/ProfilDesa"
+import UMKM from "./pages/UMKM"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,8 +16,9 @@ const router = createBrowserRouter(
         <Route path="bansos" element={<Bansos />} />
         <Route path="profil-desa" element={<ProfilDesa />} />
         <Route path="perencanaan" element={<Perencanaan />} />
+        <Route path="umkm" element={<UMKM />} />
+        <Route path="umkm" element={<UMKM />} />
       </Route>
-
     </>
   )
 )
