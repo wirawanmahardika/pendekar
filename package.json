@@ -1,13 +1,16 @@
 {
   "name": "pendekar",
   "private": true,
+  "homepage": "https://wirawanmahardika.github.io/pendekar/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.16",
@@ -15,6 +18,7 @@
     "echarts": "^5.6.0",
     "echarts-for-react": "^3.0.2",
     "framer-motion": "^12.6.2",
+    "gh-pages": "^6.3.0",
     "react": "^19.0.0",
     "react-data-table-component": "^7.7.0",
     "react-dom": "^19.0.0",

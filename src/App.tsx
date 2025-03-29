@@ -7,8 +7,8 @@ import Pembangunan from "./pages/Pembangunan"
 import Bansos from "./pages/Bansos"
 import ProfilDesa from "./pages/ProfilDesa"
 import UMKM from "./pages/UMKM"
-import Wisata from "./pages/wisata"
 import Berita from "./pages/Berita"
+import Wisata from "./pages/Wisata"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
