@@ -4,6 +4,7 @@ import TabNavigation from "../components/pembangunan/TabNavigation";
 import { APBDesSection } from "../components/pembangunan/APBDesSection";
 import ProposalSection from "../components/pembangunan/ProposalSection";
 import RKPSection from "../components/pembangunan/RKPSection";
+import useTitle from "../hooks/useTitle";
 
 // Mock data for preview purposes
 const mockResultData = {
@@ -56,11 +57,12 @@ const Pembangunan = () => {
   const [resultData,] = useState(mockResultData);
   const [modeKeuangan, setModeKeuangan] = useState("apbdes");
 
+
+  useTitle("Pembangunan")
   useEffect(() => {
     // For demonstration, just using mock data
     // In real implementation, you would fetch data here
-    document.title = "Pembangunan | SiCesa";
-    
+
     // Show the correct tab content based on modeKeuangan
     const showTab = (tabId: string) => {
       document.querySelectorAll('[role="tabpanel"]').forEach(panel => {
@@ -71,28 +73,24 @@ const Pembangunan = () => {
         targetPanel.classList.remove('hidden');
       }
     };
-    
-    if (modeKeuangan === "apbdes") {
-      showTab("bordered-apbd");
-    } else if (modeKeuangan === "rkp") {
-      showTab("bordered-rkp");
-    } else if (modeKeuangan === "proposal") {
-      showTab("bordered-proposal");
-    }
+
+    if (modeKeuangan === "apbdes") showTab("bordered-apbd")
+    else if (modeKeuangan === "rkp") showTab("bordered-rkp");
+    else if (modeKeuangan === "proposal") showTab("bordered-proposal");
   }, [modeKeuangan]);
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <PageTitle update={resultData.last_updated} />
-      
+
       <div className="bg-white rounded-lg shadow-sm border border-gray-100 mb-8">
         <div className="p-4">
-          <TabNavigation 
-            modeKeuangan={modeKeuangan} 
-            setModeKeuangan={setModeKeuangan} 
+          <TabNavigation
+            modeKeuangan={modeKeuangan}
+            setModeKeuangan={setModeKeuangan}
           />
-            
-          <APBDesSection resultData={resultData } />
+
+          <APBDesSection resultData={resultData} />
           <RKPSection resultData={resultData} />
           <ProposalSection />
         </div>

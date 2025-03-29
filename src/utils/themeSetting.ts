@@ -22,3 +22,8 @@ export const loginTextStyle = {
 }
 
 export const loginFormBacgkroundStyle = { backgroundColor: STRINGS[KODE_SLUG].theme.background_color }
+
+export const umkmProdukDesaStyle = {
+    penunjukArah: { color: STRINGS[KODE_SLUG].theme.icon_color },
+    category: { backgroundColor: STRINGS[KODE_SLUG].theme.background_color }
+}

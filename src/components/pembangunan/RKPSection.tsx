@@ -1,5 +1,5 @@
+import ExportReportButton from "../ExportReportButton";
 import RKPTable from "./table/RKPDataTable";
-import ExportReportButton from "../ExportReportBtn";
 
 const RKPSection = ({ resultData }: { resultData: any }) => (
   <div className="hidden transition-opacity duration-300 ease-in-out" id="bordered-rkp" role="tabpanel" aria-labelledby="rkp-tab">
@@ -8,9 +8,9 @@ const RKPSection = ({ resultData }: { resultData: any }) => (
         <div className="p-5">
           <div className="flex justify-between items-center mb-5">
             <h5 className="text-xl font-bold text-gray-800">Rencana Kerja Pembangunan</h5>
-            <ExportReportButton clickUrl={`export/rkpdes`} />
+            <ExportReportButton />
           </div>
-          
+
           {resultData && <RKPTable resultData={resultData} />}
         </div>
       </div>
