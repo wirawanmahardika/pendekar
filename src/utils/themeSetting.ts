@@ -27,3 +27,8 @@ export const umkmProdukDesaStyle = {
     penunjukArah: { color: STRINGS[KODE_SLUG].theme.icon_color },
     category: { backgroundColor: STRINGS[KODE_SLUG].theme.background_color }
 }
+
+export const tabNavigationStyle = {
+    color: STRINGS[KODE_SLUG].theme.text_color,
+    borderColor: STRINGS[KODE_SLUG].theme.background_color
+}

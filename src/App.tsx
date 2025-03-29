@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
+import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter } from "react-router-dom"
 import Login from "./pages/Login"
 import Wrapper from "./components/Wrapper"
 import Dashboard from "./pages/Dashboard"
@@ -9,6 +9,7 @@ import ProfilDesa from "./pages/ProfilDesa"
 import UMKM from "./pages/UMKM"
 import Berita from "./pages/Berita"
 import Wisata from "./pages/Wisata"
+import Kependudukan from "./pages/Kependudukan"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
         <Route path="pembangunan" element={<Pembangunan />} />
         <Route path="wisata" element={<Wisata />} />
         <Route path="berita" element={<Berita />} />
+        <Route path="kependudukan" element={<Kependudukan />} />
       </Route>
     </>
   )
