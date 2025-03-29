@@ -7,6 +7,7 @@ import Pembangunan from "./pages/Pembangunan"
 import Bansos from "./pages/Bansos"
 import ProfilDesa from "./pages/ProfilDesa"
 import UMKM from "./pages/UMKM"
+import Wisata from "./pages/wisata"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
         <Route path="perencanaan" element={<Perencanaan />} />
         <Route path="umkm" element={<UMKM />} />
         <Route path="pembangunan" element={<Pembangunan />} />
+        <Route path="wisata" element={<Wisata />} />
       </Route>
     </>
   )
