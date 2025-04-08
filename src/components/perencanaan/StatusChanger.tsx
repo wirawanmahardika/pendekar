@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
+import Swal from "sweetalert2"
 
-const StatusChanger = ({ defaultStatus, setOpen }: {setOpen: (open:boolean) => void, defaultStatus: "revisi" | "ditolak" | "disetujui" }) => {
+const StatusChanger = ({ defaultStatus }: { defaultStatus: "revisi" | "ditolak" | "disetujui" }) => {
     const [status, setStatus] = useState(defaultStatus)
     const [color, setColor] = useState('bg-yellow-200 border-yellow-500')
 
@@ -11,7 +12,7 @@ const StatusChanger = ({ defaultStatus, setOpen }: {setOpen: (open:boolean) => v
     }, [status])
 
     const statusChange = (e:any) => {
-        setOpen(true)
+        popup(e.target.value)
         setStatus(e.target.value)
     }
 
@@ -22,6 +23,48 @@ const StatusChanger = ({ defaultStatus, setOpen }: {setOpen: (open:boolean) => v
             <option selected={status === 'ditolak'} value="ditolak">Ditolak</option>
         </select>
     </div>
+}
+
+const popup = (status:string) => {
+    switch (status) {
+        case "revisi":
+            Swal.fire({
+                title: "Berhasil diatur ke revisi",
+                icon: "info",
+                draggable: true
+              });
+            break;
+        case "ditolak":
+            Swal.fire({
+                title: "<strong>Ditolak</strong>",
+                icon: "error",
+                html: `
+                  <span>Masukkan Komentar : </span>
+                `,
+                input: 'textarea',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: `
+                  Submit
+                `,
+                confirmButtonAriaLabel: "Thumbs up, great!",
+                cancelButtonText: `
+                  Cancel
+                `,
+                cancelButtonAriaLabel: "Thumbs down"
+              });
+            break;
+        case "disetujui":
+            Swal.fire({
+                title: "Berhasil disetujui",
+                icon: "success",
+                draggable: true
+              });
+            break;
+        default:
+            break;
+    }
 }
 
 

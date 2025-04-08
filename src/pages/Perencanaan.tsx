@@ -1,11 +1,9 @@
 import useTitle from "../hooks/useTitle";
 import StatusChanger from "../components/perencanaan/StatusChanger";
 import { FaMessage } from "react-icons/fa6";
-import Alert from "../components/perencanaan/Alert";
-import { useState } from "react";
+import Swal from "sweetalert2";
 
 export default function Perencanaan() {
-    const [alertOpen, setAlertOpen] = useState(false)
 
     useTitle('Perencanaan')
     return (
@@ -46,8 +44,12 @@ export default function Perencanaan() {
                             <span className="font-bold">Status Perencanaan</span>
                             <div className="flex justify-around w-full mt-2">
                                 <div className="flex gap-x-2 items-center">
-                                    <span className="bg-yellow-400 rounded-full size-3"></span>
+                                    <span className="bg-sky-400 rounded-full size-3"></span>
                                     <span className="text-sm">Baru</span>
+                                </div>
+                                <div className="flex gap-x-2 items-center">
+                                    <span className="bg-yellow-400 rounded-full size-3"></span>
+                                    <span className="text-sm">Revisi</span>
                                 </div>
                                 <div className="flex gap-x-2 items-center">
                                     <span className="bg-green-400 rounded-full size-3"></span>
@@ -60,7 +62,11 @@ export default function Perencanaan() {
 
                             </div>
                         </div>
-                        <div className="grid grid-cols-3 h-1/2 justify-items-center mt-auto">
+                        <div className="grid grid-cols-4 h-1/2 justify-items-center mt-auto">
+                            <div className="flex flex-col w-2/3">
+                                <span className="text-center text-sm">14 Desa</span>
+                                <div className="bg-sky-400 h-2/3 rounded-top w-2/3 mx-auto mt-auto"></div>
+                            </div>
                             <div className="flex flex-col w-2/3">
                                 <span className="text-center text-sm">14 Desa</span>
                                 <div className="bg-yellow-400 h-2/3 rounded-top w-2/3 mx-auto mt-auto"></div>
@@ -238,16 +244,20 @@ export default function Perencanaan() {
                             </td>
                             <td className="border-2 border-neutral-100 px-2 py-3">
                                 <div className="flex justify-around items-center">
-                                    <StatusChanger setOpen={setAlertOpen} defaultStatus="ditolak" />
-                                    <FaMessage className="cursor-pointer text-sky-700" size={20} />
+                                    <StatusChanger defaultStatus="ditolak" />
+                                    <FaMessage onClick={() => {
+                                        Swal.fire({
+                                            title: "Komentar",
+                                            text: "Ini merupakan komentar yang diberikan oleh operator",
+                                            icon: "info"
+                                          });
+                                    }} className="cursor-pointer text-sky-700" size={20} />
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-
-            <Alert open={alertOpen} setOpen={setAlertOpen} />
         </div>
     );
 };
