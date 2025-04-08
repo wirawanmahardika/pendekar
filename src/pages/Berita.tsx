@@ -1,7 +1,9 @@
 import { BiSearch } from "react-icons/bi";
 import PageTitle from "../components/PageTitle";
+import useAuth from "../hooks/useAuth";
 
 export default function Berita() {
+    useAuth()
     return <div className="px-4 py-10">
         <PageTitle title="BERITA" />
 

@@ -4,10 +4,12 @@ import PageTitle from "../components/PageTitle";
 import { tableHeaderStyle, tabNavigationStyle } from "../utils/themeSetting";
 import ReactECharts from 'echarts-for-react';
 import { BiSearch } from "react-icons/bi";
+import useAuth from "../hooks/useAuth";
 
 type chartTypes = 'umur' | 'pendidikan' | 'perkawinan' | 'agama' | 'pekerjaan'
 
 export default function Kependudukan() {
+    useAuth()
     const [chartType, setChartType] = useState<chartTypes>('umur')
     const changeChart = (type: chartTypes) => {
         setChartType(type)

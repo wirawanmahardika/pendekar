@@ -2,9 +2,10 @@ import useTitle from "../hooks/useTitle";
 import StatusChanger from "../components/perencanaan/StatusChanger";
 import { FaMessage } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 
 export default function Perencanaan() {
-
+useAuth()
     useTitle('Perencanaan')
     return (
         <div className="p-4">

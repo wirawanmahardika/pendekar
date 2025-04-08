@@ -8,9 +8,11 @@ import DataStunting from "../components/dashboard/DataStunting";
 import JumlahStuntingDiDesaKelurahan from "../components/dashboard/JumlahStuntingDiDesaKelurahan";
 import PageTitle from "../components/PageTitle";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 export default function Dashboard() {
     useTitle("Dashboard")
+    useAuth()
 
     return <div className="px-4 py-10">
         <PageTitle title="Dashboard" />

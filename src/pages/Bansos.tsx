@@ -3,9 +3,11 @@ import PageTitle from "../components/PageTitle";
 import ExportReportButton from "../components/ExportReportButton";
 import { tableHeaderStyle } from "../utils/themeSetting";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 export default function Bansos() {
     useTitle("Bansos")
+    useAuth()
 
     return <div className="px-4 py-10">
         <PageTitle title="Bantuan Sosial" />
