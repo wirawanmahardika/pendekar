@@ -5,10 +5,34 @@ import ExportReportButton from "../components/ExportReportButton";
 import { tableHeaderStyle } from "../utils/themeSetting";
 import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_API_URL } from "../utils/api";
 
 export default function ProfilDesa() {
     useTitle('Profile Desa')
     useAuth()
+
+    const [resultData, setResultData] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const [update, setUpdate] = useState();
+  
+    useEffect(() => {
+        setIsLoading(true);
+        axios
+          .get(`${BASE_API_URL}profil?k3=&k4=&search=`, {
+            headers: { Authorization: localStorage.getItem('token')}
+          })
+          .then((result) => {
+            console.log(result.data.data)
+            const data = result.data.data;
+            setResultData(data);
+            setUpdate(data.last_updated);
+          })
+          .catch((error) => {
+            alert(error.message);
+          })
+      }, []);
 
     return <div className="px-4 py-10">
         <PageTitle title="PROFIL DESA/KELURAHAN" />
