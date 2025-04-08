@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react";
 import useTitle from "../hooks/useTitle";
+import StatusChanger from "../components/perencanaan/StatusChanger";
+import { FaMessage } from "react-icons/fa6";
+import Alert from "../components/perencanaan/Alert";
+import { useState } from "react";
 
 export default function Perencanaan() {
+    const [alertOpen, setAlertOpen] = useState(false)
+
     useTitle('Perencanaan')
     return (
         <div className="p-4">
@@ -232,70 +237,17 @@ export default function Perencanaan() {
                                 </div>
                             </td>
                             <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex justify-around gap-x-2 items-center">
-                                    <StatusChanger defaultStatus="ditolak" />
-                                    <img className="cursor-pointer" src="/img/icon/message-add.svg" alt="message" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Manggala</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Surantih</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Rencana Pembangunan Jangka Mengengah Desa</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex bg-neutral-200 rounded text-sky-400 w-fit gap-x-2 px-2 py-1">
-                                    <span>Lihat Berkas</span>
-                                    <i className="bi bi-eye"></i>
-                                </div>
-                            </td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex justify-around gap-x-2 items-center">
-                                    <StatusChanger defaultStatus="disetujui" />
-                                    <img className="cursor-pointer" src="/img/icon/message-add.svg" alt="message" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Manggala</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Surantih</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Rencana Pembangunan Jangka Mengengah Desa</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex bg-neutral-200 rounded text-sky-400 w-fit gap-x-2 px-2 py-1">
-                                    <span>Lihat Berkas</span>
-                                    <i className="bi bi-eye"></i>
-                                </div>
-                            </td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex justify-around gap-x-2 items-center">
-                                    <StatusChanger defaultStatus="baru" />
-                                    <img className="cursor-pointer" src="/img/icon/message-add.svg" alt="message" />
+                                <div className="flex justify-around items-center">
+                                    <StatusChanger setOpen={setAlertOpen} defaultStatus="ditolak" />
+                                    <FaMessage className="cursor-pointer text-sky-700" size={20} />
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <Alert open={alertOpen} setOpen={setAlertOpen} />
         </div>
-
-
     );
 };
-
-const StatusChanger = ({ defaultStatus }: { defaultStatus: "baru" | "ditolak" | "disetujui" }) => {
-    const [status, setStatus] = useState(defaultStatus)
-    const [color, setColor] = useState('bg-yellow-200 border-yellow-500')
-
-    useEffect(() => {
-        if (status === 'baru') setColor('bg-yellow-200 border-yellow-500')
-        else if (status === 'ditolak') setColor('bg-red-200 border-red-500')
-        else setColor('bg-green-200 border-green-500')
-    }, [status])
-
-    return <div className={`flex ${color} border rounded w-fit gap-x-1 items-center`}>
-        <select onChange={(e: any) => setStatus(e.target.value)} name="status" id="" className="px-3 py-1">
-            <option selected={status === 'baru'} value="baru">Baru</option>
-            <option selected={status === 'disetujui'} value="disetujui">Disetujui</option>
-            <option selected={status === 'ditolak'} value="ditolak">Ditolak</option>
-        </select>
-    </div>
-}
