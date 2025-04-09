@@ -4,10 +4,10 @@ import ExportReportButton from "../components/ExportReportButton";
 import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { BASE_API_URL } from "../utils/api";
 import { DesaProfilDesa, profilDesaDataType } from "../types/ProfileDesaTypes";
 import TabelDesaKecamatan from "../components/profilDesa/TableDesaKecamatan";
+import { AxiosAuth } from "../utils/axios";
 
 
 export default function ProfilDesa() {
@@ -19,10 +19,8 @@ export default function ProfilDesa() {
     const [dataTodisplay, setDataToDisplay] = useState<DesaProfilDesa[]>()
 
     useEffect(() => {
-        axios
-          .get(`${BASE_API_URL}profil?k3=&k4=&search=`, {
-            headers: { Authorization: localStorage.getItem('token')}
-          })
+        AxiosAuth
+          .get(`${BASE_API_URL}profil?k3=&k4=&search=`)
           .then((result) => {
             setResultData(result.data.data);
           })
@@ -32,10 +30,9 @@ export default function ProfilDesa() {
     }, [])
   
     useEffect(() => {
-        axios
-          .get(`${BASE_API_URL}profil?k3=${search.kecamatan}&k4=&search=${search.text}`, {
-            headers: { Authorization: localStorage.getItem('token')}
-          })
+      const idTimeout = setTimeout(() => {
+        AxiosAuth
+          .get(`${BASE_API_URL}profil?k3=${search.kecamatan}&k4=&search=${search.text}`)
           .then((result) => {
             const data = result.data.data;
             setDataToDisplay(data.list_desa)
@@ -43,6 +40,9 @@ export default function ProfilDesa() {
           .catch((error) => {
             alert(error.message);
           })
+        
+      }, 500);
+      return () => clearTimeout(idTimeout)
     }, [search]);
 
     

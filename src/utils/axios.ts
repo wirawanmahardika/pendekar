@@ -1,6 +1,10 @@
 import axios from "axios";
 import { clearApiToken, getApiToken } from "../utils/api";
 
+export const AxiosAuth = axios.create({
+  headers: { Authorization:  getApiToken() }
+})
+
 axios.interceptors.request.use((config) => {
   const token = getApiToken();
   config.headers.Authorization = token;
