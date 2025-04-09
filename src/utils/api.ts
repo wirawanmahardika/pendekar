@@ -7,7 +7,7 @@ export function getSlugType() {
 }
 
 // URL API dasar berdasarkan slug yang aktif
-export const BASE_API_URL = `https://${KODE_SLUG}.pendekar.digital/api/`;
+export const BASE_API_URL = `https://${KODE_SLUG}.pendekar.digides.id/api/`;
 
 // URL untuk CDN tetap sama
 export const CDN_URL = "https://cdn.digitaldesa.com/";

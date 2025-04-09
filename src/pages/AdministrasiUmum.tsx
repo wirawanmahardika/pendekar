@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useTitle from "../hooks/useTitle";
 import PageTitle from "../components/PageTitle";
 import { FaMapLocation } from "react-icons/fa6";
@@ -9,15 +9,15 @@ import { exportReportButtonStyle } from "../utils/themeSetting";
 
 export default function AdministrasiUmum() {
   useTitle("Administrasi Umum");
-  const [administrationData, setAdministrationData] = useState([]);
-  const [administrationTypes, setAdministrationTypes] = useState([]);
-  const [lastUpdated, setLastUpdated] = useState("");
+  // const [administrationData, setAdministrationData] = useState([]);
+  // const [administrationTypes, setAdministrationTypes] = useState([]);
+  // const [lastUpdated, setLastUpdated] = useState("");
 
   useEffect(() =>{
-    
+
   })
 
-  
+
 
   return (
     <div className="px-4 py-10">
