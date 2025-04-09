@@ -10,6 +10,7 @@ import UMKM from "./pages/UMKM"
 import Berita from "./pages/Berita"
 import Wisata from "./pages/Wisata"
 import Kependudukan from "./pages/Kependudukan"
+import AdministrasiUmum from "./pages/AdministrasiUmum"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
         <Route path="wisata" element={<Wisata />} />
         <Route path="berita" element={<Berita />} />
         <Route path="kependudukan" element={<Kependudukan />} />
+        <Route path="umum" element={<AdministrasiUmum />} />
       </Route>
     </>
   )
