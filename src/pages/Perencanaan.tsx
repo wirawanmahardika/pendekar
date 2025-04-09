@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
 import useTitle from "../hooks/useTitle";
+import StatusChanger from "../components/perencanaan/StatusChanger";
+import { FaMessage } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 export default function Perencanaan() {
+
     useTitle('Perencanaan')
     return (
         <div className="p-4">
@@ -41,8 +44,12 @@ export default function Perencanaan() {
                             <span className="font-bold">Status Perencanaan</span>
                             <div className="flex justify-around w-full mt-2">
                                 <div className="flex gap-x-2 items-center">
-                                    <span className="bg-yellow-400 rounded-full size-3"></span>
+                                    <span className="bg-sky-400 rounded-full size-3"></span>
                                     <span className="text-sm">Baru</span>
+                                </div>
+                                <div className="flex gap-x-2 items-center">
+                                    <span className="bg-yellow-400 rounded-full size-3"></span>
+                                    <span className="text-sm">Revisi</span>
                                 </div>
                                 <div className="flex gap-x-2 items-center">
                                     <span className="bg-green-400 rounded-full size-3"></span>
@@ -55,7 +62,11 @@ export default function Perencanaan() {
 
                             </div>
                         </div>
-                        <div className="grid grid-cols-3 h-1/2 justify-items-center mt-auto">
+                        <div className="grid grid-cols-4 h-1/2 justify-items-center mt-auto">
+                            <div className="flex flex-col w-2/3">
+                                <span className="text-center text-sm">14 Desa</span>
+                                <div className="bg-sky-400 h-2/3 rounded-top w-2/3 mx-auto mt-auto"></div>
+                            </div>
                             <div className="flex flex-col w-2/3">
                                 <span className="text-center text-sm">14 Desa</span>
                                 <div className="bg-yellow-400 h-2/3 rounded-top w-2/3 mx-auto mt-auto"></div>
@@ -232,43 +243,15 @@ export default function Perencanaan() {
                                 </div>
                             </td>
                             <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex justify-around gap-x-2 items-center">
+                                <div className="flex justify-around items-center">
                                     <StatusChanger defaultStatus="ditolak" />
-                                    <img className="cursor-pointer" src="/img/icon/message-add.svg" alt="message" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Manggala</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Surantih</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Rencana Pembangunan Jangka Mengengah Desa</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex bg-neutral-200 rounded text-sky-400 w-fit gap-x-2 px-2 py-1">
-                                    <span>Lihat Berkas</span>
-                                    <i className="bi bi-eye"></i>
-                                </div>
-                            </td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex justify-around gap-x-2 items-center">
-                                    <StatusChanger defaultStatus="disetujui" />
-                                    <img className="cursor-pointer" src="/img/icon/message-add.svg" alt="message" />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Manggala</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Surantih</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">Rencana Pembangunan Jangka Mengengah Desa</td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex bg-neutral-200 rounded text-sky-400 w-fit gap-x-2 px-2 py-1">
-                                    <span>Lihat Berkas</span>
-                                    <i className="bi bi-eye"></i>
-                                </div>
-                            </td>
-                            <td className="border-2 border-neutral-100 px-2 py-3">
-                                <div className="flex justify-around gap-x-2 items-center">
-                                    <StatusChanger defaultStatus="baru" />
-                                    <img className="cursor-pointer" src="/img/icon/message-add.svg" alt="message" />
+                                    <FaMessage onClick={() => {
+                                        Swal.fire({
+                                            title: "Komentar",
+                                            text: "Ini merupakan komentar yang diberikan oleh operator",
+                                            icon: "info"
+                                          });
+                                    }} className="cursor-pointer text-sky-700" size={20} />
                                 </div>
                             </td>
                         </tr>
@@ -276,26 +259,5 @@ export default function Perencanaan() {
                 </table>
             </div>
         </div>
-
-
     );
 };
-
-const StatusChanger = ({ defaultStatus }: { defaultStatus: "baru" | "ditolak" | "disetujui" }) => {
-    const [status, setStatus] = useState(defaultStatus)
-    const [color, setColor] = useState('bg-yellow-200 border-yellow-500')
-
-    useEffect(() => {
-        if (status === 'baru') setColor('bg-yellow-200 border-yellow-500')
-        else if (status === 'ditolak') setColor('bg-red-200 border-red-500')
-        else setColor('bg-green-200 border-green-500')
-    }, [status])
-
-    return <div className={`flex ${color} border rounded w-fit gap-x-1 items-center`}>
-        <select onChange={(e: any) => setStatus(e.target.value)} name="status" id="" className="px-3 py-1">
-            <option selected={status === 'baru'} value="baru">Baru</option>
-            <option selected={status === 'disetujui'} value="disetujui">Disetujui</option>
-            <option selected={status === 'ditolak'} value="ditolak">Ditolak</option>
-        </select>
-    </div>
-}

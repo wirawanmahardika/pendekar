@@ -1,5 +1,5 @@
 
-export const STRINGS = {
+export const STRINGS: any = {
     ketapangkab: {
         title: "SiCesa",
         desc: "Sistem Cepat Informasi Desa",
@@ -28,4 +28,5 @@ export const STRINGS = {
             nav_underline_text_color: '#0077B2'
         }
     },
+
 };

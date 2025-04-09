@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
-import { formatCurrency } from "../../../utilities/formatter";
+import { formatCurrency } from "../../../utils/formatter";
 
 const RKPTable = ({ resultData }: { resultData: any }) => {
   const [query, setQuery] = useState("");
