@@ -1,65 +1,48 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import useTitle from "../hooks/useTitle";
 import PageTitle from "../components/PageTitle";
-import { FaMapLocation } from "react-icons/fa6";
 import { tableHeaderStyle } from "../utils/themeSetting";
 import { BiSearch } from "react-icons/bi";
 import ExportReportButton from "../components/ExportReportButton";
 import { exportReportButtonStyle } from "../utils/themeSetting";
+import { BASE_API_URL } from "../utils/api";
+import AdministrasiDataCard from "../components/administrasi/AdministrasiDataCard";
+
 
 export default function AdministrasiUmum() {
   useTitle("Administrasi Umum");
   const [administrationData, setAdministrationData] = useState([]);
   const [administrationTypes, setAdministrationTypes] = useState([]);
+  // const [isLoading, setIsLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState("");
 
   useEffect(() =>{
+    // setIsLoading(true);
+    axios
+      .get(`${BASE_API_URL}administrasi-umum?k3=&k4=`)
+      .then((result) => {
+        setAdministrationData(result.data);
+        const data = result.data.data;
+        setAdministrationTypes(data.jenis_administrasi);
+        setLastUpdated(data.last_updated);
+        console.log(data)
+      })
+      .catch((error) => {
+        alert(error.message);
+      })
+      // .finally(() => setIsLoading(false));
     
-  })
+  }, [])
 
-  
+  // if (isLoading) return <LoadingSpinner />;
+
+ 
 
   return (
     <div className="px-4 py-10">
       <PageTitle title="Administrasi Umum" />
-      <div className="bg-white shadow rounded-lg p-6">
-        <div className="mb-4 flex justify-between items-center"></div>
-        <div className="flex gap-x-5 pt-2">
-          <select
-            name=""
-            className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1"
-          >
-            <option value="">Semua Kecamatan</option>
-            <option value="">Semua Kecamatan</option>
-            <option value="">Semua Kecamatan</option>
-          </select>
-
-          <select
-            name=""
-            className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1"
-          >
-            <option value="">Semua Desa</option>
-            <option value="">Semua Desa</option>
-            <option value="">Semua Desa</option>
-          </select>
-        </div>
-
-      {/* //card */}
-        <div className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="flex justify-between rounded-lg shadow-md p-4">
-            <div className="flex gap-x-4 items-center">
-              <div className="bg-cyan-100 rounded-full p-3">
-                <FaMapLocation size="30" className="text-cyan-600" />
-              </div>
-              <div className="flex-col">
-                <h3 className="text-sm ">Peraturan Desa</h3>
-                <p className="text-black text-2xl font-semibold">10</p>
-              </div>
-            </div>
-            <div className="text-sm text-emerald-400">+100/Minggu</div>
-          </div>
-        </div>
-      </div>
+      {/* <AdministrasiDataCard administrationData = {administrationData}/> */}
 
       {/* Table */}
       <div className="p-4 bg-white rounded shadow mt-8">
