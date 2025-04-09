@@ -5,6 +5,7 @@ import { APBDesSection } from "../components/pembangunan/APBDesSection";
 import ProposalSection from "../components/pembangunan/ProposalSection";
 import RKPSection from "../components/pembangunan/RKPSection";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
 
 // Mock data for preview purposes
 const mockResultData = {
@@ -54,6 +55,7 @@ const mockResultData = {
 };
 
 const Pembangunan = () => {
+  useAuth()
   const [resultData,] = useState(mockResultData);
   const [modeKeuangan, setModeKeuangan] = useState("apbdes");
 

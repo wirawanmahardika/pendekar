@@ -1,12 +1,36 @@
 import { BiSearch } from "react-icons/bi";
 import PageTitle from "../components/PageTitle";
-import { GiWorld } from "react-icons/gi";
 import ExportReportButton from "../components/ExportReportButton";
-import { tableHeaderStyle } from "../utils/themeSetting";
 import useTitle from "../hooks/useTitle";
+import useAuth from "../hooks/useAuth";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BASE_API_URL } from "../utils/api";
+import { DesaProfilDesa, profilDesaDataType } from "../types/ProfileDesaTypes";
+import TabelDesaKecamatan from "../components/profilDesa/TableDesaKecamatan";
+
 
 export default function ProfilDesa() {
     useTitle('Profile Desa')
+    useAuth()
+
+    const [resultData, setResultData] = useState<profilDesaDataType>();
+    const [dataTodisplay, setDataToDisplay] = useState<DesaProfilDesa[]>()
+  
+    useEffect(() => {
+        axios
+          .get(`${BASE_API_URL}profil?k3=&k4=&search=`, {
+            headers: { Authorization: localStorage.getItem('token')}
+          })
+          .then((result) => {
+            const data = result.data.data;
+            setResultData(data);
+            setDataToDisplay(data.list_desa)
+          })
+          .catch((error) => {
+            alert(error.message);
+          })
+      }, []);
 
     return <div className="px-4 py-10">
         <PageTitle title="PROFIL DESA/KELURAHAN" />
@@ -21,73 +45,40 @@ export default function ProfilDesa() {
                     <BiSearch className="absolute right-2 top-1/2 -translate-y-1/2 size-6 fill-slate-600" />
                 </div>
 
-                <select name="" className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
-                    <option value="">Semua Kecamatan</option>
-                    <option value="">Semua Kecamatan</option>
-                    <option value="">Semua Kecamatan</option>
-                </select>
-
-                <select name="" className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
-                    <option value="">Semua Desa</option>
-                    <option value="">Semua Desa</option>
-                    <option value="">Semua Desa</option>
-                </select>
+                <Pencarian data={resultData} setDataToDisplay={setDataToDisplay} />
             </div>
 
-            <table className="overflow-x-auto min-w-full mt-5 text-center">
-                <thead>
-                    <tr style={tableHeaderStyle}>
-                        <th className="p-2 border font-semibold border-gray-300">No</th>
-                        <th className="p-2 border font-semibold border-gray-300">Kode Wilayah</th>
-                        <th className="p-2 border font-semibold border-gray-300">Kecamatan</th>
-                        <th className="p-2 border font-semibold border-gray-300">Desa</th>
-                        <th className="p-2 border font-semibold border-gray-300">Website</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="p-3 border border-gray-300">1</td>
-                        <td className="p-3 border border-gray-300">61.04.05.2001</td>
-                        <td className="p-3 border border-gray-300">Sandai</td>
-                        <td className="p-3 border border-gray-300">Sandai</td>
-                        <td className="p-3 border border-gray-300 flex items-center gap-x-3 justify-center">
-                            <GiWorld />
-                            <a href="" className="hover:text-sky-600">Website Desa</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="p-3 border border-gray-300">1</td>
-                        <td className="p-3 border border-gray-300">61.04.05.2001</td>
-                        <td className="p-3 border border-gray-300">Sandai</td>
-                        <td className="p-3 border border-gray-300">Petai Patah</td>
-                        <td className="p-3 border border-gray-300 flex items-center gap-x-3 justify-center">
-                            <GiWorld />
-                            <a href="" className="hover:text-sky-600">Website Desa</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="p-3 border border-gray-300">1</td>
-                        <td className="p-3 border border-gray-300">61.04.05.2001</td>
-                        <td className="p-3 border border-gray-300">Sandai</td>
-                        <td className="p-3 border border-gray-300">Randau</td>
-                        <td className="p-3 border border-gray-300 flex items-center gap-x-3 justify-center">
-                            <GiWorld />
-                            <a href="" className="hover:text-sky-600">Website Desa</a>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <div className="flex mt-4 justify-center">
-                <div className="join">
-                    <button className="join-item btn bg-white text-gray-800">{"<<"}</button>
-                    <button className="join-item btn bg-white text-gray-800">1</button>
-                    <button className="join-item btn bg-white text-gray-800">...</button>
-                    <button className="join-item btn bg-white text-gray-800">9</button>
-                    <button className="join-item btn bg-white text-gray-800">{">>"}</button>
-                </div>
-            </div>
+            <TabelDesaKecamatan data={dataTodisplay} />
         </div>
     </div>
+}
+
+const Pencarian = ({data, setDataToDisplay} : {data?: profilDesaDataType, setDataToDisplay: React.Dispatch<React.SetStateAction<DesaProfilDesa[] | undefined>>}) => {
+    if(!data) return;
+
+    const listKecamatan = data.list_kecamatan.map((k =>  <option key={k.kode_wilayah} value={k.nama_kecamatan}>{k.nama_kecamatan}</option>))
+    const kecamatanHandle = (e: any) => {
+        const selectedValue = e.target.value
+        if(selectedValue === "all") return setDataToDisplay(data.list_desa)
+
+        const filteredData = data.list_desa.filter(d => d.nama_kecamatan === selectedValue)
+        setDataToDisplay(filteredData)
+    }
+
+    const desaHandle = (e:any) => {
+        const filteredData = data.list_desa.filter(d => d.nama_desa === e.target.value)
+        setDataToDisplay(filteredData)
+    }
+
+
+    return <>
+        <select onChange={kecamatanHandle} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
+            <option value={"all"}>Semua Kecamatan</option>
+            {listKecamatan}
+        </select>
+
+        <select onChange={desaHandle} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
+            <option value="">Semua Desa</option>
+        </select>
+    </>
 }

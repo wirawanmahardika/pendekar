@@ -4,6 +4,7 @@ import PageTitle from "../components/PageTitle";
 import ReactECharts from "echarts-for-react";
 import { BsFillSignTurnRightFill } from "react-icons/bs";
 import { umkmProdukDesaStyle } from "../utils/themeSetting";
+import useAuth from "../hooks/useAuth";
 
 const BarChart = () => {
     const option = {
@@ -37,6 +38,7 @@ const BarChart = () => {
 };
 
 export default function UMKM() {
+    useAuth()
     return <div className="px-4 py-10">
         <PageTitle title="UMKM" />
 

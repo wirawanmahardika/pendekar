@@ -1,8 +1,9 @@
 import { useState } from "react"
 import useTitle from "../hooks/useTitle"
 import { STRINGS } from "../utils/strings"
-import { KODE_SLUG } from "../utils/api"
+import { BASE_API_URL, KODE_SLUG } from "../utils/api"
 import { loginFormBacgkroundStyle, loginTextStyle } from "../utils/themeSetting"
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
     useTitle("Login")
@@ -45,6 +46,27 @@ const LeftPart = () => {
 
 const RightPart = () => {
     const [showPass, setShowPass] = useState(false)
+    const navigate = useNavigate()
+    const [error, setError] = useState('')
+ 
+    const loginHandler = async (e: any) => {
+        e.preventDefault();
+    
+        const form = new FormData(e.target);
+        try {
+            const res = await fetch(BASE_API_URL + "auth/login-post", {
+              method: "POST",
+              body: form,
+            })
+
+            if(res.status >= 400) throw new Error('username dan password tidak valid')
+            const token = (await res.json()).data.token
+            localStorage.setItem('token', token)
+            navigate('/')
+        } catch (error: any) {
+            setError(error.message)
+        }
+    };
 
     return <div style={loginFormBacgkroundStyle} className="relative rounded-l-2xl overflow-y-auto text-white">
         <div className="flex absolute left-9 top-9 gap-x-4">
@@ -65,15 +87,19 @@ const RightPart = () => {
             <span className="font-semibold text-xl">Sistem Cepat Informasi Desa</span>
             <span className="font-bold text-3xl text-black">Masuk Akun</span>
 
-            <form action="" className="flex flex-col gap-y-4 w-3/5">
+            <div role="alert" className={`${error ? 'block' : 'hidden'} alert alert-error`}>
+                <span>{error}</span>
+            </div>
+
+            <form onSubmit={loginHandler} className="flex flex-col gap-y-4 w-3/5">
                 <div className="flex flex-col gap-y-1">
                     <label htmlFor="username" className="font-semibold">Username</label>
-                    <input type="text" className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm px-4 py-1 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Username" />
+                    <input name="username" type="text" className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm px-4 py-1 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Username" />
                 </div>
 
                 <div className="flex flex-col gap-y-1 relative">
                     <label htmlFor="username" className="font-semibold">Password</label>
-                    <input type={showPass ? "text" : "password"} className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm pl-4 pr-10 py-1 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Password" />
+                    <input name="password" type={showPass ? "text" : "password"} className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm pl-4 pr-10 py-1 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Password" />
 
                     <img onClick={() => setShowPass((prev) => !prev)} src={showPass ? "/img/icon/show-password.svg" : "/img/icon/hide-password.svg"} alt="" className=" absolute size-5 bottom-2 right-3 cursor-pointer" />
                 </div>

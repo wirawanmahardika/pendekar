@@ -13,7 +13,7 @@ export const BASE_API_URL = `https://${KODE_SLUG}.pendekar.digital/api/`;
 export const CDN_URL = "https://cdn.digitaldesa.com/";
 
 // Konstanta untuk kunci token di localStorage
-const TOKEN_KEY = "api_token";
+const TOKEN_KEY = "token";
 
 // Fungsi untuk menyimpan token API di localStorage
 export function setApiToken(token: string) {
