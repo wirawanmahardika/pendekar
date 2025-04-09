@@ -64,7 +64,7 @@ export default function ProfilDesa() {
                 </div>
 
                 <select  onChange={(e:any) => setSearch(prev => ({...prev, kecamatan: e.target.value}))}  className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
-                    <option value={"all"}>Semua Kecamatan</option>
+                    <option value={""}>Semua Kecamatan</option>
                     {listKecamatan}
                 </select>
             </div>
