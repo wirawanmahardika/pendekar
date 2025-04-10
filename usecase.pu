@@ -1,0 +1,35 @@
+@startuml test
+
+
+left to right direction
+actor user
+actor admin
+
+rectangle usecases {
+    user -- (daftar)
+    user -- (login)
+    user -- (memilih menu dan\n menambahkan keranjang)
+    user -- (melakukan pembayaran\ndan checkout)
+    user -- (reservasi meja)
+    user -- (melihat status pesanan)
+    user -- (riwayat pesanan)
+    user -- (profil)
+    user -- (delivery)
+    user -- (logout)
+
+    (melakukan pembayaran\ndan checkout) .. (cash) : <<include>>
+    (melakukan pembayaran\ndan checkout) .. (transfer) : <<include>>
+
+
+    admin -- (login)
+    admin -- (konfirmasi, menyiapkan pesanan)
+    admin -- (mengelola menu, stok dan transaksi)
+    admin -- (notifikasi)
+    admin -- (logout)
+
+    (konfirmasi, menyiapkan pesanan) -- (reservasi meja)
+    (konfirmasi, menyiapkan pesanan) -- (melakukan pembayaran\ndan checkout)
+    (notifikasi) -- (melihat status pesanan)
+}
+
+@enduml
