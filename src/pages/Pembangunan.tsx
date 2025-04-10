@@ -6,8 +6,11 @@ import ProposalSection from "../components/pembangunan/ProposalSection";
 import RKPSection from "../components/pembangunan/RKPSection";
 import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
+import axios from "axios";
+import { BASE_API_URL, getApiToken } from "../utils/api";
 
 // Mock data for preview purposes
+// 
 const mockResultData = {
   tahun: "2023",
   last_updated: "2023-07-15",
@@ -56,7 +59,7 @@ const mockResultData = {
 
 const Pembangunan = () => {
   useAuth()
-  const [resultData,] = useState(mockResultData);
+  const [resultData, setResultData] = useState(mockResultData);
   const [modeKeuangan, setModeKeuangan] = useState("apbdes");
 
 
@@ -64,7 +67,11 @@ const Pembangunan = () => {
   useEffect(() => {
     // For demonstration, just using mock data
     // In real implementation, you would fetch data here
-
+    axios.get(`${BASE_API_URL}keuangan?k3=&k4=`, { headers: { 'Authorization': getApiToken()}}).then(( { data }) => {
+      console.log(data.data)
+      setResultData(data.data)
+    })
+    
     // Show the correct tab content based on modeKeuangan
     const showTab = (tabId: string) => {
       document.querySelectorAll('[role="tabpanel"]').forEach(panel => {

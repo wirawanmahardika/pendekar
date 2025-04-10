@@ -94,12 +94,12 @@ const RightPart = () => {
             <form onSubmit={loginHandler} className="flex flex-col gap-y-4 w-3/5">
                 <div className="flex flex-col gap-y-1">
                     <label htmlFor="username" className="font-semibold">Username</label>
-                    <input name="username" type="text" className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm px-4 py-1 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Username" />
+                    <input name="username" type="text" className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm px-4 py-2 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Username" />
                 </div>
 
                 <div className="flex flex-col gap-y-1 relative">
                     <label htmlFor="username" className="font-semibold">Password</label>
-                    <input name="password" type={showPass ? "text" : "password"} className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm pl-4 pr-10 py-1 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Password" />
+                    <input name="password" type={showPass ? "text" : "password"} className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm pl-4 pr-10 py-2 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Password" />
 
                     <img onClick={() => setShowPass((prev) => !prev)} src={showPass ? "/img/icon/show-password.svg" : "/img/icon/hide-password.svg"} alt="" className=" absolute size-5 bottom-2 right-3 cursor-pointer" />
                 </div>
