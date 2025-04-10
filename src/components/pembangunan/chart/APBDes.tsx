@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import ReactEcharts from "echarts-for-react";
-import { formatCurrency } from "../../../utils/formatter";
+import { formatCurrency } from "../../../utils/utils/formatter";
 
 interface Kecamatan {
   kode_wilayah: string;

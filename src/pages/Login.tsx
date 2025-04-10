@@ -1,8 +1,8 @@
 import { useState } from "react"
 import useTitle from "../hooks/useTitle"
-import { STRINGS } from "../utils/strings"
-import { BASE_API_URL, KODE_SLUG } from "../utils/api"
-import { loginFormBacgkroundStyle, loginTextStyle } from "../utils/themeSetting"
+import { STRINGS } from "../utils/utils/strings"
+import { BASE_API_URL, KODE_SLUG } from "../utils/utils/api"
+import { loginFormBacgkroundStyle, loginTextStyle } from "../utils/utils/themeSetting"
 import { useNavigate } from "react-router-dom"
 
 export default function Login() {

@@ -1,4 +1,4 @@
-import { formatDate } from "../../utils/formatter";
+import { formatDate } from "../../utils/utils/formatter";
 
 const PageTitle = ({ update }: { update: string }) => (
     <div className="mt-3 mb-5 flex justify-between items-center">

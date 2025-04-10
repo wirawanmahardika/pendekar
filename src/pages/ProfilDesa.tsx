@@ -5,7 +5,7 @@ import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { BASE_API_URL } from "../utils/api";
+import { BASE_API_URL } from "../utils/utils/api";
 import { DesaProfilDesa, profilDesaDataType } from "../types/ProfileDesaTypes";
 import TabelDesaKecamatan from "../components/profilDesa/TableDesaKecamatan";
 
