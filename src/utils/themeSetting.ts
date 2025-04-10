@@ -1,7 +1,6 @@
 import { KODE_SLUG } from "./api";
-import { STRINGS as StringsImport } from "./strings";
+import { STRINGS  } from "./strings";
 
-const STRINGS = StringsImport[KODE_SLUG] || StringsImport.default;
 export const exportReportButtonStyle = {
     color: STRINGS[KODE_SLUG].theme.text_color,
     backgroundColor: STRINGS[KODE_SLUG].theme.btn_color,
