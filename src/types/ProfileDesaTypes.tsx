@@ -1,7 +1,7 @@
 export type profilDesaDataType = {
-    last_updated: Date, 
-    list_desa: any[], 
-    list_kecamatan: any[]
+    last_updated: Date;
+    list_desa: any[];
+    list_kecamatan: any[];
 }
 
 export type SortKeyProfilDesa = "kode_wilayah" | "nama_kecamatan" | "nama_deskel";
