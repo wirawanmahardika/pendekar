@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PageTitle from "../components/pembangunan/PageTitle";
+import PageTitle from "../components/PageTitle";
 import TabNavigation from "../components/pembangunan/TabNavigation";
 import { APBDesSection } from "../components/pembangunan/APBDesSection";
 import ProposalSection from "../components/pembangunan/ProposalSection";
@@ -95,8 +95,8 @@ const Pembangunan = () => {
   }, [modeKeuangan]);
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
-      <PageTitle update={resultData.last_updated} />
+    <div className="px-4 py-10">
+      <PageTitle title={"Pembangunan"} />
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-100 mb-8">
         <div className="p-4">
