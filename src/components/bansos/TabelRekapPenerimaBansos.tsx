@@ -1,14 +1,13 @@
-import { useState, useMemo } from "react";
-import { GiWorld } from "react-icons/gi";
-import { desaProfilDesa, SortKeyProfilDesa } from "../../types/ProfileDesaTypes";
+import { useState, useMemo, useEffect } from "react";
 import { exportReportButtonStyle } from "../../utils/themeSetting";
+import { desaBansos, SortKeyBansos } from "../../types/BansosTypes";
 
 
-export default function TabelDesaKecamatan({ data }: { data?: desaProfilDesa[] }) {
+export default function TabelRekapPenerimaBansos({ data }: { data?: desaBansos[] }) {
   if (!data) return;
-  const [sortKey, setSortKey] = useState<SortKeyProfilDesa>("kode_wilayah");
+  const [sortKey, setSortKey] = useState<SortKeyBansos>("nama_kecamatan");
 
-  const handleSort = (key: SortKeyProfilDesa) => {
+  const handleSort = (key: SortKeyBansos) => {
     setSortKey(key);
     setCurrentPage(1);
   };
@@ -35,18 +34,16 @@ export default function TabelDesaKecamatan({ data }: { data?: desaProfilDesa[] }
     }
   };
 
+  useEffect(() => {
+    if(currentPage > totalPages) setCurrentPage(1)
+  }, [data])
+
   return (
     <>
       <table className="overflow-x-auto min-w-full mt-5 text-center">
         <thead>
           <tr>
             <th className="p-2 border font-semibold border-gray-300">No</th>
-            <th
-              className="p-2 border font-semibold border-gray-300 cursor-pointer"
-              onClick={() => handleSort("kode_wilayah")}
-            >
-              Kode Wilayah
-            </th>
             <th
               className="p-2 border font-semibold border-gray-300 cursor-pointer"
               onClick={() => handleSort("nama_kecamatan")}
@@ -59,29 +56,22 @@ export default function TabelDesaKecamatan({ data }: { data?: desaProfilDesa[] }
             >
               Desa
             </th>
-            <th className="p-2 border font-semibold border-gray-300">Website</th>
+            <th className="p-2 border font-semibold border-gray-300">Jenis Bantuan</th>
+            <th className="p-2 border font-semibold border-gray-300">Individu</th>
+            <th className="p-2 border font-semibold border-gray-300">KK</th>
           </tr>
         </thead>
         <tbody>
           {paginatedData.map((item, index) => (
-            <tr key={`${item.kode_wilayah}-${item.nama_deskel}`}>
+            <tr key={`${item.kode_wilayah}-${item.jenis_bansos}`}>
               <td className="p-3 border border-gray-300">
                 {(currentPage - 1) * itemsPerPage + index + 1}
               </td>
-              <td className="p-3 border border-gray-300">{item.kode_wilayah}</td>
               <td className="p-3 border border-gray-300">{item.nama_kecamatan}</td>
               <td className="p-3 border border-gray-300">{item.nama_deskel}</td>
-              <td className="p-3 border border-gray-300 flex items-center gap-x-3 justify-center">
-                <GiWorld />
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-sky-600"
-                >
-                  Website Desa
-                </a>
-              </td>
+              <td className="p-3 border border-gray-300">{item.jenis_bansos}</td>
+              <td className="p-3 border border-gray-300">{item.jml_penerima}</td>
+              <td className="p-3 border border-gray-300">{item.jml_penerima_kk}</td>
             </tr>
           ))}
         </tbody>
