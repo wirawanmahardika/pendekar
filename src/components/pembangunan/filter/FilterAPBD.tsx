@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { formatCurrency } from '../../../utils/utils/formatter';
+import { formatCurrency } from '../../../utils/formatter';
 import { HiOutlineOfficeBuilding } from 'react-icons/hi';
 
 export interface FilterAPBDProps {

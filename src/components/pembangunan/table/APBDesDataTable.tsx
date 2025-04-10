@@ -1,6 +1,6 @@
 import { useMemo, useState, Fragment } from "react";
 import DataTable from "react-data-table-component";
-import { formatCurrency } from "../../../utils/utils/formatter";
+import { formatCurrency } from "../../../utils/formatter";
 
 interface KecamatanData {
   nama_kecamatan: string;
