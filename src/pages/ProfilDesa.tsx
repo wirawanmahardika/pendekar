@@ -25,6 +25,8 @@ export default function ProfilDesa() {
             setResultData(result.data.data);
           })
           .catch((error) => {
+            console.log(error.config);
+            
             alert(error.message);
           })
     }, [])

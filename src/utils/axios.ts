@@ -1,13 +1,15 @@
 import axios from "axios";
-import { clearApiToken, getApiToken } from "../utils/api";
 
-export const AxiosAuth = axios.create({
-  headers: { Authorization:  getApiToken() }
+export const AxiosAuth = axios.create()
+
+AxiosAuth.interceptors.request.use(config => {
+  config.headers.Authorization = localStorage.getItem('token')
+  return config
 })
 
 AxiosAuth.interceptors.response.use((response) => response, (error) => {
-  if(error?.response.status === 401){
-    clearApiToken()
+  if(error?.response?.status === 401){
+    localStorage.removeItem('token')
     window.location.href = '/login'
   }
   return Promise.reject(error)
