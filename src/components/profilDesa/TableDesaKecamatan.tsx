@@ -1,29 +1,30 @@
 import { useState, useMemo } from "react";
 import { GiWorld } from "react-icons/gi";
 import { DesaProfilDesa, SortKeyProfilDesa } from "../../types/ProfileDesaTypes";
+import { exportReportButtonStyle } from "../../utils/themeSetting";
 
 
 export default function TabelDesaKecamatan({ data }: { data?: DesaProfilDesa[] }) {
-    if(!data) return;
+  if (!data) return;
   const [sortKey, setSortKey] = useState<SortKeyProfilDesa>("kode_wilayah");
-  
+
   const handleSort = (key: SortKeyProfilDesa) => {
-      setSortKey(key);
-      setCurrentPage(1);
-    };
-    
-    const sortedData = useMemo(() => {
-        return [...data].sort((a, b) => {
+    setSortKey(key);
+    setCurrentPage(1);
+  };
+
+  const sortedData = useMemo(() => {
+    return [...data].sort((a, b) => {
       const valA = a[sortKey].toLowerCase();
       const valB = b[sortKey].toLowerCase();
       return valA.localeCompare(valB);
     });
-    }, [data, sortKey]);
+  }, [data, sortKey]);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-    const totalPages = Math.ceil(sortedData.length / itemsPerPage);
-    const paginatedData = sortedData.slice(
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+  const paginatedData = sortedData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -89,14 +90,16 @@ export default function TabelDesaKecamatan({ data }: { data?: DesaProfilDesa[] }
       <div className="flex mt-4 justify-center">
         <div className="join">
           <button
-            className="join-item btn bg-white text-gray-800"
+            style={exportReportButtonStyle}
+            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
             onClick={() => changePage(1)}
             disabled={currentPage === 1}
           >
             {"<<"}
           </button>
           <button
-            className="join-item btn bg-white text-gray-800"
+            style={exportReportButtonStyle}
+            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
             onClick={() => changePage(currentPage - 1)}
             disabled={currentPage === 1}
           >
@@ -108,9 +111,8 @@ export default function TabelDesaKecamatan({ data }: { data?: DesaProfilDesa[] }
             return (
               <button
                 key={page}
-                className={`join-item btn ${
-                  page === currentPage ? "bg-blue-500 text-white" : "bg-white text-gray-800"
-                }`}
+                className={`join-item btn ${page === currentPage ? "bg-blue-500 text-white" : "bg-white text-gray-800 disabled:border-black shadow-none"
+                  }`}
                 onClick={() => changePage(page)}
               >
                 {page}
@@ -119,14 +121,16 @@ export default function TabelDesaKecamatan({ data }: { data?: DesaProfilDesa[] }
           })}
 
           <button
-            className="join-item btn bg-white text-gray-800"
+            style={exportReportButtonStyle}
+            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
             onClick={() => changePage(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
             {">"}
           </button>
           <button
-            className="join-item btn bg-white text-gray-800"
+            style={exportReportButtonStyle}
+            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
             onClick={() => changePage(totalPages)}
             disabled={currentPage === totalPages}
           >
