@@ -102,18 +102,3 @@ export default function Berita() {
         </div>
     </div>
 }
-
-const BeritaCard = ({ foto, kode_wilayah, judul, isi, url }: { foto: string, kode_wilayah: string, judul: string, isi: string, url: string }) => {
-    return <div className="flex gap-x-3 items-center">
-        <img
-            className="w-1/6 rounded"
-            src={`https://cdn.digitaldesa.com/uploads/profil/${kode_wilayah}/berita/thumbs/${foto}`}
-            alt="berita"
-        />
-
-        <div className="flex flex-col gap-y-1">
-            <a href={url} className="font-semibold text-lg text-blue-900">{judul}</a>
-            <span className="text-sm line-clamp-2">{isi}</span>
-        </div>
-    </div>
-}

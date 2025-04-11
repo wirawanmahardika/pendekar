@@ -79,7 +79,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_peraturan_di_desa: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -133,7 +133,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_keputusan_kepala_desa: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -183,7 +183,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_inventaris_dan_kekayaan_desa: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -217,7 +217,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_aparat_pemerintah_desa: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -258,7 +258,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_tanah_kas_desa: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -297,7 +297,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_tanah_di_desa: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -332,7 +332,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_agenda: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -370,7 +370,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_ekspedisi: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",
@@ -400,7 +400,7 @@ const AdministrasiDataTable = (props: any) => {
       buku_lembaran_desa_dan_berita_desa: [
         {
           name: "No",
-          selector: (row: any, index: any) => index + 1,
+          selector: (index: any) => index + 1,
         },
         {
           name: "Kecamatan",

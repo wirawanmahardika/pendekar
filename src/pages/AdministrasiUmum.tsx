@@ -13,7 +13,7 @@ export default function AdministrasiUmum() {
   const [administrationData, setAdministrationData] = useState();
   const [administrationTypes, setAdministrationTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState("");
+  // const [lastUpdated, setLastUpdated] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,14 +25,14 @@ export default function AdministrasiUmum() {
         setAdministrationData(result.data);
         const data = result.data.data;
         setAdministrationTypes(data.jenis_administrasi);
-        setLastUpdated(data.last_updated);
+        // setLastUpdated(data.last_updated);
       })
       .catch((error) => {
         alert(error.message);
       })
       .finally(() => setIsLoading(false));
   }, []);
-  
+
   if (isLoading) return <LoadingDots />;
   return (
     <div className="px-4 py-10">
