@@ -32,3 +32,7 @@ export const tabNavigationStyle = {
     color: STRINGS[KODE_SLUG].theme.text_color,
     borderColor: STRINGS[KODE_SLUG].theme.background_color
 }
+
+export const loadingDotsColors = {
+    color: STRINGS[KODE_SLUG].theme.text_color,
+}
