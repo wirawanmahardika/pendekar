@@ -4,6 +4,7 @@ import { STRINGS } from "../utils/strings"
 import { BASE_API_URL, KODE_SLUG } from "../utils/api"
 import { loginFormBacgkroundStyle, loginTextStyle } from "../utils/themeSetting"
 import { useNavigate } from "react-router-dom"
+import { AxiosAuth } from "../utils/axios"
 
 export default function Login() {
     useTitle("Login")
@@ -54,13 +55,10 @@ const RightPart = () => {
     
         const form = new FormData(e.target);
         try {
-            const res = await fetch(BASE_API_URL + "auth/login-post", {
-              method: "POST",
-              body: form,
-            })
-
-            if(res.status >= 400) throw new Error('username dan password tidak valid')
-            const token = (await res.json()).data.token
+            const res = await AxiosAuth.post(BASE_API_URL + "auth/login-post", form)
+            
+            if(res.status >= 400) throw new Error('username dan password tidak valid');
+            const token = res.data.data.token
             localStorage.setItem('token', token)
             navigate('/')
         } catch (error: any) {
