@@ -172,7 +172,7 @@ const AdministrasiDataTable = (props: any) => {
                 href={`https://online.digitaldesa.id/uploads/${row.kode_wilayah}/buku-keputusan-kepala-desa/${row.lampiran}`}
                 rel="noreferrer"
                 target={"_blank"}
-                className=""
+                className="rounded m-2 px-4 py-2 bg-indigo-200 hover:bg-indigo-500 hover:text-white cursor-pointer"
               >
                 Download
               </a>
@@ -436,7 +436,6 @@ const AdministrasiDataTable = (props: any) => {
     return [cols[selectedType], data];
   }, [selectedType, selectedKec, selectedDesa, query, list_administrasi]);
 
-  console.log(DATA[0])
 
   return (
     <div className="p-4 bg-white rounded shadow mt-8">
@@ -520,29 +519,46 @@ const AdministrasiDataTable = (props: any) => {
 
       <div className="overflow-x-auto mt-5">
         <table className="min-w-full text-neutral-700 text-sm text-left">
-          <thead>
-            <tr style={tableHeaderStyle}>
-              {DATA[0].map((col: any, index: number) => (
-                <th
-                  key={index}
-                  className="p-2 text-center border border-gray-300"
-                  style={{ width: col.width }}
-                >
-                  {col.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {DATA[1].map((row: any, index: number) => (
-              <tr key={index}>
-                {DATA[0].map((col: any, colIndex: number) => (
-                  <td key={colIndex} className="p-2 border text-center border-gray-300">
-                    {col.cell ? col.cell(row, index) : col.selector(row, index)}
-                  </td>
+          {DATA[1].length > 0 && (
+            <thead>
+              <tr style={tableHeaderStyle}>
+                {DATA[0].map((col: any, index: number) => (
+                  <th
+                    key={index}
+                    className="p-2 text-center border border-gray-300"
+                  >
+                    {col.name}
+                  </th>
                 ))}
               </tr>
-            ))}
+            </thead>
+          )}
+          <tbody>
+            {DATA[1].length === 0 ? (
+              <tr>
+                <td
+                  colSpan={DATA[0].length}
+                  className="text-center rounded-lg bg-red-200 py-8 text-red-700"
+                >
+                  Tidak ada data yang tersedia!
+                </td>
+              </tr>
+            ) : (
+              DATA[1].map((row: any, index: number) => (
+                <tr key={index}>
+                  {DATA[0].map((col: any, colIndex: number) => (
+                    <td
+                      key={colIndex}
+                      className="p-4 border text-center border-gray-300"
+                    >
+                      {col.cell
+                        ? col.cell(row, index)
+                        : col.selector(row, index)}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
