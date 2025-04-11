@@ -9,15 +9,22 @@ import JumlahStuntingDiDesaKelurahan from "../components/dashboard/JumlahStuntin
 import PageTitle from "../components/PageTitle";
 import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
+import useGetResultData from "../hooks/useGetResultData";
+import { BASE_API_URL } from "../utils/api";
+import { dashboardResultDataType } from "../types/DashboardTypes";
 
 export default function Dashboard() {
     useTitle("Dashboard")
     useAuth()
 
+    const resultData = useGetResultData<dashboardResultDataType>(`${BASE_API_URL}pembangunan?k3=&k4=`)
+    console.log(resultData);
+    
+
     return <div className="px-4 py-10">
         <PageTitle title="Dashboard" />
 
-        <FlashNews />
+        <FlashNews resultData={resultData} />
 
         <CapaianDanPotensi />
 
