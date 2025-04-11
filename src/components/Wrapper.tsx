@@ -55,7 +55,7 @@ export default function Wrapper() {
                     </ul>
                 </div>
             </div>
-            <div className="bg-gray-200 grow overflow-y-auto">
+            <div className="bg-gray-200 grow overflow-y-auto flex flex-col">
                 <Outlet />
 
                 <div className="flex mt-auto justify-center items-center p-3 bg-white shadow text-blue-900 text-sm">

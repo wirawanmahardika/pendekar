@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
-import { DesaProfilDesa } from "../../types/ProfileDesaTypes";
+import { desaProfilDesa } from "../../types/ProfileDesaTypes";
 
 export default function useSetDataToDisplayProfilDesa(search: {kecamatan: string, text: string}) {
-  const [dataToDisplay, setDataToDisplay] = useState<DesaProfilDesa[]>([])
+  const [dataToDisplay, setDataToDisplay] = useState<desaProfilDesa[]>([])
 
   useEffect(() => {
     const idTimeout = setTimeout(() => {
