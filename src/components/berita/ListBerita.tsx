@@ -36,7 +36,7 @@ export default function ListBerita({ data }: { data?: beritaCardType[] }) {
                         />
 
                         <div className="flex flex-col gap-y-1">
-                            <a href={"https://" + item.slug_desa + ".digitaldesa.id/wisata/" + item.slug} className="font-semibold text-lg text-blue-900">{item.judul}</a>
+                            <a href={"https://" + item.slug_desa + ".digitaldesa.id/berita/" + item.slug} className="font-semibold text-lg text-blue-900">{item.judul}</a>
                             <span className="text-sm line-clamp-2">{item.isi}</span>
                         </div>
                     </div>

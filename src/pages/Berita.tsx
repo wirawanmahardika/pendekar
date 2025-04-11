@@ -55,7 +55,7 @@ export default function Berita() {
         <PageTitle title="BERITA" />
 
         <div className="flex mt-9 flex-col bg-white p-4 rounded shadow">
-            <span className="font-bold text-2xl">Produk UMKM Desa/Kelurahan</span>
+            <span className="font-bold text-2xl">Berita Desa Terbaru</span>
             <div className="flex gap-x-5 mt-4 justify-between">
                 <div className="flex relative w-1/3">
                     <input onChange={pencarianChangeEvenet} type="text" placeholder="Cari Desa/Kelurahan..." className="focus:border-blue-400 focus:shadow border bg-white text-sm border-slate-300 rounded text-neutral-600 w-full outline-none pl-2 pr-10 py-1" />

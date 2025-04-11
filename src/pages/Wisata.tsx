@@ -60,7 +60,6 @@ export default function Wisata() {
         <PageTitle title="WISATA DESA" />
 
         <div className="flex mt-9 flex-col">
-            <span className="font-bold text-2xl">Produk UMKM Desa/Kelurahan</span>
             <div className="flex gap-x-5 pt-2">
                 <div className="flex relative">
                     <input onChange={pencarianChangeEvenet} type="text" placeholder="Cari Desa/Kelurahan..." className="focus:border-blue-400 focus:shadow border bg-white text-sm border-slate-300 rounded text-neutral-600 w-full outline-none pl-2 pr-10 py-1" />
