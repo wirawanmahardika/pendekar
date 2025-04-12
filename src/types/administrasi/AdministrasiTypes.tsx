@@ -23,4 +23,6 @@ export interface ColsType {
   buku_lembaran_desa_dan_berita_desa: ColumnDef[];
 }
 
+
+
 export type IAdministrasiType = keyof ColsType;
