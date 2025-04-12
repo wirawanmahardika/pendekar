@@ -8,8 +8,6 @@ export default function SkorIDMSekabupaten({resultData}: {resultData?: dashboard
     if(!resultData) return;
     const [chartType, setChartType] = useState<skorIdmChartType>("bar");
     const skorIdmTerakhir: skorIdmType = resultData.idm[resultData.idm.length-1]
-    console.log(skorIdmTerakhir);
-    
     
 
     return <div className="p-4 bg-white rounded shadow mt-8">

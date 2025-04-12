@@ -30,7 +30,7 @@ export default function Dashboard() {
 
         <SkorIDMSekabupaten resultData={resultData} />
 
-        <PetaPerkembanganDesa />
+        <PetaPerkembanganDesa resultData={resultData} />
 
         <RekomendasiPembangunan />
 
