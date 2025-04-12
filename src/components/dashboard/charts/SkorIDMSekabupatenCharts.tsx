@@ -1,37 +1,22 @@
 import ReactECharts from 'echarts-for-react';
+import { idmScoresType, skorIdmChartType } from '../../../types/DashboardTypes';
 
-const SkorIDMSekabupatenChart = ({ charType }: { charType: 'bar' | 'line' | 'combined' }) => {
+const SkorIDMSekabupatenChart = ({ charType, idmScores }: { charType: skorIdmChartType, idmScores: idmScoresType }) => {
+    const xAxisData = idmScores.map(x => x.tahun)
+    const yAxisData = idmScores.map(x => x.skor_idm)
+
     const getChartType = () => {
         switch (charType) {
             case 'bar': return {
-                xAxis: { data: ["Jan", "Feb", "Mar", "Apr", "May"] },
-                yAxis: {},
-                series: [{ type: "bar", data: [10, 20, 15, 25, 30] }],
+                tooltip: {trigger: 'axis', show: true},
+                xAxis: { data: xAxisData },
+                yAxis: { },
+                series: [{ type: "bar", data: yAxisData, barWidth: 70}],
             };
             case 'line': return {
-                xAxis: { type: "category", data: ["Mon", "Tue", "Wed", "Thu", "Fri"] },
+                xAxis: { type: "category", data: xAxisData },
                 yAxis: { type: "value" },
-                series: [{ type: "line", data: [120, 200, 150, 80, 70] }],
-            };
-
-            case 'combined': return {
-                xAxis: { type: "category", data: ["Jan", "Feb", "Mar", "Apr"] },
-                yAxis: { type: "value" },
-                series: [
-                    {
-                        name: "Penjualan",
-                        type: "bar",
-                        data: [100, 200, 150, 300],
-                        color: "#007bff"
-                    },
-                    {
-                        name: "Pertumbuhan (%)",
-                        type: "line",
-                        data: [10, 15, 8, 20],
-                        smooth: true,
-                        color: "#ff5733"
-                    }
-                ]
+                series: [{ type: "line", data: yAxisData}],
             };
         }
     };

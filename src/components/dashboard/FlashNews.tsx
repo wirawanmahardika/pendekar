@@ -62,8 +62,6 @@ function Ticker({news}: {news?: beritaDashboardType[]}) {
 }
 
 export default function FlashNews({resultData}: {resultData?: dashboardResultDataType}) {
-    console.log(resultData?.list_berita);
-    
     return <div className="p-4 bg-white rounded shadow">
         <h2 className="font-bold text-xl">Kabar Desa Terbaru</h2>
         <div className="flex mt-4 gap-x-6">

@@ -28,7 +28,7 @@ export default function Dashboard() {
 
         <CapaianDanPotensi />
 
-        <SkorIDMSekabupaten />
+        <SkorIDMSekabupaten resultData={resultData} />
 
         <PetaPerkembanganDesa />
 
