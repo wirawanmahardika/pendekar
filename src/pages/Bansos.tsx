@@ -16,7 +16,7 @@ export default function Bansos() {
     
 
     return <div className="px-4 py-10">
-        <PageTitle title="Bantuan Sosial" />
+      <PageTitle title="Bantuan Sosial" last_updated={ resultData?.last_updated }/>
         <PendudukMendapatBantuan resultData={resultData} />
         <RekapPenerimaBantuanSosial resultData={resultData} />
     </div>

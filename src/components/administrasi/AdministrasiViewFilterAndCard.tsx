@@ -3,8 +3,7 @@ import { getSlugType, KODE_SLUG } from "../../utils/api";
 import AdministrasiCard from "./AdministrasiCard";
 
 const AdministrasiDataCard = (props: any) => {
-  console.log(props);
-  const { list_kecamatan, list_desa } = props.administrationData.data;
+  const { list_kecamatan, list_desa } = props.administrationData;
 
   const [selectedDesa, setSelectedDesa] = useState("");
 

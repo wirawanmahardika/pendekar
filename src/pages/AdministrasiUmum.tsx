@@ -13,7 +13,7 @@ export default function AdministrasiUmum() {
   const [administrationData, setAdministrationData] = useState();
   const [administrationTypes, setAdministrationTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  // const [lastUpdated, setLastUpdated] = useState("");
+  const [lastUpdated, setLastUpdated] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -21,11 +21,11 @@ export default function AdministrasiUmum() {
       .get(`${BASE_API_URL}administrasi-umum?k3=&k4=`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
-      .then((result) => {
-        setAdministrationData(result.data);
-        const data = result.data.data;
+      .then(({ data: result}) => {
+        const data = result.data;
+        setAdministrationData(data);
         setAdministrationTypes(data.jenis_administrasi);
-        // setLastUpdated(data.last_updated);
+        setLastUpdated(data.last_updated);
       })
       .catch((error) => {
         alert(error.message);
@@ -36,7 +36,7 @@ export default function AdministrasiUmum() {
   if (isLoading) return <LoadingDots />;
   return (
     <div className="px-4 py-10">
-      <PageTitle title="Administrasi Umum" />
+      <PageTitle title="Administrasi Umum" last_updated={lastUpdated || ''} />
       {administrationData && <AdministrasiDataCard administrationData={administrationData} />}
       {administrationData && <AdministrasiDataTable administrationData={administrationData} administrationTypes={administrationTypes}/>}
     </div>

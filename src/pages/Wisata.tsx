@@ -57,7 +57,7 @@ export default function Wisata() {
 
 
     return <div className="px-4 py-10">
-        <PageTitle title="WISATA DESA" />
+        <PageTitle title="WISATA DESA" last_updated={resultData?.last_updated} />
 
         <div className="flex mt-9 flex-col">
             <div className="flex gap-x-5 pt-2">

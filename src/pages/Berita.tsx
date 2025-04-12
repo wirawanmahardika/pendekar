@@ -52,7 +52,7 @@ export default function Berita() {
     }
 
     return <div className="px-4 py-10">
-        <PageTitle title="BERITA" />
+      <PageTitle title="BERITA"  last_updated={ resultData?.last_updated }/>
 
         <div className="flex mt-9 flex-col bg-white p-4 rounded shadow">
             <span className="font-bold text-2xl">Berita Desa Terbaru</span>

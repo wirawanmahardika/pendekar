@@ -22,7 +22,7 @@ export default function Dashboard() {
     
 
     return <div className="px-4 py-10">
-        <PageTitle title="Dashboard" />
+        <PageTitle title="Dashboard" last_updated={resultData?.last_updated} />
 
         <FlashNews resultData={resultData} />
 

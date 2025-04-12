@@ -25,3 +25,6 @@ dist-ssr
 *lock.json
 
 test.js
+
+# anything
+autoupdate.sh

@@ -71,7 +71,7 @@ export default function Kependudukan() {
     if (loading) return <LoadingDots />;
     return (
       <div className="px-4 py-10">
-        <PageTitle title="ADMINISTRASI KEPENDUDUKAN" />
+        <PageTitle title="ADMINISTRASI KEPENDUDUKAN" last_updated={kependudukanData?.last_updated} />
 
         {/* Populasi Chart Section */}
         <StatisticsSection 

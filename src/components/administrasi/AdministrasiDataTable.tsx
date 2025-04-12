@@ -8,7 +8,7 @@ import { IAdministrasiType } from "../../types/administrasi/AdministrasiTypes";
 
 const AdministrasiDataTable = (props: any) => {
   const { jenis_administrasi, list_kecamatan, list_desa, list_administrasi } =
-    props.administrationData.data;
+    props.administrationData;
 
   const [selectedType, setSelectedType] = useState<IAdministrasiType>(
     jenis_administrasi[0].key

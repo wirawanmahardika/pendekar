@@ -49,7 +49,7 @@ export default function ProfilDesa() {
   })
 
   return <div className="px-4 py-10">
-    <PageTitle title="PROFIL DESA/KELURAHAN" />
+    <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={ resultData?.last_updated}/>
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">Rekap Penerima Bantuan Sosial</h2>
