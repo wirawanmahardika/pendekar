@@ -8,29 +8,32 @@ import useGetResultData from "../hooks/useGetResultData";
 import { beritaCardType } from "../types/BeritaTypes";
 import { wisataDataType } from "../types/WisataTypes";
 import ListBerita from "../components/berita/ListBerita";
+import LoadingDots from "../components/LoadingDots";
 
 export default function Berita() {
     useAuth()
 
-    const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}berita?k3=&k4=&search=&limit=100`)
     const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
+    const [loading, setIsLoading] = useState(false)
+    const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}berita?k3=&k4=&search=&limit=100`, setIsLoading)
     const [dataTodisplay, setDataToDisplay] = useState<beritaCardType[]>()
-
-
+    
+    
     useEffect(() => {
         const idTimeout = setTimeout(() => {
             AxiosAuth
-                .get(`${BASE_API_URL}berita?k3=${search.kecamatan}&k4=${search.desa}&search=${search.text}&limit=100`)
-                .then((result) => {
-                    setDataToDisplay(result.data.data.list_berita)
-                })
-                .catch((error) => alert(error.message))
+            .get(`${BASE_API_URL}berita?k3=${search.kecamatan}&k4=${search.desa}&search=${search.text}&limit=100`)
+            .then((result) => {
+                setDataToDisplay(result.data.data.list_berita)
+            })
+            .catch((error) => alert(error.message))
         }, 500);
         return () => clearTimeout(idTimeout)
     }, [search])
-
-
-
+    
+    
+    if(loading) return <LoadingDots />
+    
     const listKecamatan = resultData?.list_kecamatan.map(d => {
         return <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>
     })
@@ -50,6 +53,9 @@ export default function Berita() {
     const desaChangeEvent = (e: any) => {
         setSearch(p => ({ ...p, desa: e.target.value }))
     }
+
+    console.log(resultData);
+    
 
     return <div className="px-4 py-10">
       <PageTitle title="BERITA"  last_updated={ resultData?.last_updated }/>

@@ -29,7 +29,7 @@ function Ticker({news}: {news?: beritaDashboardType[]}) {
     return (
         <div className="relative flex items-center justify-center w-full h-full overflow-hidden shadow">
             <button
-                className="p-2 bg-gray-200 h-full"
+                className="p-2 bg-gray-200 h-full cursor-pointer"
                 onClick={prevSlide}
             >
                 <FaChevronLeft size={20} />
@@ -52,7 +52,7 @@ function Ticker({news}: {news?: beritaDashboardType[]}) {
             </div>
 
             <button
-                className="p-2 bg-gray-200 h-full"
+                className="p-2 bg-gray-200 h-full cursor-pointer"
                 onClick={nextSlide}
             >
                 <FaChevronRight size={20} />

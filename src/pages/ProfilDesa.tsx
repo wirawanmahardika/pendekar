@@ -8,6 +8,8 @@ import { BASE_API_URL } from "../utils/api";
 import { desaProfilDesa, profilDesaDataType } from "../types/ProfileDesaTypes";
 import TabelDesaKecamatan from "../components/profilDesa/TableDesaKecamatan";
 import { AxiosAuth } from "../utils/axios";
+import LoadingDots from "../components/LoadingDots";
+import useGetResultData from "../hooks/useGetResultData";
 
 
 export default function ProfilDesa() {
@@ -15,17 +17,10 @@ export default function ProfilDesa() {
   useAuth()
 
   const [search, setSearch] = useState({ text: "", kecamatan: "" })
-  const [resultData, setResultData] = useState<profilDesaDataType>();
   const [dataTodisplay, setDataToDisplay] = useState<desaProfilDesa[]>()
+  const [isLoading, setIsLoading] = useState(false); 
+  const resultData = useGetResultData<profilDesaDataType>(`${BASE_API_URL}profil?k3=&k4=&search=`, setIsLoading);
 
-  useEffect(() => {
-    AxiosAuth
-      .get(`${BASE_API_URL}profil?k3=&k4=&search=`)
-      .then((result) => {
-        setResultData(result.data.data);
-      })
-      .catch((error) => alert(error.message))
-  }, [])
 
   useEffect(() => {
     const idTimeout = setTimeout(() => {
@@ -42,6 +37,9 @@ export default function ProfilDesa() {
     }, 500);
     return () => clearTimeout(idTimeout)
   }, [search]);
+  
+  
+  if (isLoading) return <LoadingDots />;
 
 
   const listKecamatan = resultData?.list_kecamatan.map(d => {

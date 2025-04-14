@@ -12,13 +12,16 @@ import useAuth from "../hooks/useAuth";
 import useGetResultData from "../hooks/useGetResultData";
 import { BASE_API_URL } from "../utils/api";
 import { dashboardResultDataType } from "../types/DashboardTypes";
+import { useState } from "react";
+import LoadingDots from "../components/LoadingDots";
 
 export default function Dashboard() {
     useTitle("Dashboard")
     useAuth()
 
-    const resultData = useGetResultData<dashboardResultDataType>(`${BASE_API_URL}pembangunan?k3=&k4=`)
-    console.log(resultData);
+    const [loading, setIsLoading] = useState(false)
+    const resultData = useGetResultData<dashboardResultDataType>(`${BASE_API_URL}pembangunan?k3=&k4=`, setIsLoading)
+    if(loading) return <LoadingDots />
     
 
     return <div className="px-4 py-10">
