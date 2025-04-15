@@ -33,4 +33,29 @@ export type skorIdmType = {
     target_status: string;
 }
 
+
+export type OptionsType =
+  | "kd"
+  | "idm"
+  | "sdgs"
+  | "ar"
+  | "program"
+  | "sda"
+  | "sdm"
+  | "lk"
+  | "sarpras";
+
+  // Definisikan tipe data stunting
+ export interface StuntingDataItem {
+      tahun: number;
+      keluarga_sasaran?: number;
+      berisiko?: number;
+      kk_memiliki_baduta?: number;
+      kk_memiliki_balita?: number;
+      kk_memiliki_pus?: number;
+      kk_memiliki_pushamil?: number;
+      persen_stunting?: number;
+      prevalensi?: number;
+  }
+  
 export type skorIdmChartType = 'bar' | 'line';

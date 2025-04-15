@@ -16,31 +16,35 @@ import { useState } from "react";
 import LoadingDots from "../components/LoadingDots";
 
 export default function Dashboard() {
-    useTitle("Dashboard")
-    useAuth()
+  useTitle("Dashboard");
+  useAuth();
 
-    const [loading, setIsLoading] = useState(false)
-    const resultData = useGetResultData<dashboardResultDataType>(`${BASE_API_URL}pembangunan?k3=&k4=`, setIsLoading)
-    if(loading) return <LoadingDots />
-    
+  const [loading, setIsLoading] = useState(false);
+  const resultData = useGetResultData<dashboardResultDataType>(
+    `${BASE_API_URL}pembangunan?k3=&k4=`,
+    setIsLoading,
+  );
+  if (loading) return <LoadingDots />;
 
-    return <div className="px-4 py-10">
-        <PageTitle title="Dashboard" last_updated={resultData?.last_updated} />
+  return (
+    <div className="px-4 py-10">
+      <PageTitle title="Dashboard" last_updated={resultData?.last_updated} />
 
-        <FlashNews resultData={resultData} />
+      <FlashNews resultData={resultData} />
 
-        <CapaianDanPotensi />
+      <CapaianDanPotensi/>
 
-        <SkorIDMSekabupaten resultData={resultData} />
+      <SkorIDMSekabupaten resultData={resultData} />
 
-        <PetaPerkembanganDesa resultData={resultData} />
+      <PetaPerkembanganDesa resultData={resultData} />
 
-        <RekomendasiPembangunan />
+      <RekomendasiPembangunan resultData={resultData} />
 
-        <Potensi />
+      <Potensi resultData={resultData} />
+      
+      <DataStunting resultData={resultData} />
 
-        <DataStunting />
-
-        <JumlahStuntingDiDesaKelurahan />
+      <JumlahStuntingDiDesaKelurahan resultData={resultData} />
     </div>
+  );
 }
