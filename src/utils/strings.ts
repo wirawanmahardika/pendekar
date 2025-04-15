@@ -45,12 +45,17 @@ export const STRINGS: any = {
       logo_second_size: "enrekang",
       menu_pelayanan: "hide",
       menu_pengaduan: "hide",
+      alternative_style: "assets/css/style.css",
       theme: {
-        text_color: "#ffffff",
-        btn_color: "#642ee2",
-        pagination_color: ''
+        background_color: "#0077B2",
+        text_color: "#0077B2",
+        btn_color: "#cddff7",
+        pagination_color: '#0077B2',
+        table_header_color: '#8ec5ff',
+        icon_color: "#0077B2",
+        nav_underline_color: '#0077B2',
+        nav_underline_text_color: '#0077B2'
       },
-      alternative_style: "assets/css/style.css"
     },
     luwukab: {
       title: "PENDEKAR",
