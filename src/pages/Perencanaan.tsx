@@ -3,12 +3,16 @@ import StatusChanger from "../components/perencanaan/StatusChanger";
 import { FaMessage } from "react-icons/fa6";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
+import PageTitle from "../components/PageTitle";
 
 export default function Perencanaan() {
-useAuth()
+    useAuth()
     useTitle('Perencanaan')
+
     return (
         <div className="p-4">
+            <PageTitle title="Perencanaan" />
+
             <div className="bg-white p-5 rounded shadow">
                 <span className="text-base font-bold">Monitoring Perencanaan Desa</span>
                 <div className="grid grid-cols-3 gap-3 mb-16 mt-2">

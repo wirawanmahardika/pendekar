@@ -7,13 +7,16 @@ import { umkmDataType } from "../types/umkmTypes";
 import ProdukUMKMDeskel from "../components/umkm/ProdukUMKMDeskel";
 import JenisUsaha from "../components/umkm/JenisUsaha";
 import UsahaDiWilayah from "../components/umkm/UsahaDiWilayah";
+import { useState } from "react";
+import LoadingDots from "../components/LoadingDots";
 
 export default function UMKM() {
     useAuth()
     useTitle('UMKM')
 
-    const resultData= useGetResultData<umkmDataType>(`${BASE_API_URL}umkm?k3=&k4=&search=&type=&limit=`);
-    
+    const [loading, setIsLoading] = useState(false)
+    const resultData= useGetResultData<umkmDataType>(`${BASE_API_URL}umkm?k3=&k4=&search=&type=&limit=`, setIsLoading);
+    if(loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
         <PageTitle title="UMKM" />

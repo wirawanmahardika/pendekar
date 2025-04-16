@@ -8,33 +8,33 @@ import { AxiosAuth } from "../utils/axios";
 import { BASE_API_URL } from "../utils/api";
 import useGetResultData from "../hooks/useGetResultData";
 import { wisataCardType, wisataDataType } from "../types/WisataTypes";
+import LoadingDots from "../components/LoadingDots";
 
 export default function Wisata() {
     useAuth()
     useTitle('Wisata')
 
-
-    const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`)
-
-
+    const [loading, setIsLoading] = useState(false)
+    const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`, setIsLoading)
+    
     const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
     const [dataTodisplay, setDataToDisplay] = useState<wisataCardType[]>()
-
-
+    
     useEffect(() => {
         const idTimeout = setTimeout(() => {
             AxiosAuth
-                .get(`${BASE_API_URL}wisata?k3=${search.kecamatan}&k4=${search.desa}&search=${search.text}&limit=100`)
-                .then((result) => {
-                    setDataToDisplay(result.data.data.list_wisata)
-                })
-                .catch((error) => alert(error.message))
+            .get(`${BASE_API_URL}wisata?k3=${search.kecamatan}&k4=${search.desa}&search=${search.text}&limit=100`)
+            .then((result) => {
+                setDataToDisplay(result.data.data.list_wisata)
+            })
+            .catch((error) => alert(error.message))
         }, 500);
         return () => clearTimeout(idTimeout)
     }, [search])
-
-
-
+    
+    
+    if(loading) return <LoadingDots />
+    
     const listKecamatan = resultData?.list_kecamatan.map(d => {
         return <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>
     })
