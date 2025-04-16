@@ -14,6 +14,12 @@ const AdministrasiDataTable = (props: any) => {
     jenis_administrasi[0].key
   );
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
   // Melakukan filter pada select kecamatan
   const [selectedKec, setSelectedKec] = useState(
     getSlugType() === "kecamatan"
@@ -52,6 +58,240 @@ const AdministrasiDataTable = (props: any) => {
     return listKec;
   }, [listKec, list_kecamatan]);
 
+  const createCommonColumns = () => [
+    {
+      name: "No",
+      cell: (_row: any, index: any) => index + 1,
+    },
+    {
+      name: "Kecamatan",
+      selector: (row: any) => row.nama_kecamatan,
+    },
+    {
+      name: "Desa",
+      selector: (row: any) => row.nama_deskel,
+    },
+    {
+      name: "Tanggal Input",
+      selector: (row: any) => formatIndonesianDate(row.tanggal_input),
+    },
+  ];
+
+  const columnConfigs = useMemo(() => ({
+    buku_peraturan_di_desa: [
+      ...createCommonColumns(),
+      {
+        name: "Jenis Peraturan",
+        selector: (row: any) => row.jenis_peraturan,
+      },
+      {
+        name: "Nomor Peraturan",
+        selector: (row: any) => row.nomor_peraturan,
+      },
+      {
+        name: "Tanggal Peraturan",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_peraturan),
+      },
+      {
+        name: "Tentang",
+        selector: (row: any) => row.tentang,
+      },
+      {
+        name: "Lampiran",
+        selector: (row: any) => row.lampiran,
+        cell: (row: any) => {
+          if (!row.lampiran) return null;
+          return (
+            <a
+              href={`https://online.digitaldesa.id/uploads/${row.kode_wilayah}/buku-peraturan-di-desa/${row.lampiran}`}
+              rel="noreferrer"
+              target="_blank"
+              className="rounded px-4 py-2 bg-indigo-200 hover:bg-indigo-500 hover:text-white cursor-pointer"
+            >
+              Download
+            </a>
+          );
+        },
+      },
+    ],
+    buku_keputusan_kepala_desa: [
+      ...createCommonColumns(),
+      {
+        name: "Nomor Keputusan",
+        selector: (row: any) => row.nomor_keputusan,
+      },
+      {
+        name: "Tanggal Keputusan",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_keputusan),
+      },
+      {
+        name: "Tentang",
+        selector: (row: any) => row.tentang,
+      },
+      {
+        name: "Lampiran",
+        selector: (row: any) => row.lampiran,
+        cell: (row: any) => {
+          if (!row.lampiran) return null;
+          return (
+            <a
+              href={`https://online.digitaldesa.id/uploads/${row.kode_wilayah}/buku-keputusan-kepala-desa/${row.lampiran}`}
+              rel="noreferrer"
+              target="_blank"
+              className="rounded m-2 px-4 py-2 bg-indigo-200 hover:bg-indigo-500 hover:text-white cursor-pointer"
+            >
+              Download
+            </a>
+          );
+        },
+      },
+    ],
+    buku_inventaris_dan_kekayaan_desa: [
+      ...createCommonColumns(),
+      {
+        name: "Tahun",
+        selector: (row: any) => row.tahun,
+      },
+      {
+        name: "Jenis Barang",
+        selector: (row: any) => row.jenis_barang,
+      },
+      {
+        name: "Nilai Beli",
+        selector: (row: any) => row.nilai_beli,
+      },
+      {
+        name: "Tanggal Penghapusan",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_penghapusan),
+      },
+    ],
+    buku_aparat_pemerintah_desa: [
+      ...createCommonColumns(),
+      {
+        name: "Nama",
+        selector: (row: any) => row.nama,
+      },
+      {
+        name: "NIP",
+        selector: (row: any) => row.nip,
+      },
+      {
+        name: "Jabatan",
+        selector: (row: any) => row.jabatan,
+      },
+      {
+        name: "Tanggal Pengangkatan",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_pengangkatan),
+      },
+      {
+        name: "Tanggal Pemberhentian",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_pemberhentian),
+        width: "220px",
+      },
+    ],
+    buku_tanah_kas_desa: [
+      ...createCommonColumns(),
+      {
+        name: "Asal Tanah",
+        selector: (row: any) => row.asal_tanah,
+      },
+      {
+        name: "Nomor Sertifikat",
+        selector: (row: any) => row.nomor_sertifikat,
+      },
+      {
+        name: "Luas",
+        selector: (row: any) => row.luas,
+      },
+      {
+        name: "Kelas",
+        selector: (row: any) => row.kelas,
+      },
+      {
+        name: "Tanggal Perolehan",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_perolehan),
+        width: "200px",
+      },
+    ],
+    buku_tanah_di_desa: [
+      ...createCommonColumns(),
+      {
+        name: "Nama",
+        selector: (row: any) => row.nama,
+      },
+      {
+        name: "Luas Tanah",
+        selector: (row: any) => row.luas_tanah,
+      },
+      {
+        name: "Status Tanah",
+        selector: (row: any) => row.status_tanah,
+      },
+      {
+        name: "Penggunaan Tanah",
+        selector: (row: any) => row.penggunaan_tanah,
+        width: "200px",
+      },
+    ],
+    buku_agenda: [
+      ...createCommonColumns(),
+      {
+        name: "Kode Surat",
+        selector: (row: any) => row.kode_surat,
+      },
+      {
+        name: "Tanggal",
+        selector: (row: any) => formatIndonesianDate(row.tanggal),
+      },
+      {
+        name: "Jenis",
+        selector: (row: any) => row.jenis,
+      },
+      {
+        name: "Nomor Surat",
+        selector: (row: any) => row.nomor_surat,
+      },
+      {
+        name: "Pelaku Surat",
+        selector: (row: any) => row.pelaku_surat,
+      },
+    ],
+    buku_ekspedisi: [
+      ...createCommonColumns(),
+      {
+        name: "Tanggal Pengiriman",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_pengiriman),
+      },
+      {
+        name: "Nomor Surat",
+        selector: (row: any) => row.nomor_surat,
+      },
+      {
+        name: "Ditujukan Kepada",
+        selector: (row: any) => row.ditujukan_kepada,
+      },
+    ],
+    buku_lembaran_desa_dan_berita_desa: [
+      ...createCommonColumns(),
+      {
+        name: "Jenis Peraturan",
+        selector: (row: any) => row.jenis_peraturan,
+      },
+      {
+        name: "Nomor Peraturan",
+        selector: (row: any) => row.nomor_peraturan,
+      },
+      {
+        name: "Tanggal Peraturan",
+        selector: (row: any) => formatIndonesianDate(row.tanggal_peraturan),
+      },
+      {
+        name: "Tentang",
+        selector: (row: any) => row.tentang,
+      },
+    ],
+  }), []);
+
   const DATA = useMemo(() => {
     const selectedData = list_administrasi[selectedType] || [];
 
@@ -75,367 +315,12 @@ const AdministrasiDataTable = (props: any) => {
       }
     });
 
-    let cols = {
-      buku_peraturan_di_desa: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Jenis Peraturan",
-          selector: (row: any) => row.jenis_peraturan,
-        },
-        {
-          name: "Nomor Peraturan",
-          selector: (row: any) => row.nomor_peraturan,
-        },
-        {
-          name: "Tanggal Peraturan",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_peraturan),
-        },
-        {
-          name: "Tentang",
-          selector: (row: any) => row.tentang,
-        },
-        {
-          name: "Lampiran",
-          selector: (row: any) => row.lampiran,
-          cell: (row: any) => {
-            if (!row.lampiran) {
-              return null;
-            }
-
-            return (
-              <a
-                href={`https://online.digitaldesa.id/uploads/${row.kode_wilayah}/buku-peraturan-di-desa/${row.lampiran}`}
-                rel="noreferrer"
-                target={"_blank"}
-                className={`rounded px-4 py-2 bg-indigo-200 hover:bg-indigo-500 hover:text-white cursor-pointer`}
-              >
-                Download
-              </a>
-            );
-          },
-        },
-      ],
-      buku_keputusan_kepala_desa: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Nomor Keputusan",
-          selector: (row: any) => row.nomor_keputusan,
-        },
-        {
-          name: "Tanggal Keputusan",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_keputusan),
-        },
-        {
-          name: "Tentang",
-          selector: (row: any) => row.tentang,
-        },
-        {
-          name: "Lampiran",
-          selector: (row: any) => row.lampiran,
-          cell: (row: any) => {
-            if (!row.lampiran) {
-              return null;
-            }
-
-            return (
-              <a
-                href={`https://online.digitaldesa.id/uploads/${row.kode_wilayah}/buku-keputusan-kepala-desa/${row.lampiran}`}
-                rel="noreferrer"
-                target={"_blank"}
-                className="rounded m-2 px-4 py-2 bg-indigo-200 hover:bg-indigo-500 hover:text-white cursor-pointer"
-              >
-                Download
-              </a>
-            );
-          },
-        },
-      ],
-      buku_inventaris_dan_kekayaan_desa: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Tahun",
-          selector: (row: any) => row.tahun,
-        },
-        {
-          name: "Jenis Barang",
-          selector: (row: any) => row.jenis_barang,
-        },
-        {
-          name: "Nilai Beli",
-          selector: (row: any) => row.nilai_beli,
-        },
-        {
-          name: "Tanggal Penghapusan",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_penghapusan),
-        },
-      ],
-      buku_aparat_pemerintah_desa: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Nama",
-          selector: (row: any) => row.nama,
-        },
-        {
-          name: "NIP",
-          selector: (row: any) => row.nip,
-        },
-        {
-          name: "Jabatan",
-          selector: (row: any) => row.jabatan,
-        },
-        {
-          name: "Tanggal Pengangkatan",
-          selector: (row: any) =>
-            formatIndonesianDate(row.tanggal_pengangkatan),
-        },
-        {
-          name: "Tanggal Pemberhentian",
-          selector: (row: any) =>
-            formatIndonesianDate(row.tanggal_pemberhentian),
-          width: "220px",
-        },
-      ],
-      buku_tanah_kas_desa: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Asal Tanah",
-          selector: (row: any) => row.asal_tanah,
-        },
-        {
-          name: "Nomor Sertifikat",
-          selector: (row: any) => row.nomor_sertifikat,
-        },
-        {
-          name: "Luas",
-          selector: (row: any) => row.luas,
-        },
-        {
-          name: "Kelas",
-          selector: (row: any) => row.kelas,
-        },
-        {
-          name: "Tanggal Perolehan",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_perolehan),
-          width: "200px",
-        },
-      ],
-      buku_tanah_di_desa: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Nama",
-          selector: (row: any) => row.nama,
-        },
-        {
-          name: "Luas Tanah",
-          selector: (row: any) => row.luas_tanah,
-        },
-        {
-          name: "Status Tanah",
-          selector: (row: any) => row.status_tanah,
-        },
-        {
-          name: "Penggunaan Tanah",
-          selector: (row: any) => row.penggunaan_tanah,
-          width: "200px",
-        },
-      ],
-      buku_agenda: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Kode Surat",
-          selector: (row: any) => row.kode_surat,
-        },
-        {
-          name: "Tanggal",
-          selector: (row: any) => formatIndonesianDate(row.tanggal),
-        },
-        {
-          name: "Jenis",
-          selector: (row: any) => row.jenis,
-        },
-        {
-          name: "Nomor Surat",
-          selector: (row: any) => row.nomor_surat,
-        },
-        {
-          name: "Pelaku Surat",
-          selector: (row: any) => row.pelaku_surat,
-        },
-      ],
-      buku_ekspedisi: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Tanggal Pengiriman",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_pengiriman),
-        },
-        {
-          name: "Nomor Surat",
-          selector: (row: any) => row.nomor_surat,
-        },
-        {
-          name: "Ditujukan Kepada",
-          selector: (row: any) => row.ditujukan_kepada,
-        },
-      ],
-      buku_lembaran_desa_dan_berita_desa: [
-        {
-          name: "No",
-          selector: (index: any) => index + 1,
-        },
-        {
-          name: "Kecamatan",
-          selector: (row: any) => row.nama_kecamatan,
-        },
-        {
-          name: "Desa",
-          selector: (row: any) => row.nama_deskel,
-        },
-        {
-          name: "Tanggal Input",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_input),
-        },
-        {
-          name: "Jenis Peraturan",
-          selector: (row: any) => row.jenis_peraturan,
-        },
-        {
-          name: "Nomor Peraturan",
-          selector: (row: any) => row.nomor_peraturan,
-        },
-        {
-          name: "Tanggal Peraturan",
-          selector: (row: any) => formatIndonesianDate(row.tanggal_peraturan),
-        },
-        {
-          name: "Tentang",
-          selector: (row: any) => row.tentang,
-        },
-      ],
-    };
-
-    return [cols[selectedType], data];
+    return [columnConfigs[selectedType], data];
   }, [selectedType, selectedKec, selectedDesa, query, list_administrasi]);
 
+  const currentItems = DATA[1].slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(DATA[1].length / itemsPerPage);
+  
 
   return (
     <div className="p-4 bg-white rounded shadow mt-8">
@@ -534,7 +419,7 @@ const AdministrasiDataTable = (props: any) => {
             </thead>
           )}
           <tbody>
-            {DATA[1].length === 0 ? (
+            {currentItems.length === 0 ? (
               <tr>
                 <td
                   colSpan={DATA[0].length}
@@ -544,7 +429,7 @@ const AdministrasiDataTable = (props: any) => {
                 </td>
               </tr>
             ) : (
-              DATA[1].map((row: any, index: number) => (
+              currentItems.map((row: any, index: number) => (
                 <tr key={index}>
                   {DATA[0].map((col: any, colIndex: number) => (
                     <td
@@ -552,8 +437,8 @@ const AdministrasiDataTable = (props: any) => {
                       className="p-4 border text-center border-gray-300"
                     >
                       {col.cell
-                        ? col.cell(row, index)
-                        : col.selector(row, index)}
+                        ? col.cell(row, indexOfFirstItem + index)
+                        : col.selector(row, indexOfFirstItem + index)}
                     </td>
                   ))}
                 </tr>
@@ -563,19 +448,67 @@ const AdministrasiDataTable = (props: any) => {
         </table>
       </div>
 
-      <div className="flex mt-4 justify-center">
-        <div className="join">
-          <button className="join-item btn bg-white text-gray-800">
-            {"<<"}
-          </button>
-          <button className="join-item btn bg-white text-gray-800">1</button>
-          <button className="join-item btn bg-white text-gray-800">...</button>
-          <button className="join-item btn bg-white text-gray-800">9</button>
-          <button className="join-item btn bg-white text-gray-800">
-            {">>"}
-          </button>
+      {totalPages > 1 && (
+        <div className="flex mt-4 justify-center">
+          <div className="join">
+            <button 
+              className="join-item btn bg-white text-gray-800"
+              onClick={() => setCurrentPage(1)}
+              disabled={currentPage === 1}
+            >
+              {"<<"}
+            </button>
+            <button 
+              className="join-item btn bg-white text-gray-800"
+              onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}
+              disabled={currentPage === 1}
+            >
+              {"<"}
+            </button>
+            
+            <button className="join-item btn bg-blue-500 text-white">
+              {currentPage}
+            </button>
+            
+            {currentPage < totalPages && (
+              <button 
+                className="join-item btn bg-white text-gray-800"
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                {currentPage + 1}
+              </button>
+            )}
+            
+            {currentPage < totalPages - 1 && (
+              <button className="join-item btn bg-white text-gray-800">...</button>
+            )}
+            
+            {currentPage < totalPages - 1 && (
+              <button 
+                className="join-item btn bg-white text-gray-800"
+                onClick={() => setCurrentPage(totalPages)}
+              >
+                {totalPages}
+              </button>
+            )}
+            
+            <button 
+              className="join-item btn bg-white text-gray-800"
+              onClick={() => setCurrentPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
+              disabled={currentPage === totalPages}
+            >
+              {">"}
+            </button>
+            <button 
+              className="join-item btn bg-white text-gray-800"
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={currentPage === totalPages}
+            >
+              {">>"}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
