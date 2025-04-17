@@ -11,12 +11,13 @@ import Berita from "./pages/Berita"
 import Wisata from "./pages/Wisata"
 import Kependudukan from "./pages/Kependudukan"
 import AdministrasiUmum from "./pages/AdministrasiUmum"
+import NotFound from "./pages/NotFound"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Wrapper />} >
+      <Route path="/" element={<Wrapper />} errorElement={<NotFound />}>
         <Route index element={<Dashboard />} />
         <Route path="bansos" element={<Bansos />} />
         <Route path="profil-desa" element={<ProfilDesa />} />

@@ -238,7 +238,7 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "",
     theme: {
-      background_color: "#cddff7",
+      background_color: "#327A6E",
       text_color: "#327A6E",
       btn_color: "#ffffff",
       pagination_color: '#0077B2',
