@@ -76,7 +76,7 @@ export default function Wisata() {
                     {listDesa}
                 </select>
 
-                <ExportReportButton />
+                <ExportReportButton url="export/wisata" />
             </div>
         </div>
 

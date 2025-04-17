@@ -56,7 +56,7 @@ export default function CapaianDanPotensi() {
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">Capaian & Potensi Desa</h2>
-        <ExportReportButton />
+        <ExportReportButton url="export/pembangunan" />
       </div>
 
       <div className="flex gap-y-3 flex-col mt-5">

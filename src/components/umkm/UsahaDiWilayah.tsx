@@ -80,7 +80,7 @@ export default function UsahaDiWilayah({ resultData }: { resultData?: umkmDataTy
     return <div className="bg-white rounded p-4 flex flex-col h-[600px]">
         <div className="flex items-center justify-between">
             <span className="font-bold text-xl">Usaha Di Diwilayah</span>
-            <ExportReportButton />
+            <ExportReportButton url="export/usaha_di_wilayah" />
         </div>
         <div className="flex gap-x-5 pt-2">
             <div className="flex relative">

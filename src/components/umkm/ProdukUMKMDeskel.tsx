@@ -77,7 +77,7 @@ export default function ProdukUMKMDeskel({ resultData }: { resultData?: umkmData
                     {listDesa}
                 </select>
 
-                <ExportReportButton />
+                <ExportReportButton url="export/umkm" />
             </div>
         </div>
 

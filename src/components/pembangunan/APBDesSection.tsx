@@ -11,7 +11,7 @@ export const APBDesSection = ({ resultData }: FilterAPBDProps) => (
         <div className="p-5">
           <div className="flex justify-between items-center mb-5">
             <h5 className="text-xl font-bold text-gray-800">GRAFIK VS REALISASI</h5>
-            <ExportReportButton />
+            <ExportReportButton url="export/apbdes" />
           </div>
 
           <div className="border rounded-lg mb-6">

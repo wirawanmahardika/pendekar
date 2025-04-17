@@ -1,7 +1,6 @@
 import { BiSearch } from "react-icons/bi";
 import { BsSquareFill } from "react-icons/bs";
 import JumlahStuntingDiDesaKelurahanScatterChart from "./charts/JumlahStuntingDiDesaKelurahanScatterChart";
-import ExportReportButton from "../ExportReportButton";
 import { dashboardResultDataType } from "../../types/DashboardTypes";
 import { useState, useEffect } from "react";
 
@@ -60,7 +59,6 @@ export default function JumlahStuntingDiDesaKelurahan({
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">JUMLAH STUNTING DI DESA/KELURAHAN</h2>
-        <ExportReportButton />
       </div>
       <div className="flex gap-x-5 pt-2">
         <div className="flex relative">

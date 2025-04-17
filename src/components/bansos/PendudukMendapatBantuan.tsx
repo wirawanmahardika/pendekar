@@ -78,7 +78,7 @@ export default
                 </select>
             </div>
 
-            <ExportReportButton />
+            <ExportReportButton url="export/bansos" />
         </div>
 
         <div className="grid grid-cols-2 gap-x-5 mt-6">

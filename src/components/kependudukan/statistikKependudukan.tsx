@@ -253,7 +253,7 @@ export default function StatisticsSection({
     <div className="p-5 bg-white rounded shadow flex flex-col">
       <div className="flex justify-between items-center">
         <span className="font-bold text-xl">Statistik Data Penduduk</span>
-        <ExportReportButton />
+        <ExportReportButton url="export/kependudukan" />
       </div>
 
       <div className="flex gap-x-5 pt-2">
