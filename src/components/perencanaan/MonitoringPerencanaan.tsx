@@ -1,15 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import LoadingDots from "../LoadingDots";
 import { ringkasanPerencanaanType } from "../../types/PerencanaanTypes";
 
 const MonitoringPerencanaan = () => {
   const [monitoringData, setMonitoringData] =
     useState<ringkasanPerencanaanType | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     axios
       .get(`https://ketapangkab.pendekar.digides.id/api/perencanaan/`, {
         headers: { Authorization: localStorage.getItem("token") },
@@ -20,7 +17,6 @@ const MonitoringPerencanaan = () => {
       .catch((error) => {
         alert(error.message);
       })
-      .finally(() => setIsLoading(false));
   }, []);
 
   const statusPerencanaan = monitoringData?.status_perencanaan;
@@ -38,7 +34,6 @@ const MonitoringPerencanaan = () => {
     return `${strokeLength} ${remainingLength}`;
   };
 
-  if (isLoading) return <LoadingDots />;
 
   return (
     <div className="bg-white p-5 rounded shadow">

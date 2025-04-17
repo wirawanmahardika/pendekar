@@ -33,6 +33,7 @@ export type TabelDokumenDanPerencanaanDesaSelectedFilterType = {
     kecamatan: string,
     desa: string
 }
+
 export type ringkasanPerencanaanType = {
   ringkasan_perencaanaan: {
     desa_belum_upload: number;
