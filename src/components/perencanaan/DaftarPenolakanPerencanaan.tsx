@@ -1,30 +1,30 @@
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
 import LoadingDots from "../LoadingDots";
-import { PenolakanDokumenType } from "../../types/PerencanaanTypes";
+import { KelengkapanDokumenType } from "../../types/PerencanaanTypes";
+import { AxiosAuth } from "../../utils/axios";
+import { BASE_API_URL } from "../../utils/api";
 
 const DaftarPenolakanPerencanaan = () => {
-  const [resultData, setResultData] = useState<PenolakanDokumenType>([]);
+  const [resultData, setResultData] = useState<KelengkapanDokumenType>([]);
   const [selectedTahun, setSelectedTahun] = useState("");
   const [selectedKecamatan, setSelectedKecamatan] = useState("");
   const [selectedDesa, setSelectedDesa] = useState("");
 
   useEffect(() => {
-    axios
-      .get(
-        `https://ketapangkab.pendekar.digides.id/api/perencanaan/GetTabelDokumen`,
-        {
-          headers: { Authorization: localStorage.getItem("token") },
-        }
-      )
+    AxiosAuth
+      .get(`${BASE_API_URL}perencanaan/GetDaftarDesa`)
       .then(({ data }) => {
-        console.log(data);
+        console.log(data.data);
         setResultData(data.data);
       })
       .catch((error) => {
         alert(error.message);
       })
   }, []);
+
+  console.log(resultData);
+  
 
   return (
     <div className="bg-white p-5 mt-10 rounded shadow">
@@ -90,7 +90,7 @@ const DaftarPenolakanPerencanaan = () => {
           </tr>
         </thead>
         <tbody>
-          {resultData?.map((item: any, index: any) => {
+          {resultData?.map((item, index: any) => {
             return <tr key={index}>
               <td className="border border-neutral-200 px-2 py-3 text-center">
                 {item.kecamatan}
@@ -99,18 +99,18 @@ const DaftarPenolakanPerencanaan = () => {
                 {item.desa}
               </td>
               <td className="border border-neutral-200 px-2 py-3 text-center">
-                -
+                {item.rpjmdes ? '\u2713' : '\u2716'}
               </td>
               <td className="border border-neutral-200 px-2 py-3 text-center">
-                -
+                {item.rkpdes ? '\u2713' : '\u2716'}
               </td>
               <td className="border border-neutral-200 px-2 py-3 text-center">
-                -
+                {item.apbdes ? '\u2713' : '\u2716'}
               </td>
               <td className="border border-neutral-200 px-2 py-3 text-center">
                 <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
-                  <div style={{width: '70%'}} className="bg-sky-400 h-full"></div>
-                  <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">70%</span>
+                  <div style={{ width: `${item.progress}%` }} className="bg-sky-400 h-full"></div>
+                  <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">{item.progress}%</span>
                 </div>
               </td>
             </tr>

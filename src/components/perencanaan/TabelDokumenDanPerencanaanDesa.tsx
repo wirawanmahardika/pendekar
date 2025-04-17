@@ -26,8 +26,6 @@ export default function TabelDokumenDanPerencanaanDesa() {
             .then(res => {
                 setDataToDisplay(res.data.data);
                 setResultData(res.data.data);
-                console.log(res.data.data);
-
 
                 const tahun = [... new Set(res.data.data.map((d: any) => d.tahun))] as string[]
                 const kecamatan = [... new Set(res.data.data.map((d: any) => d.kecamatan))] as string[]

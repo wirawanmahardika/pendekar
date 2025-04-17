@@ -1,37 +1,37 @@
 export type dataToDisplayPerencanaanType = {
-    id_dokumen: string;
-    desa: string;
-    kecamatan: string;
-    kode: string;
-    komentar: string;
-    nama_dokumen: string;
-    status: "Revisi" | "Ditolak" | "Disetujui" | "Baru";
-    tahun: string;
-    url_dokumen: string;
+  id_dokumen: string;
+  desa: string;
+  kecamatan: string;
+  kode: string;
+  komentar: string;
+  nama_dokumen: string;
+  status: "Revisi" | "Ditolak" | "Disetujui" | "Baru";
+  tahun: string;
+  url_dokumen: string;
 }[]
 
 export type dataToDisplayPartType = {
-    id_dokumen: string;
-    desa: string;
-    kecamatan: string;
-    kode: string;
-    komentar: string;
-    nama_dokumen: string;
-    status: "Revisi" | "Ditolak" | "Disetujui" | "Baru";
-    tahun: string;
-    url_dokumen: string;
+  id_dokumen: string;
+  desa: string;
+  kecamatan: string;
+  kode: string;
+  komentar: string;
+  nama_dokumen: string;
+  status: "Revisi" | "Ditolak" | "Disetujui" | "Baru";
+  tahun: string;
+  url_dokumen: string;
 }
 
 export type TabelDokumenDanPerencanaanDesaFilterType = {
-    tahun: string[],
-    kecamatan: string[],
-    desa: string[]
+  tahun: string[],
+  kecamatan: string[],
+  desa: string[]
 }
 
 export type TabelDokumenDanPerencanaanDesaSelectedFilterType = {
-    tahun: string,
-    kecamatan: string,
-    desa: string
+  tahun: string,
+  kecamatan: string,
+  desa: string
 }
 
 export type ringkasanPerencanaanType = {
@@ -58,15 +58,28 @@ export type ringkasanPerencanaanType = {
   };
 };
 
-export type PenolakanDokumen = {
+export type KelengkapanDokumen = {
   kode: string;
   kecamatan: string;
   desa: string;
-  nama_dokumen: string;
-  url_dokumen: string;
-  tahun: string;
-  status: string;
-  komentar: string;
+  rpjmdes: boolean;
+  rkpdes: boolean;
+  apbdes: boolean;
+  progress: number;
 }
 
-export type PenolakanDokumenType = PenolakanDokumen[];
+export type KelengkapanDokumenType = KelengkapanDokumen[];
+
+
+export type DaftarKelengkapanDokumenFilterType = {
+  tahun: string[],
+  kecamatan: string[],
+  desa: string[]
+}
+
+
+export type DaftarKelengkapanDokumenSelectedFilterType = {
+  tahun: string,
+  kecamatan: string,
+  desa: string
+}
