@@ -80,31 +80,6 @@ export default function Berita() {
             </div>
 
             <ListBerita data={dataTodisplay} />
-            {/* <div className="flex mt-5 flex-col gap-y-5">
-                {
-                    dataTodisplay?.map(b => {
-                        return <BeritaCard
-                            key={b.id}
-                            kode_wilayah={b.kode_wilayah}
-                            foto={b.foto}
-                            judul={b.judul}
-                            isi={b.isi}
-                            url={"https://" + b.slug_desa + ".digitaldesa.id/wisata/" + b.slug}
-                        />
-                    })
-                }
-            </div>
-
-
-            <div className="flex mt-4 justify-center">
-                <div className="join">
-                    <button className="join-item btn bg-white text-gray-800">{"<<"}</button>
-                    <button className="join-item btn bg-white text-gray-800">1</button>
-                    <button className="join-item btn bg-white text-gray-800">...</button>
-                    <button className="join-item btn bg-white text-gray-800">9</button>
-                    <button className="join-item btn bg-white text-gray-800">{">>"}</button>
-                </div>
-            </div> */}
         </div>
     </div>
 }

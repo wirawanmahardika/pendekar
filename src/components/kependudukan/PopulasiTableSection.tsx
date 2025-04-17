@@ -40,8 +40,8 @@ export default function PopulationTableSection({
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">Rekap Kependudukan</h2>
-        <ExportReportButton />
-      </div>
+        <ExportReportButton url="export/rekap_kependudukan" />
+      </div> 
       
       <div className="flex gap-x-5 pt-2">
         <div className="flex relative">

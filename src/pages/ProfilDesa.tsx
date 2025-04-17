@@ -1,6 +1,5 @@
 import { BiSearch } from "react-icons/bi";
 import PageTitle from "../components/PageTitle";
-import ExportReportButton from "../components/ExportReportButton";
 import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
@@ -49,10 +48,6 @@ export default function ProfilDesa() {
   return <div className="px-4 py-10">
     <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={ resultData?.last_updated}/>
     <div className="p-4 bg-white rounded shadow mt-8">
-      <div className="flex items-center justify-between">
-        <h2 className="font-bold text-xl">Rekap Penerima Bantuan Sosial</h2>
-        <ExportReportButton />
-      </div>
       <div className="flex gap-x-5 pt-2">
         <div className="flex relative">
           <input onChange={(e: any) => setSearch(prev => ({ ...prev, text: e.target.value }))} type="text" placeholder="Cari Desa/Kelurahan..." className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-full outline-none pl-2 pr-10 py-1" />

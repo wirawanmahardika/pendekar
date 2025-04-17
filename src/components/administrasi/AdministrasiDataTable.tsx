@@ -342,7 +342,7 @@ const AdministrasiDataTable = (props: any) => {
           ) : (
             ""
           )}
-          <ExportReportButton />
+          <ExportReportButton url="export/administrasi_umum_summary" />
         </div>
       </div>
       <div className="flex gap-x-5 pt-8">

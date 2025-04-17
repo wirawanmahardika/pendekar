@@ -13,7 +13,7 @@ export default function SkorIDMSekabupaten({resultData}: {resultData?: dashboard
     return <div className="p-4 bg-white rounded shadow mt-8">
         <div className="flex items-center justify-between">
             <h2 className="font-bold text-xl">Skor IDM Sekabupaten</h2>
-            <ExportReportButton />
+            <ExportReportButton url='export/idm' />
         </div>
 
         <div className="grid grid-cols-2 border border-gray-200 rounded mt-3 p-5  text-gray-700 ">

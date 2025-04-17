@@ -120,7 +120,7 @@ export default function Potensi({ resultData }: { resultData?: dashboardResultDa
   return <div className="p-4 bg-white rounded shadow mt-8">
     <div className="flex items-center justify-between">
       <h2 className="font-bold text-xl">Potensi</h2>
-      <ExportReportButton />
+      <ExportReportButton url="export/potensi" />
     </div>
     
     <div className="flex flex-col text-gray-700 mt-3">

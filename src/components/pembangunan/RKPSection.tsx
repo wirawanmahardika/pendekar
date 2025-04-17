@@ -8,7 +8,7 @@ const RKPSection = ({ resultData }: { resultData: any }) => (
         <div className="p-5">
           <div className="flex justify-between items-center mb-5">
             <h5 className="text-xl font-bold text-gray-800">Rencana Kerja Pembangunan</h5>
-            <ExportReportButton />
+            <ExportReportButton url="export/rkpdes" />
           </div>
 
           {resultData && <RKPTable resultData={resultData} />}

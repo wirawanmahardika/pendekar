@@ -68,7 +68,7 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">Rekomendasi Pembangunan</h2>
-        <ExportReportButton />
+        <ExportReportButton url="export/rekomendasi_pembangunan" />
       </div>
       <div className="flex gap-x-5 pt-2">
         <div className="flex relative">

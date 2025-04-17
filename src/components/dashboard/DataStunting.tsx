@@ -31,7 +31,7 @@ export default function DataStunting({
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">DATA STUNTING</h2>
-        <ExportReportButton />
+        <ExportReportButton url="export/stunting" />
       </div>
 
       <div className="flex flex-col gap-y-2 w-full h-fit mt-6">

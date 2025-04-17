@@ -9,7 +9,7 @@ export default function PetaPerkembanganDesa({resultData}: {resultData?: dashboa
     return <div className="p-4 bg-white rounded shadow mt-8 h-fit">
         <div className="flex items-center justify-between">
             <h2 className="font-bold text-xl">PETA PERKEMBANGAN DESA (BERDASARKAN SDGs & IDM)</h2>
-            <ExportReportButton />
+            <ExportReportButton url="export/peta_perkembangan" />
         </div>
 
         <div className="flex h-[500px] w-full mt-6">
