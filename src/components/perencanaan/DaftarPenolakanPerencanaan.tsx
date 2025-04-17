@@ -28,7 +28,7 @@ const DaftarPenolakanPerencanaan = () => {
 
   return (
     <div className="bg-white p-5 mt-10 rounded shadow">
-      <span className="text-base font-bold">Daftar Desa & Dokumen Ditolak</span>
+      <span className="text-base font-bold">Daftar Desa & Kelengkapan Dokumen</span>
       <div className="flex gap-x-5 pt-2">
         <select
           name=""
@@ -56,44 +56,41 @@ const DaftarPenolakanPerencanaan = () => {
           <option value="">Pilih Desa</option>
           <option value="">Pilih Desa</option>
         </select>
+
+        <select
+          name=""
+          className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2"
+        >
+          <option value="">Filter Progress Perencanaan</option>
+          <option value="">Pilih Desa</option>
+          <option value="">Pilih Desa</option>
+        </select>
       </div>
       <table className="rounded text-sm w-full mt-4 overflow-hidden">
         <thead>
           <tr className="bg-[#AEDDF5] text-gray-700">
-            <th className="border-2 border-gray-100 text-center w-1/5 py-2">
+            <th className="border-2 border-gray-100 text-center w-2/12 py-2">
               Nama Kecamatan
             </th>
-            <th className="border-2 border-gray-100 text-center w-1/5 py-2">
+            <th className="border-2 border-gray-100 text-center w-3/12 py-2">
               Nama Desa
             </th>
-            <th className="border-2 border-gray-100 text-center w-1/5 py-2">
-              Status
+            <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+              RPJMDes
             </th>
-            <th className="border-2 border-gray-100 text-center w-2/5 py-2">
-              Dokumen Kurang
+            <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+              RKPDes
+            </th>
+            <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+              APBDes
+            </th>
+            <th className="border-2 border-gray-100 text-center w-4/12 py-2">
+              Progress
             </th>
           </tr>
         </thead>
         <tbody>
           {resultData?.map((item: any, index: any) => {
-            let color: string = ""
-            switch (item.status) {
-              case "Baru":
-                color = "bg-sky-200 border-sky-500"
-                break;
-              case "Revisi":
-                color = "bg-yellow-200 border-yellow-500"
-                break;
-              case "Disetujui":
-                color = "bg-green-200 border-green-500"
-                break;
-              case "Ditolak":
-                color = "bg-red-200 border-red-500"
-                break;
-              default:
-                break;
-            }
-            
             return <tr key={index}>
               <td className="border border-neutral-200 px-2 py-3 text-center">
                 {item.kecamatan}
@@ -102,18 +99,27 @@ const DaftarPenolakanPerencanaan = () => {
                 {item.desa}
               </td>
               <td className="border border-neutral-200 px-2 py-3 text-center">
-                <span className={`${color} border rounded w-2/3 block mx-auto py-1`}>
-                  {item.status}
-                </span>
+                -
               </td>
               <td className="border border-neutral-200 px-2 py-3 text-center">
-                {item.komentar || "-"}
+                -
+              </td>
+              <td className="border border-neutral-200 px-2 py-3 text-center">
+                -
+              </td>
+              <td className="border border-neutral-200 px-2 py-3 text-center">
+                <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
+                  <div style={{width: '70%'}} className="bg-sky-400 h-full"></div>
+                  <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">70%</span>
+                </div>
               </td>
             </tr>
 
           })}
         </tbody>
       </table>
+
+
       <div className="flex mt-9">
         <div className="flex gap-x-4 items-center ml-auto">
           <span>Page</span>
