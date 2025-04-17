@@ -225,10 +225,12 @@ const AdministrasiDataCard = (props: any) => {
 
         <select
           onChange={(e) => setSelectedDesa(e.target.value)}
-          className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1"
+          className={`${
+            !selectedKec && "hidden"
+          } focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1`}
         >
           <option value="">Semua Desa</option>
-          {list_desa.map((item: any) => {
+          {listDesa.map((item: any) => {
             return (
               <option
                 key={item.kode_wilayah}
