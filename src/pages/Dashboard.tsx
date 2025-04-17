@@ -32,7 +32,7 @@ export default function Dashboard() {
 
       <FlashNews resultData={resultData} />
 
-      <CapaianDanPotensi/>
+      <CapaianDanPotensi resultData={resultData}/>
 
       <SkorIDMSekabupaten resultData={resultData} />
 
@@ -41,7 +41,7 @@ export default function Dashboard() {
       <RekomendasiPembangunan resultData={resultData} />
 
       <Potensi resultData={resultData} />
-      
+
       <DataStunting resultData={resultData} />
 
       <JumlahStuntingDiDesaKelurahan resultData={resultData} />

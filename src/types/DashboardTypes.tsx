@@ -59,3 +59,45 @@ export type OptionsType =
   }
   
 export type skorIdmChartType = 'bar' | 'line';
+
+export type PolygonDesa = {
+  provinsi: string;
+  kabupaten: string;
+  kecamatan: string;
+  deskel: string;
+  link: string;
+  ar: any;
+  idm: number;
+  kd: string;
+  program: any;
+  sdgs: number;
+  sda: number;
+  sdm: number;
+  lk: number;
+  sarpras: number;
+  potensiData: {
+    sda: {
+      perikanan: number;
+      pertanian: number;
+      perkebunan: number;
+    };
+    sdm: number;
+    lk: number;
+    sarpras: {
+      ibadah: number;
+      sekolah: number;
+      umum: number;
+    };
+  };
+  polyDes: any;
+};
+
+export type PolygonKec = {
+  polyKec: any;
+  nama_kecamatan: string;
+};
+
+export interface MapWithPolygonsProps {
+  resultData: any;
+  selectedOption: OptionsType;
+}

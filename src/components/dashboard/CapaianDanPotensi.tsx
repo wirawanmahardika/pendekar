@@ -1,10 +1,17 @@
 import { BsSquareFill } from "react-icons/bs";
 import ExportReportButton from "../ExportReportButton";
 import { useState } from "react";
-import { OptionsType } from "../../types/DashboardTypes";
+import {
+  dashboardResultDataType,
+  OptionsType,
+} from "../../types/DashboardTypes";
+import MapWithPolygons from "./charts/MapGeoData";
 
-
-export default function CapaianDanPotensi() {
+export default function CapaianDanPotensi({
+  resultData,
+}: {
+  resultData?: dashboardResultDataType;
+}) {
   const [selectedOption, setSelectedOption] = useState<OptionsType>("kd");
 
   // Options matching those in MapWithPolygons
@@ -23,7 +30,7 @@ export default function CapaianDanPotensi() {
   // Color scales and thresholds matching MapWithPolygons
   const colorScales = {
     kd: ["#03A00A", "#C00000", "#327A6D"],
-    idm: ["#03A00A", "#D3D714", "#C00000", "#0DC3A2", "#327A6D"],
+    idm: ["#03A00A", "#D3D714", "#C00000", "#0D77C3", "#327A6D"],
     sdgs: ["#03A00A", "#D3D714", "#C00000", "#0D77C3", "#0DC3A2", "#327A6D"],
     ar: ["#03A00A", "#D3D714", "#C00000", "#0D77C3", "#0DC3A2", "#327A6D"],
     program: ["#03A00A", "#D3D714", "#C00000", "#0D77C3", "#0DC3A2", "#327A6D"],
@@ -74,6 +81,15 @@ export default function CapaianDanPotensi() {
             </option>
           ))}
         </select>
+      </div>
+
+      <div className="mt-4">
+        {resultData && (
+          <MapWithPolygons
+            resultData={resultData}
+            selectedOption={selectedOption}
+          />
+        )}
       </div>
 
       <div className="flex items-start justify-between gap-x-9 mt-5">
