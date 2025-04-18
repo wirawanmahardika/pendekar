@@ -2,7 +2,6 @@ import { useState } from "react"
 import useTitle from "../hooks/useTitle"
 import { STRINGS } from "../utils/strings"
 import { BASE_API_URL, KODE_SLUG } from "../utils/api"
-import { loginTextStyle } from "../utils/themeSetting"
 import KetapangLoginPage from "../components/login/KetapangKabLogin"
 import { AxiosAuth } from "../utils/axios"
 import { useNavigate } from "react-router-dom"
@@ -78,44 +77,45 @@ export default function Login() {
             </div>
 
             <div
-                style={{ backgroundImage: "url('/img/login-background/default.png')" }}
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full bg-cover bg-center"
+                // style={{ backgroundImage: "url('/img/login-background/default.png')" }}
+                style={{ backgroundImage: `url('/img/bg/${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full bg-cover bg-bottom"
             ></div>
 
-            <BackgroundPemerintah />
-
-            <div style={{backgroundColor: STRINGS[KODE_SLUG].theme.background_color}} className={`italic text-white w-fit flex absolute bottom-16 text-sm gap-x-16 justify-evenly px-6 py-3 rounded`}>
+            {/* nanti akan dilanjutkan setelah yang penting-penting selesai */}
+            {/* <BackgroundPemerintah /> */}
+            {/* <div style={{backgroundColor: STRINGS[KODE_SLUG].theme.background_color}} className={`italic text-white w-fit flex absolute bottom-16 text-sm gap-x-16 justify-evenly px-6 py-3 rounded`}>
                 {STRINGS[KODE_SLUG].slogan}
-            </div>
+            </div> */}
         </div>
     </div>
 }
 
 
-function BackgroundPemerintah() {
-    const logo_user_2 = STRINGS[KODE_SLUG].logo_user_2
-    const nama_user_2 = STRINGS[KODE_SLUG].nama_user_2
-    const jabatan_user_2 = STRINGS[KODE_SLUG].jabatan_user_2
+// function BackgroundPemerintah() {
+//     const logo_user_2 = STRINGS[KODE_SLUG].logo_user_2
+//     const nama_user_2 = STRINGS[KODE_SLUG].nama_user_2
+//     const jabatan_user_2 = STRINGS[KODE_SLUG].jabatan_user_2
 
-    return <div style={loginTextStyle} className={`${logo_user_2 ? "w-2/3" : "w-2/5"} flex absolute bottom-36 text-sm gap-x-16 bg-white justify-evenly font-bold px-3 py-1 rounded`}>
-        <img src={STRINGS[KODE_SLUG].logo_user} alt="" className={`${logo_user_2 ? "w-7/12 left-5" : "w-full"} absolute bottom-full`} />
-        <img src={STRINGS[KODE_SLUG].logo_user_2} alt="" className={`${!logo_user_2 && "hidden"} w-7/12 absolute bottom-full right-2`} />
+//     return <div style={loginTextStyle} className={`${logo_user_2 ? "w-2/3" : "w-2/5"} flex absolute bottom-36 text-sm gap-x-16 bg-white justify-evenly font-bold px-3 py-1 rounded`}>
+//         <img src={STRINGS[KODE_SLUG].logo_user} alt="" className={`${logo_user_2 ? "w-7/12 left-5" : "w-full"} absolute bottom-full`} />
+//         <img src={STRINGS[KODE_SLUG].logo_user_2} alt="" className={`${!logo_user_2 && "hidden"} w-7/12 absolute bottom-full right-2`} />
 
-        <div className="invisible flex flex-col text-center 2xl:text-lg">
-            <span>John Doe Kurniawan S.Pd.</span><span className="font-normal italic text-xs">Bupati Ketapang</span>
-        </div>
+//         <div className="invisible flex flex-col text-center 2xl:text-lg">
+//             <span>John Doe Kurniawan S.Pd.</span><span className="font-normal italic text-xs">Bupati Ketapang</span>
+//         </div>
 
-        <div className={`flex flex-col text-center absolute  2xl:text-lg ${logo_user_2 ? "left-[20px] 2xl:left-[65px]" : ""}`}>
-            <span>{STRINGS[KODE_SLUG].nama_user}</span>
-            <span className="font-normal italic text-xs">{STRINGS[KODE_SLUG].jabatan_user}</span>
-        </div>
-        <div className={`${!logo_user_2 && "hidden"} flex flex-col text-center absolute right-[20px] 2xl:right-[80px] 2xl:text-lg`}>
-            <span>{nama_user_2}</span>
-            <span className="font-normal italic text-xs">{jabatan_user_2}</span>
-        </div>
-        <div className={`${!logo_user_2 && "hidden"} flex flex-col text-center absolute right-[20px] 2xl:right-[80px] 2xl:text-lg`}>
-            <span>{nama_user_2}</span>
-            <span className="font-normal italic text-xs">{jabatan_user_2}</span>
-        </div>
-    </div>
-}
+//         <div className={`flex flex-col text-center absolute  2xl:text-lg ${logo_user_2 ? "left-[20px] 2xl:left-[65px]" : ""}`}>
+//             <span>{STRINGS[KODE_SLUG].nama_user}</span>
+//             <span className="font-normal italic text-xs">{STRINGS[KODE_SLUG].jabatan_user}</span>
+//         </div>
+//         <div className={`${!logo_user_2 && "hidden"} flex flex-col text-center absolute right-[20px] 2xl:right-[80px] 2xl:text-lg`}>
+//             <span>{nama_user_2}</span>
+//             <span className="font-normal italic text-xs">{jabatan_user_2}</span>
+//         </div>
+//         <div className={`${!logo_user_2 && "hidden"} flex flex-col text-center absolute right-[20px] 2xl:right-[80px] 2xl:text-lg`}>
+//             <span>{nama_user_2}</span>
+//             <span className="font-normal italic text-xs">{jabatan_user_2}</span>
+//         </div>
+//     </div>
+// }
