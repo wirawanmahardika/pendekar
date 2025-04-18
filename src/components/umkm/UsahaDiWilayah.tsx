@@ -21,10 +21,8 @@ function totalUsaha(data: desaKecamatanChartType) {
 }
 
 export default function UsahaDiWilayah({ resultData }: { resultData?: umkmDataType }) {
-
     const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
     const [dataTodisplay, setDataToDisplay] = useState<any>()
-
 
     useEffect(() => {
         const idTimeout = setTimeout(() => {
@@ -53,29 +51,6 @@ export default function UsahaDiWilayah({ resultData }: { resultData?: umkmDataTy
         return () => clearTimeout(idTimeout)
     }, [search])
 
-    const listKecamatan = resultData?.list_kecamatan.map(d => {
-        return <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>
-    })
-
-    const listDesa = resultData?.list_desa.map(d => {
-        if (d.k3 === search.kecamatan) return <option key={d.kode_wilayah} value={d.k4}>{d.nama_deskel}</option>
-    })
-
-    const pencarianChangeEvenet = (e: any) => {
-        setSearch(p => ({ ...p, text: e.target.value }))
-    }
-
-    const kecamatanChangeEvent = (e: any) => {
-        setSearch(p => ({ ...p, kecamatan: e.target.value, desa: "" }))
-    }
-
-    const desaChangeEvent = (e: any) => {
-        setSearch(p => ({ ...p, desa: e.target.value }))
-    }
-
-
-    console.log(resultData);
-
 
     return <div className="bg-white rounded p-4 flex flex-col h-[600px]">
         <div className="flex items-center justify-between">
@@ -84,18 +59,18 @@ export default function UsahaDiWilayah({ resultData }: { resultData?: umkmDataTy
         </div>
         <div className="flex gap-x-5 pt-2">
             <div className="flex relative">
-                <input onChange={pencarianChangeEvenet} type="text" placeholder="Cari Desa/Kelurahan..." className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-full outline-none pl-2 pr-10 py-1" />
+                <input onChange={e => setSearch(p => ({ ...p, text: e.target.value }))} type="text" placeholder="Cari Desa/Kelurahan..." className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-full outline-none pl-2 pr-10 py-1" />
                 <BiSearch className="absolute right-2 top-1/2 -translate-y-1/2 size-6 fill-slate-600" />
             </div>
 
-            <select onChange={kecamatanChangeEvent} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
+            <select onChange={e => setSearch(p => ({ ...p, kecamatan: e.target.value, desa: "" }))} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
                 <option value="">Semua Kecamatan</option>
-                {listKecamatan}
+                {resultData?.list_kecamatan.map(d => <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>)}
             </select>
 
-            <select onChange={desaChangeEvent} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
+            <select onChange={e => setSearch(p => ({ ...p, desa: e.target.value }))} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
                 <option value="">Semua Desa</option>
-                {listDesa}
+                {resultData?.list_desa.map(d => { if (d.k3 === search.kecamatan) return <option key={d.kode_wilayah} value={d.k4}>{d.nama_deskel}</option> })}
             </select>
         </div>
         <div className="h-full">
