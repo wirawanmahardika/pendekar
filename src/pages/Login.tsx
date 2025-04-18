@@ -71,7 +71,7 @@ export default function Login() {
                 <div className="border-l-3 rounded-xl border-white"></div>
 
                 <div className="flex flex-col gap-y-2">
-                    <span className="text-white text-lg font-semibold">{STRINGS[KODE_SLUG].nama}</span>
+                    <span className="text-white text-lg font-semibold">{STRINGS[KODE_SLUG].title}</span>
                     <span className="text-white text-lg font-semibold">{STRINGS[KODE_SLUG].kabkota}</span>
                 </div>
             </div>
