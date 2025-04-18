@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ringkasanPerencanaanType } from "../../types/PerencanaanTypes";
+import { BASE_API_URL } from "../../utils/api";
 
 const MonitoringPerencanaan = () => {
   const [monitoringData, setMonitoringData] =
@@ -8,7 +9,7 @@ const MonitoringPerencanaan = () => {
 
   useEffect(() => {
     axios
-      .get(`https://ketapangkab.pendekar.digides.id/api/perencanaan/`, {
+      .get(`${BASE_API_URL}perencanaan`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then(({ data }) => {
