@@ -83,3 +83,13 @@ export type DaftarKelengkapanDokumenSelectedFilterType = {
   kecamatan: string,
   desa: string
 }
+
+export type KecamatanOption = {
+  k3: string;
+  kecamatan: string;
+}
+
+export type DesaOption = {
+  k4: string;
+  deskel: string;
+}
