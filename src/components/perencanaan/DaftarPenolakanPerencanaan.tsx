@@ -22,11 +22,11 @@ const DaftarPenolakanPerencanaan = () => {
   const [selectedDesa, setSelectedDesa] = useState("");
   const [selectedProgress, setSelectedProgress] = useState("");
 
-  console.log("selected desa", selectedDesa )
+  // console.log("selected desa", selectedDesa )
 
-  console.log("desa option", desaOptions)
+  // console.log("desa option", desaOptions)
 
-  
+
 
   const fetchDaftarDesa = () => {
     AxiosAuth.get(`${BASE_API_URL}perencanaan/GetDaftarDesa`)
@@ -38,11 +38,11 @@ const DaftarPenolakanPerencanaan = () => {
       });
   };
 
-  console.log("semua data", allData)
+  // console.log("semua data", allData)
 
 
   const fetchOptions = (Optiontype: string) => {
-    const reqBody = qs.stringify({ type : Optiontype })
+    const reqBody = qs.stringify({ type: Optiontype })
 
     AxiosAuth.post(`${BASE_API_URL}perencanaan/GetOption`, reqBody, {
       headers: {
@@ -55,14 +55,14 @@ const DaftarPenolakanPerencanaan = () => {
             setTahunOptions(res.data.data);
             break;
           case "kecamatan":
-            setKecamatanOptions(res.data.data );
+            setKecamatanOptions(res.data.data);
             break;
-            case "deskel":
-              const sortedDesa = res.data.data.sort((a: DesaOption, b: DesaOption) =>
-                a.deskel.localeCompare(b.deskel)
-              );
-              setDesaOptions(sortedDesa);
-              break;
+          case "deskel":
+            const sortedDesa = res.data.data.sort((a: DesaOption, b: DesaOption) =>
+              a.deskel.localeCompare(b.deskel)
+            );
+            setDesaOptions(sortedDesa);
+            break;
             break;
           default:
             break;
@@ -73,12 +73,13 @@ const DaftarPenolakanPerencanaan = () => {
       });
   };
 
-  console.log(desaOptions)
+  // console.log(desaOptions)
+
 
 
   useEffect(() => {
     fetchDaftarDesa();
-    fetchOptions("deskel"); 
+    fetchOptions("deskel");
     fetchOptions("tahun");
     fetchOptions("kecamatan");
   }, []);
@@ -98,21 +99,22 @@ const DaftarPenolakanPerencanaan = () => {
         if (selectedProgress === "76-100%") return progress > 75;
         return true;
       })();
-  
+
       return (
         matchesKecamatan && matchesDesa && matchesProgress
       );
     });
   }, [allData, selectedKecamatan, selectedDesa, selectedProgress]);
-  
+
 
   const handleTahunChange = (e: any) => {
     setSelectedTahun(e.target.value);
   };
+  console.log(resultData);
 
   const handleKecamatanChange = (e: any) => {
     setSelectedKecamatan(e.target.value);
-    setSelectedDesa(""); 
+    setSelectedDesa("");
   };
 
   const handleDesaChange = (e: any) => {

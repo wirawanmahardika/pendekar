@@ -16,15 +16,14 @@ export default function Wisata() {
 
     const [loading, setIsLoading] = useState(false)
     const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`, setIsLoading)
-    if (loading) return <LoadingDots />
-
+    
     const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
     const [dataTodisplay, setDataToDisplay] = useState<wisataCardType[]>()
 
     useEffect(() => {
         AxiosAuth
-            .get(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`)
-            .then((result) => setDataToDisplay(result.data.data.list_wisata))
+        .get(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`)
+        .then((result) => setDataToDisplay(result.data.data.list_wisata))
             .catch((error) => alert(error.message))
     }, [])
 
@@ -34,10 +33,11 @@ export default function Wisata() {
             if (search.kecamatan) status = status && lb.k3 === search.kecamatan
             if (search.desa) status = status && lb.k4 === search.desa
             if (search.text) status = status && lb.nama_deskel.toLowerCase().includes(search.text.toLowerCase())
-            return status
+                return status
         })
         setDataToDisplay(listWisata)
     }, [search])
+    if (loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
         <PageTitle title="WISATA DESA" last_updated={resultData?.last_updated} />
