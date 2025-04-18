@@ -15,38 +15,34 @@ export default function ProfilDesa() {
   useTitle('Profile Desa')
   useAuth()
 
-  const [search, setSearch] = useState({ text: "", kecamatan: "" })
+  const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
   const [dataTodisplay, setDataToDisplay] = useState<desaProfilDesa[]>()
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const resultData = useGetResultData<profilDesaDataType>(`${BASE_API_URL}profil?k3=&k4=&search=`, setIsLoading);
 
+  useEffect(() => {
+    AxiosAuth
+      .get(`${BASE_API_URL}profil?k3=&k4=&search=`)
+      .then((result) => setDataToDisplay(result.data.data.list_desa))
+      .catch((error) => alert(error.message))
+  }, []);
 
   useEffect(() => {
-    const idTimeout = setTimeout(() => {
-      AxiosAuth
-        .get(`${BASE_API_URL}profil?k3=${search.kecamatan}&k4=&search=${search.text}`)
-        .then((result) => {
-          const data = result.data.data;
-          setDataToDisplay(data.list_desa)
-        })
-        .catch((error) => {
-          alert(error.message);
-        })
+    const listDesa = resultData?.list_desa.filter(lb => {
+      let status: boolean = true;
+      if (search.kecamatan) status = status && lb.k3 === search.kecamatan
+      if (search.desa) status = status && lb.k4 === search.desa
+      if (search.text) status = status && lb.nama_deskel.toLowerCase().includes(search.text.toLowerCase())
+      return status
+    })
+    setDataToDisplay(listDesa)
+  }, [search])
 
-    }, 500);
-    return () => clearTimeout(idTimeout)
-  }, [search]);
-  
-  
+
   if (isLoading) return <LoadingDots />;
 
-
-  const listKecamatan = resultData?.list_kecamatan.map(d => {
-    return <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>
-  })
-
   return <div className="px-4 py-10">
-    <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={ resultData?.last_updated}/>
+    <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={resultData?.last_updated} />
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex gap-x-5 pt-2">
         <div className="flex relative">
@@ -54,9 +50,19 @@ export default function ProfilDesa() {
           <BiSearch className="absolute right-2 top-1/2 -translate-y-1/2 size-6 fill-slate-600" />
         </div>
 
-        <select onChange={(e: any) => setSearch(prev => ({ ...prev, kecamatan: e.target.value }))} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
+        <select onChange={(e: any) => setSearch(prev => ({ ...prev, kecamatan: e.target.value, desa: "" }))} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
           <option value={""}>Semua Kecamatan</option>
-          {listKecamatan}
+          {resultData?.list_kecamatan.map(d => <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>)}
+        </select>
+
+        <select onChange={(e: any) => setSearch(prev => ({ ...prev, desa: e.target.value }))} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
+
+          <option value={""}>Semua Desa</option>
+          {search.kecamatan && resultData?.list_desa.map(d => {
+            if (d.k3 !== search.kecamatan) return;
+            return <option key={d.kode_wilayah} value={d.k4}>{d.nama_deskel}</option>
+          })}
+
         </select>
       </div>
 
