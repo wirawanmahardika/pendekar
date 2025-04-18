@@ -33,7 +33,7 @@ export default function Login() {
 
     return <div className="h-screen w-full grid lg:grid-cols-2 bg-gray-100 relative ">
         <div className="flex flex-col justify-center items-center w-4/5 mx-auto">
-            <img src="https://cdn.digitaldesa.com/statics/landing/homepage/media/misc/favicon/digides.png" alt="digides" className="w-28 mr-auto mb-10" />
+            <img src="https://cdn.digitaldesa.com/statics/landing/homepage/media/misc/favicon/digides.png" alt="digides" className="w-32 mx-auto mb-10" />
             <h2 className="capitalize text-2xl font-semibold text-gray-700 text-center">{STRINGS[KODE_SLUG].desc}</h2>
             <form onSubmit={loginHandler} className="flex flex-col gap-y-3 mt-9 justify-start w-full">
                 <span className="font-semibold text-3xl text-gray-800">Masuk Akun</span>
