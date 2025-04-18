@@ -33,7 +33,10 @@ export default function Sidebar() {
             ]} />
             <Nav text="Profil Desa" url="profil-desa" icon={<GiVillage className="p-0 size-5" />} />
             <Nav text="Bansos" url="bansos" icon={<FaHandsHelping className="p-0 size-5" />} />
-            <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />
+            {
+                KODE_SLUG === "ketapangkab" &&
+                <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />
+            }
         </nav >
     </div >
 }
