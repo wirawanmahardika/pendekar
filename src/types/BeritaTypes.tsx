@@ -1,7 +1,7 @@
 export type beritaDataType = {
     last_updated: Date;
     list_desa: any[];
-    list_wisata: any[];
+    list_berita: any[];
     list_kecamatan: any[];
 }
 
