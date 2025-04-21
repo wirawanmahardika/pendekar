@@ -1,7 +1,12 @@
+import { useRouteError } from "react-router-dom";
 import HeadHtml from "../components/HeadHtml";
 import { notFoundStyle } from "../utils/themeSetting";
 
 const NotFound = () => {
+  const error  = useRouteError()
+  console.log(error);
+  
+
   return (
     <div className=" flex items-center justify-center h-screen" style={notFoundStyle}>
       <HeadHtml title="NOT FOUND" />

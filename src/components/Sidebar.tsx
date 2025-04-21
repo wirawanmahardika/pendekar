@@ -74,8 +74,8 @@ function NavWithSubNav(
 
         <motion.div initial={{ height: 0 }} animate={{ height: isOpen ? height : 0 }} className="overflow-hidden -my-3 w-full flex flex-col pl-5 gap-y-3">
             {
-                subNavs.map(nav => {
-                    return <NavLink to={nav.url} className="flex gap-x-2 items-center">
+                subNavs.map((nav, i) => {
+                    return <NavLink key={i} to={nav.url} className="flex gap-x-2 items-center">
                         <FaRegCircle className="size-3" />
                         <span className="text-sm">{nav.text}</span>
                     </NavLink>
