@@ -85,7 +85,7 @@ const MonitoringPerencanaan = () => {
             </div>
           </div>
 
-          <div className="bg-[#AEDDF5] flex flex-col border rounded shadow-md">
+          <div className="bg-[#AEDDF5] flex flex-col rounded shadow-md">
             <div className="flex flex-col p-3 w-full gap-y-2">
               <span className="font-bold">Status Perencanaan</span>
               <div className="flex justify-around w-full mt-2">
@@ -170,7 +170,7 @@ const MonitoringPerencanaan = () => {
             </div>
           </div>
 
-          <div className="bg-[#AEDDF5] flex flex-col border p-5 rounded shadow-md gap-y-3">
+          <div className="bg-[#AEDDF5] flex flex-col p-5 rounded shadow-md gap-y-3">
             <span className="font-bold">Persentase Dokumen Yang Diunggah</span>
 
             <div className="flex justify-between">

@@ -65,6 +65,7 @@ export type KelengkapanDokumen = {
   rpjmdes: boolean;
   rkpdes: boolean;
   apbdes: boolean;
+  tahun: string;
   progress: number;
 }
 
