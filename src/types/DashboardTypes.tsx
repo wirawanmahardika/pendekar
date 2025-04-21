@@ -120,3 +120,13 @@ export type idmDataTypes = {
     SKOR: string | null;
   }[],
 }
+
+export type sdgsDataTypes = {
+  average: number;
+  data: {
+    goals: number;
+    image: string;
+    score: number;
+    title: string;
+  }[]
+}
