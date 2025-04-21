@@ -1,6 +1,5 @@
 import { BiSearch } from "react-icons/bi";
 import PageTitle from "../components/PageTitle";
-import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { BASE_API_URL } from "../utils/api";
@@ -9,10 +8,10 @@ import TabelDesaKecamatan from "../components/profilDesa/TableDesaKecamatan";
 import { AxiosAuth } from "../utils/axios";
 import LoadingDots from "../components/LoadingDots";
 import useGetResultData from "../hooks/useGetResultData";
+import HeadHtml from "../components/HeadHtml";
 
 
 export default function ProfilDesa() {
-  useTitle('Profile Desa')
   useAuth()
 
   const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
@@ -42,6 +41,7 @@ export default function ProfilDesa() {
   if (isLoading) return <LoadingDots />;
 
   return <div className="px-4 py-10">
+    <HeadHtml title="Profil Desa" />
     <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={resultData?.last_updated} />
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex gap-x-5 pt-2">

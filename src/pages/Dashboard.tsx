@@ -7,16 +7,15 @@ import Potensi from "../components/dashboard/Potensi";
 import DataStunting from "../components/dashboard/DataStunting";
 import JumlahStuntingDiDesaKelurahan from "../components/dashboard/JumlahStuntingDiDesaKelurahan";
 import PageTitle from "../components/PageTitle";
-import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
 import useGetResultData from "../hooks/useGetResultData";
 import { BASE_API_URL } from "../utils/api";
 import { dashboardResultDataType } from "../types/DashboardTypes";
 import { useState } from "react";
 import LoadingDots from "../components/LoadingDots";
+import HeadHtml from "../components/HeadHtml";
 
 export default function Dashboard() {
-  useTitle("Dashboard");
   useAuth();
 
   const [loading, setIsLoading] = useState(false);
@@ -28,6 +27,8 @@ export default function Dashboard() {
 
   return (
     <div className="px-4 py-10">
+      <HeadHtml title="Dashboard" />
+
       <PageTitle title="Dashboard" last_updated={resultData?.last_updated} />
 
       <FlashNews resultData={resultData} />

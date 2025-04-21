@@ -1,15 +1,14 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import useTitle from "../hooks/useTitle";
 import PageTitle from "../components/PageTitle";
 import { BASE_API_URL } from "../utils/api";
 import AdministrasiDataCard from "../components/administrasi/AdministrasiViewFilterAndCard";
 import AdministrasiDataTable from "../components/administrasi/AdministrasiDataTable";
 import LoadingDots from "../components/LoadingDots";
+import HeadHtml from "../components/HeadHtml";
 
 export default function AdministrasiUmum() {
-  useTitle("Administrasi Umum");
   const [administrationData, setAdministrationData] = useState();
   const [administrationTypes, setAdministrationTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +20,7 @@ export default function AdministrasiUmum() {
       .get(`${BASE_API_URL}administrasi-umum?k3=&k4=`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
-      .then(({ data: result}) => {
+      .then(({ data: result }) => {
         const data = result.data;
         setAdministrationData(data);
         setAdministrationTypes(data.jenis_administrasi);
@@ -36,9 +35,10 @@ export default function AdministrasiUmum() {
   if (isLoading) return <LoadingDots />;
   return (
     <div className="px-4 py-10">
+      <HeadHtml title="Administrasi Umum" />
       <PageTitle title="Administrasi Umum" last_updated={lastUpdated || ''} />
       {administrationData && <AdministrasiDataCard administrationData={administrationData} />}
-      {administrationData && <AdministrasiDataTable administrationData={administrationData} administrationTypes={administrationTypes}/>}
+      {administrationData && <AdministrasiDataTable administrationData={administrationData} administrationTypes={administrationTypes} />}
     </div>
   );
 }

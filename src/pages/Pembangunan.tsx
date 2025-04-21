@@ -4,11 +4,11 @@ import TabNavigation from "../components/pembangunan/TabNavigation";
 import { APBDesSection } from "../components/pembangunan/APBDesSection";
 import ProposalSection from "../components/pembangunan/ProposalSection";
 import RKPSection from "../components/pembangunan/RKPSection";
-import useTitle from "../hooks/useTitle";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import { BASE_API_URL, getApiToken } from "../utils/api";
 import LoadingDots from "../components/LoadingDots";
+import HeadHtml from "../components/HeadHtml";
 
 const Pembangunan = () => {
   useAuth();
@@ -17,7 +17,6 @@ const Pembangunan = () => {
   const [modeKeuangan, setModeKeuangan] = useState("apbdes");
   const [lastUpdated, setLastUpdated] = useState("");
   
-  useTitle("Pembangunan");
   useEffect(() => {
     // dynamic data fetch in here
     axios
@@ -47,6 +46,7 @@ const Pembangunan = () => {
   if (loading || !resultData) return <LoadingDots />;
   return (
     <div className="px-4 py-10">
+      <HeadHtml title="Pembangunan" />
       <PageTitle title={"Pembangunan"} last_updated={lastUpdated} />
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-100 mb-8">

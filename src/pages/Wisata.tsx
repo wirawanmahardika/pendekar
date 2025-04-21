@@ -2,28 +2,27 @@ import { BiSearch } from "react-icons/bi";
 import ExportReportButton from "../components/ExportReportButton";
 import PageTitle from "../components/PageTitle";
 import useAuth from "../hooks/useAuth";
-import useTitle from "../hooks/useTitle";
 import { useEffect, useState } from "react";
 import { AxiosAuth } from "../utils/axios";
 import { BASE_API_URL } from "../utils/api";
 import useGetResultData from "../hooks/useGetResultData";
 import { wisataCardType, wisataDataType } from "../types/WisataTypes";
 import LoadingDots from "../components/LoadingDots";
+import HeadHtml from "../components/HeadHtml";
 
 export default function Wisata() {
     useAuth()
-    useTitle('Wisata')
 
     const [loading, setIsLoading] = useState(false)
     const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`, setIsLoading)
-    
+
     const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
     const [dataTodisplay, setDataToDisplay] = useState<wisataCardType[]>()
 
     useEffect(() => {
         AxiosAuth
-        .get(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`)
-        .then((result) => setDataToDisplay(result.data.data.list_wisata))
+            .get(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`)
+            .then((result) => setDataToDisplay(result.data.data.list_wisata))
             .catch((error) => alert(error.message))
     }, [])
 
@@ -33,13 +32,14 @@ export default function Wisata() {
             if (search.kecamatan) status = status && lb.k3 === search.kecamatan
             if (search.desa) status = status && lb.k4 === search.desa
             if (search.text) status = status && lb.nama_deskel.toLowerCase().includes(search.text.toLowerCase())
-                return status
+            return status
         })
         setDataToDisplay(listWisata)
     }, [search])
     if (loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
+        <HeadHtml title="Wisata" />
         <PageTitle title="WISATA DESA" last_updated={resultData?.last_updated} />
 
         <div className="flex mt-9 flex-col">

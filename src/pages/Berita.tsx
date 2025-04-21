@@ -8,11 +8,10 @@ import useGetResultData from "../hooks/useGetResultData";
 import { beritaCardType, beritaDataType } from "../types/BeritaTypes";
 import ListBerita from "../components/berita/ListBerita";
 import LoadingDots from "../components/LoadingDots";
-import useTitle from "../hooks/useTitle";
+import HeadHtml from "../components/HeadHtml";
 
 export default function Berita() {
     useAuth()
-    useTitle("Berita")
 
     const [loading, setIsLoading] = useState(false)
     const resultData = useGetResultData<beritaDataType>(`${BASE_API_URL}berita?k3=&k4=&search=&limit=`, setIsLoading)
@@ -41,6 +40,8 @@ export default function Berita() {
     if (loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
+        <HeadHtml title="Berita" />
+
         <PageTitle title="BERITA" last_updated={resultData?.last_updated} />
 
         <div className="flex mt-9 flex-col bg-white p-4 rounded shadow">

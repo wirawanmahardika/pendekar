@@ -2,12 +2,9 @@ import { FaMessage } from "react-icons/fa6";
 import StatusChanger from "./StatusChanger";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
-import { AxiosAuth } from "../../utils/axios";
-import { BASE_API_URL } from "../../utils/api";
 import { dataToDisplayPerencanaanType, TabelDokumenDanPerencanaanDesaFilterType, TabelDokumenDanPerencanaanDesaSelectedFilterType } from "../../types/PerencanaanTypes";
 
-export default function TabelDokumenDanPerencanaanDesa() {
-    const [resultData, setResultData] = useState<dataToDisplayPerencanaanType>()
+export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultData: dataToDisplayPerencanaanType }) {
     const [dataToDisplay, setDataToDisplay] = useState<dataToDisplayPerencanaanType>([])
     const [filter, setFilter] = useState<TabelDokumenDanPerencanaanDesaFilterType>({
         tahun: [],
@@ -22,16 +19,12 @@ export default function TabelDokumenDanPerencanaanDesa() {
     })
 
     useEffect(() => {
-        AxiosAuth.get(`${BASE_API_URL}perencanaan/GetTabelDokumen`)
-            .then(res => {
-                setDataToDisplay(res.data.data);
-                setResultData(res.data.data);
+        setDataToDisplay(resultData);
 
-                const tahun = [... new Set(res.data.data.map((d: any) => d.tahun))] as string[]
-                const kecamatan = [... new Set(res.data.data.map((d: any) => d.kecamatan))] as string[]
-                const desa = [... new Set(res.data.data.map((d: any) => d.desa))] as string[]
-                setFilter({ tahun, kecamatan, desa })
-            })
+        const tahun = [... new Set(resultData.map((d: any) => d.tahun))] as string[]
+        const kecamatan = [... new Set(resultData.map((d: any) => d.kecamatan))] as string[]
+        const desa = [... new Set(resultData.map((d: any) => d.desa))] as string[]
+        setFilter({ tahun, kecamatan, desa })
     }, [])
 
     const filterTahunChange = (e: any) => {
@@ -126,7 +119,7 @@ export default function TabelDokumenDanPerencanaanDesa() {
                                 <div className="flex justify-around items-center">
                                     <StatusChanger data={d} defaultStatus={d.status} />
                                     <FaMessage onClick={() => {
-                                        if(d.status !== 'Ditolak') return;
+                                        if (d.status !== 'Ditolak') return;
                                         Swal.fire({
                                             title: "Komentar",
                                             text: d.komentar,

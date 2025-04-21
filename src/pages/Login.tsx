@@ -1,14 +1,13 @@
 import { useState } from "react"
-import useTitle from "../hooks/useTitle"
 import { STRINGS } from "../utils/strings"
 import { BASE_API_URL, KODE_SLUG } from "../utils/api"
 import KetapangLoginPage from "../components/login/KetapangKabLogin"
 import { AxiosAuth } from "../utils/axios"
 import { useNavigate } from "react-router-dom"
+import HeadHtml from "../components/HeadHtml"
 
 
 export default function Login() {
-    useTitle("Login")
     const [showPass, setShowPass] = useState(false)
     const [error, setError] = useState('')
     const navigate = useNavigate()
@@ -32,6 +31,8 @@ export default function Login() {
     };
 
     return <div className="h-screen w-full grid lg:grid-cols-2 bg-gray-100 relative ">
+        <HeadHtml title="Login" />
+
         <div className="flex flex-col justify-center items-center w-4/5 mx-auto">
             <img src="https://cdn.digitaldesa.com/statics/landing/homepage/media/misc/favicon/digides.png" alt="digides" className="w-32 mx-auto mb-10" />
             <h2 className="capitalize text-2xl font-semibold text-gray-700 text-center">{STRINGS[KODE_SLUG].desc}</h2>

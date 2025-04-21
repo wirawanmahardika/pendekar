@@ -3,8 +3,10 @@ import { DesaOption, KecamatanOption, KelengkapanDokumenType } from "../../types
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
 import qs from 'qs';
+import { loadingDotsColors } from "../../utils/themeSetting";
 
 const DaftarPenolakanPerencanaan = () => {
+  const [loading, setLoading] = useState(true)
   const [allData, setAllData] = useState<KelengkapanDokumenType>([]);
   const [tahunOptions, setTahunOptions] = useState([]);
   const [kecamatanOptions, setKecamatanOptions] = useState<KecamatanOption[]>([]);
@@ -22,24 +24,12 @@ const DaftarPenolakanPerencanaan = () => {
   const [selectedDesa, setSelectedDesa] = useState("");
   const [selectedProgress, setSelectedProgress] = useState("");
 
-  // console.log("selected desa", selectedDesa )
-
-  // console.log("desa option", desaOptions)
-
-
-
   const fetchDaftarDesa = () => {
     AxiosAuth.get(`${BASE_API_URL}perencanaan/GetDaftarDesa`)
-      .then(({ data }) => {
-        setAllData(data.data || []);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+      .then(({ data }) => setAllData(data.data || []))
+      .catch((error) => alert(error.message))
+      .finally(() => setLoading(false))
   };
-
-  // console.log("semua data", allData)
-
 
   const fetchOptions = (Optiontype: string) => {
     const reqBody = qs.stringify({ type: Optiontype })
@@ -72,10 +62,6 @@ const DaftarPenolakanPerencanaan = () => {
         alert(`Error fetching ${Optiontype}: ${error.message}`);
       });
   };
-
-  // console.log(desaOptions)
-
-
 
   useEffect(() => {
     fetchDaftarDesa();
@@ -110,7 +96,6 @@ const DaftarPenolakanPerencanaan = () => {
   const handleTahunChange = (e: any) => {
     setSelectedTahun(e.target.value);
   };
-  console.log(resultData);
 
   const handleKecamatanChange = (e: any) => {
     setSelectedKecamatan(e.target.value);
@@ -206,8 +191,13 @@ const DaftarPenolakanPerencanaan = () => {
             </th>
           </tr>
         </thead>
+
         <tbody>
-          {resultData?.map((item, index: any) => {
+          {loading ? <tr>
+            <td colSpan={6} className="relative h-20">
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-dots w-16" style={loadingDotsColors}></span>
+            </td>
+          </tr> : resultData?.map((item, index: any) => {
             return (
               <tr key={index}>
                 <td className="border border-neutral-200 px-2 py-3 text-center">

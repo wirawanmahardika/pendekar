@@ -1,8 +1,10 @@
+import HeadHtml from "../components/HeadHtml";
 import { notFoundStyle } from "../utils/themeSetting";
 
 const NotFound = () => {
   return (
     <div className=" flex items-center justify-center h-screen" style={notFoundStyle}>
+      <HeadHtml title="NOT FOUND" />
       <div className="text-center">
         <h1 className="text-9xl font-extrabold text-white">404</h1>
         <p className="text-2xl text-white mt-4">Oops! Page not found.</p>
