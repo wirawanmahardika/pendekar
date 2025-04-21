@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DesaOption,
   KecamatanOption,
@@ -8,7 +8,7 @@ import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
 import { exportReportButtonStyle, loadingDotsColors } from "../../utils/themeSetting";
 
-const DaftarPenolakanPerencanaan = () => {
+const DaftarDesaDanKelengkapanDokumen = () => {
   const [loading, setLoading] = useState(true);
   const [dataTodisplay, setDataToDisplay] = useState<KelengkapanDokumenType>([])
   const [allData, setAllData] = useState<KelengkapanDokumenType>([]);
@@ -28,7 +28,7 @@ const DaftarPenolakanPerencanaan = () => {
   const [selectedDesa, setSelectedDesa] = useState("");
   const [selectedProgress, setSelectedProgress] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 8;
 
   const fetchDaftarDesa = () => {
     const reqBody = {
@@ -39,14 +39,11 @@ const DaftarPenolakanPerencanaan = () => {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })
-      .then(({ data }) => {
-        setAllData(data.data || []);
-      })
+      .then(({ data }) => setAllData(data.data))
       .catch((error) => alert(error.message))
       .finally(() => setLoading(false));
   };
 
-  console.log("data", allData);
   const fetchOptions = (optionType: string) => {
     const reqBody = new URLSearchParams({ type: optionType });
 
@@ -98,8 +95,11 @@ const DaftarPenolakanPerencanaan = () => {
 
       return matchesTahun && matchesKecamatan && matchesDesa && matchesProgress;
     });
+
+    console.log(newData);
+
     setDataToDisplay(newData)
-  }, [currentPage])
+  }, [allData, selectedTahun, selectedKecamatan, selectedDesa, selectedProgress,])
 
   useEffect(() => {
     fetchDaftarDesa();
@@ -161,7 +161,7 @@ const DaftarPenolakanPerencanaan = () => {
 
   // const [currentPage, setCurrentPage] = useState(1);
   // const itemsPerPage = 10;
-  const totalPages = Math.ceil(allData.length / itemsPerPage);
+  const totalPages = Math.ceil(dataTodisplay.length / itemsPerPage);
   const paginatedData = dataTodisplay.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -223,7 +223,7 @@ const DaftarPenolakanPerencanaan = () => {
           onChange={handleProgressChange}
           className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2"
         >
-          <option value="">Filter Progress Perencanaan</option>
+          <option disabled value="">Filter Progress Perencanaan</option>
           {progressOptions.map((progress, index) => (
             <option key={index} value={progress}>
               {progress}
@@ -302,7 +302,7 @@ const DaftarPenolakanPerencanaan = () => {
         </tbody>
       </table>
 
- <div className="flex mt-4 justify-center">
+      <div className="flex mt-4 justify-center">
         <div className="join">
           <button
             style={exportReportButtonStyle}
@@ -357,4 +357,4 @@ const DaftarPenolakanPerencanaan = () => {
   );
 };
 
-export default DaftarPenolakanPerencanaan;
+export default DaftarDesaDanKelengkapanDokumen;

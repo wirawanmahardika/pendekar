@@ -2,13 +2,13 @@ import useAuth from "../hooks/useAuth";
 import PageTitle from "../components/PageTitle";
 import TabelDokumenDanPerencanaanDesa from "../components/perencanaan/TabelDokumenDanPerencanaanDesa";
 import MonitoringPerencanaan from "../components/perencanaan/MonitoringPerencanaan";
-import DaftarPenolakanPerencanaan from "../components/perencanaan/DaftarPenolakanPerencanaan";
 import HeadHtml from "../components/HeadHtml";
 import { useEffect, useState } from "react";
 import LoadingDots from "../components/LoadingDots";
 import { BASE_API_URL } from "../utils/api";
 import { AxiosAuth } from "../utils/axios";
 import { dataToDisplayPerencanaanType } from "../types/PerencanaanTypes";
+import DaftarDesaDanKelengkapanDokumen from "../components/perencanaan/DaftarDesaDanKelengkapanDokumen";
 
 export default function Perencanaan() {
     useAuth()
@@ -29,7 +29,7 @@ export default function Perencanaan() {
             <PageTitle title="Perencanaan" />
 
             <MonitoringPerencanaan />
-            <DaftarPenolakanPerencanaan />
+            <DaftarDesaDanKelengkapanDokumen />
             <TabelDokumenDanPerencanaanDesa resultData={resultData} />
         </div>
     );
