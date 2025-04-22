@@ -1,8 +1,8 @@
 import { FaCircle } from "react-icons/fa";
-import DataStuntingScatterChart from "./charts/DataStuntingScatterChart";
-import ExportReportButton from "../ExportReportButton";
-import { tableHeaderStyle } from "../../utils/themeSetting";
-import { dashboardResultDataType } from "../../types/DashboardTypes";
+import DataStuntingScatterChart from "../charts/DataStuntingScatterChart";
+import ExportReportButton from "../../ExportReportButton";
+import { tableHeaderStyle } from "../../../utils/themeSetting";
+import { dashboardResultDataType } from "../../../types/DashboardTypes";
 
 export default function DataStunting({
   resultData,

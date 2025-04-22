@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { FaChartBar, FaChartLine } from 'react-icons/fa';
-import SkorIDMSekabupatenChart from './charts/SkorIDMSekabupatenCharts';
-import ExportReportButton from '../ExportReportButton';
-import { dashboardResultDataType, skorIdmChartType, skorIdmType } from '../../types/DashboardTypes';
+import SkorIDMSekabupatenChart from '../charts/SkorIDMSekabupatenCharts';
+import ExportReportButton from '../../ExportReportButton';
+import { dashboardResultDataType, skorIdmChartType, skorIdmType } from '../../../types/DashboardTypes';
 
 export default function SkorIDMSekabupaten({resultData}: {resultData?: dashboardResultDataType}) {
     if(!resultData) return;

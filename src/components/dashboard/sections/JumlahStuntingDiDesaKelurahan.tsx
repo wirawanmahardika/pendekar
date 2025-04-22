@@ -1,7 +1,7 @@
 import { BiSearch } from "react-icons/bi";
 import { BsSquareFill } from "react-icons/bs";
-import JumlahStuntingDiDesaKelurahanScatterChart from "./charts/JumlahStuntingDiDesaKelurahanScatterChart";
-import { dashboardResultDataType } from "../../types/DashboardTypes";
+import JumlahStuntingDiDesaKelurahanScatterChart from "../charts/JumlahStuntingDiDesaKelurahanScatterChart";
+import { dashboardResultDataType } from "../../../types/DashboardTypes";
 import { useState, useEffect } from "react";
 
 export default function JumlahStuntingDiDesaKelurahan({

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { dashboardResultDataType } from "../../types/DashboardTypes";
-import { tableHeaderStyle } from "../../utils/themeSetting";
-import ExportReportButton from "../ExportReportButton";
-import { PotensiBarChart, PotensiRadarChart } from "./charts/PotensiCharts";
+import { dashboardResultDataType } from "../../../types/DashboardTypes";
+import { tableHeaderStyle } from "../../../utils/themeSetting";
+import ExportReportButton from "../../ExportReportButton";
+import { PotensiBarChart, PotensiRadarChart } from "../charts/PotensiCharts";
 
 export default function Potensi({ resultData }: { resultData?: dashboardResultDataType}) {
   const [selectedKecamatan, setSelectedKecamatan] = useState<string>("");

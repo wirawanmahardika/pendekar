@@ -1,11 +1,11 @@
 import { BsSquareFill } from "react-icons/bs";
-import ExportReportButton from "../ExportReportButton";
+import ExportReportButton from "../../ExportReportButton";
 import { useState } from "react";
 import {
   dashboardResultDataType,
   OptionsType,
-} from "../../types/DashboardTypes";
-import MapWithPolygons from "./charts/MapGeoData";
+} from "../../../types/DashboardTypes";
+import MapWithPolygons from "../charts/MapGeoData";
 
 export default function CapaianDanPotensi({
   resultData,

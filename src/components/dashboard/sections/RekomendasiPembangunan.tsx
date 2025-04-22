@@ -1,9 +1,9 @@
 import { BiSearch } from "react-icons/bi";
 import { useState, useEffect } from "react";
-import ExportReportButton from "../ExportReportButton";
-import { tableHeaderStyle } from "../../utils/themeSetting";
-import { dashboardResultDataType, idmDataTypes, sdgsDataTypes } from "../../types/DashboardTypes";
-import { CDN_URL } from "../../utils/api";
+import ExportReportButton from "../../ExportReportButton";
+import { tableHeaderStyle } from "../../../utils/themeSetting";
+import { dashboardResultDataType, idmDataTypes, sdgsDataTypes } from "../../../types/DashboardTypes";
+import { CDN_URL } from "../../../utils/api";
 import axios from "axios";
 
 export default function RekomendasiPembangunan({ resultData }: { resultData?: dashboardResultDataType; }) {
@@ -378,23 +378,59 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
           <button onClick={() => setSdgsOpen(false)} className="btn btn-error">Tutup</button>
         </div>
         <div className="p-4 w-full">
-          <div className="flex flex-col items-center gap-y-2 mt-4">
-            <span className="text-3xl font-semibold">{sdgsDatas?.average}</span>
-            <span className="text-xl">Skor SDGs Desa</span>
-          </div>
 
-          <div className="grid grid-cols-6 gap-4 mt-8">
-            {
-              sdgsDatas?.data.map(d => {
-                return <div key={d.goals} className="flex flex-col gap-y-2">
-                  <img src={d.image} alt={d.title} />
-                  <span className="text-center font-semibold text-xl">{d.score}</span>
-                </div>
-              })
-            }
+          <ContentSDGS sdgsDatas={sdgsDatas} />
+        </div>
+      </div>
+
+
+    </>
+  );
+}
+
+function ContentSDGS({ sdgsDatas }: { sdgsDatas?: sdgsDataTypes }) {
+  const [selectedDataForDetail, setSelectedDataForDetail] = useState({
+    goals: 0, image: '', title: '', score: 0, visible: false
+  })
+
+  return selectedDataForDetail.visible ?
+    <>
+      <div className="flex flex-col gap-y-3">
+        <div className="flex">
+          <img src={selectedDataForDetail.image} alt={selectedDataForDetail.image} className="w-32" />
+          <div className="flex flex-col justify-between p-4">
+            <span>{selectedDataForDetail.title}</span>
+            <span className="font-semibold text-5xl">{selectedDataForDetail.score}</span>
           </div>
         </div>
       </div>
+
+      <hr className="w-full border mt-5 border-gray-500" />
+
+      <div className="flex flex-col mt-3 gap-y-2">
+        <span>No recommendation available for this item</span>
+        <button onClick={() => setSelectedDataForDetail(prev => ({ ...prev, visible: false }))} className="btn btn-neutral w-fit px-3">Kembali</button>
+      </div>
+    </> 
+    
+    :
+
+    <>
+      <div className="flex flex-col items-center gap-y-2 mt-4">
+        <span className="text-3xl font-semibold">{sdgsDatas?.average}</span>
+        <span className="text-xl">Skor SDGs Desa</span>
+      </div>
+
+      <div className="grid grid-cols-6 gap-4 mt-8">
+        {
+          sdgsDatas?.data.map(d => {
+            return <div key={d.goals} onClick={() => { setSelectedDataForDetail({ ...d, visible: true }); }} className="flex cursor-pointer flex-col gap-y-2">
+              <img src={d.image} alt={d.title} />
+              <span className="text-center font-semibold text-xl">{d.score}</span>
+            </div>
+          })
+        }
+      </div>
     </>
-  );
+
 }

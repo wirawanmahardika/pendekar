@@ -1,8 +1,8 @@
 
 import { FaCircle } from "react-icons/fa"
-import PetaPerkembanganDesaScatterChart from "./charts/PetaPerkembanganDesaScatterChart"
-import ExportReportButton from "../ExportReportButton"
-import { dashboardResultDataType } from "../../types/DashboardTypes"
+import PetaPerkembanganDesaScatterChart from "../charts/PetaPerkembanganDesaScatterChart"
+import ExportReportButton from "../../ExportReportButton"
+import { dashboardResultDataType } from "../../../types/DashboardTypes"
 
 
 export default function PetaPerkembanganDesa({resultData}: {resultData?: dashboardResultDataType}) {
