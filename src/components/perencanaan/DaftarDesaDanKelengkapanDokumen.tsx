@@ -108,35 +108,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
     fetchOptions("kecamatan");
   }, []);
 
-  // const resultData = useMemo(() => {
-  //   return allData.filter((item) => {
-  //     const matchesTahun = !selectedTahun || item.tahun === selectedTahun;
-  //     const matchesKecamatan =
-  //       !selectedKecamatan || item.kecamatan === selectedKecamatan;
-  //     const matchesDesa = !selectedDesa || item.desa === selectedDesa;
-  //     const matchesProgress = (() => {
-  //       if (!selectedProgress || selectedProgress === "Semua") return true;
-  //       const progress = item.progress ?? 0;
-  //       if (selectedProgress === "0-25%") return progress <= 25;
-  //       if (selectedProgress === "26-50%")
-  //         return progress > 25 && progress <= 50;
-  //       if (selectedProgress === "51-75%")
-  //         return progress > 50 && progress <= 75;
-  //       if (selectedProgress === "76-100%") return progress > 75;
-  //       return true;
-  //     })();
-
-  //     return matchesTahun && matchesKecamatan && matchesDesa && matchesProgress;
-  //   });
-  // }, [
-  //   allData,
-  //   selectedTahun,
-  //   selectedKecamatan,
-  //   selectedDesa,
-  //   selectedProgress,
-  // ]);
-
-
 
   const handleTahunChange = (e: any) => {
     setSelectedTahun(e.target.value);
@@ -159,8 +130,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
     setCurrentPage(1);
   };
 
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const itemsPerPage = 10;
   const totalPages = Math.ceil(dataTodisplay.length / itemsPerPage);
   const paginatedData = dataTodisplay.slice(
     (currentPage - 1) * itemsPerPage,
@@ -302,7 +271,7 @@ const DaftarDesaDanKelengkapanDokumen = () => {
         </tbody>
       </table>
 
-      <div className="flex mt-4 justify-center">
+      <div className={`${loading && "hidden"} flex mt-4 justify-center`}>
         <div className="join">
           <button
             style={exportReportButtonStyle}
