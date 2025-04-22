@@ -2,13 +2,16 @@ import { BiSearch } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import ExportReportButton from "../ExportReportButton";
 import { tableHeaderStyle } from "../../utils/themeSetting";
-import { dashboardResultDataType, idmDataTypes } from "../../types/DashboardTypes";
+import { dashboardResultDataType, idmDataTypes, sdgsDataTypes } from "../../types/DashboardTypes";
 import { CDN_URL } from "../../utils/api";
 import axios from "axios";
 
 export default function RekomendasiPembangunan({ resultData }: { resultData?: dashboardResultDataType; }) {
   const [idmOpen, setIdmOpen] = useState(false)
   const [idmDatas, setIdmDatas] = useState<idmDataTypes>()
+
+  const [sdgsOpen, setSdgsOpen] = useState(false)
+  const [sdgsDatas, setSdgsDatas] = useState<sdgsDataTypes>()
 
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -125,6 +128,16 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
     }
   };
 
+  const fetchRekomendasiSDGS = async (kodeWilayah: string) => {
+    try {
+      const res = await axios.get(`${CDN_URL}statics/sdgs/${kodeWilayah.replace(/\./g, "/")}/skor.json`)
+      setSdgsDatas(res.data);
+      setSdgsOpen(true)
+    } catch (error: any) {
+      alert(error.message || "Something went wrong");
+    }
+  };
+
   return (
     <>
       <div className="p-4 bg-white rounded shadow mt-8">
@@ -207,7 +220,7 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
                     <button onClick={async () => await fetchRekomendasiIDM(desa.kode_wilayah, desa.tahun, desa.nama_deskel)} className="px-3 py-1 bg-sky-200 text-sky-500 rounded-md cursor-pointer">
                       Rekomendasi IDM
                     </button>
-                    <button className="px-3 py-1 bg-sky-200 text-sky-500 rounded-md cursor-pointer">
+                    <button onClick={async () => await fetchRekomendasiSDGS(desa.kode_wilayah)} className="px-3 py-1 bg-sky-200 text-sky-500 rounded-md cursor-pointer">
                       Rekomendasi SDGS
                     </button>
                   </div>
@@ -299,6 +312,7 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
         )}
       </div>
 
+      {/* display rekomendasi idm */}
       <div className={`${!idmOpen && 'hidden'} fixed inset-0 z-[9999] bg-white overflow-y-auto`}>
         <div className="w-full p-5 bg-sky-600 flex justify-between items-center">
           <span className="text-xl text-white font-semibold">[IDM] {idmDatas?.nama_desa}</span>
@@ -330,7 +344,7 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
             <tbody>
               {
                 idmDatas?.rows.map(d => {
-                  if(!d.NO) {
+                  if (!d.NO) {
                     return <tr>
                       <th colSpan={12} className="bg-orange-400 p-3 border-2 border-black text-gray-700">SKOR {d.INDIKATOR} : {d.SKOR}</th>
                     </tr>
@@ -354,6 +368,31 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
               }
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* display rekomendasi sdgs */}
+      <div className={`${!sdgsOpen && 'hidden'} fixed inset-0 z-[9999] bg-white overflow-y-auto`}>
+        <div className="w-full p-5 bg-sky-600 flex justify-between items-center">
+          <span className="text-xl text-white font-semibold">[SDGs]</span>
+          <button onClick={() => setSdgsOpen(false)} className="btn btn-error">Tutup</button>
+        </div>
+        <div className="p-4 w-full">
+          <div className="flex flex-col items-center gap-y-2 mt-4">
+            <span className="text-3xl font-semibold">{sdgsDatas?.average}</span>
+            <span className="text-xl">Skor SDGs Desa</span>
+          </div>
+
+          <div className="grid grid-cols-6 gap-4 mt-8">
+            {
+              sdgsDatas?.data.map(d => {
+                return <div key={d.goals} className="flex flex-col gap-y-2">
+                  <img src={d.image} alt={d.title} />
+                  <span className="text-center font-semibold text-xl">{d.score}</span>
+                </div>
+              })
+            }
+          </div>
         </div>
       </div>
     </>
