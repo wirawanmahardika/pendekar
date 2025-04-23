@@ -6,6 +6,11 @@ export const exportReportButtonStyle = {
     backgroundColor: STRINGS[KODE_SLUG].theme.btn_color,
 }
 
+export const cardAdministrationStyle = {
+    color: STRINGS[KODE_SLUG].theme.text_color,
+    backgroundColor: STRINGS[KODE_SLUG].theme.btn_color
+}
+
 export const pageTitleStyle = {
     title: { color: STRINGS[KODE_SLUG].theme.text_color },
     time: { backgroundColor: STRINGS[KODE_SLUG].theme.background_color }
