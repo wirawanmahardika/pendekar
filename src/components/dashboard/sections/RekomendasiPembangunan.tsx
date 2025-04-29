@@ -1,7 +1,7 @@
 import { BiSearch } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import ExportReportButton from "../../ExportReportButton";
-import { tableHeaderStyle } from "../../../utils/themeSetting";
+import { exportReportButtonStyle, tableHeaderStyle } from "../../../utils/themeSetting";
 import { dashboardResultDataType, idmDataTypes, sdgsDataTypes } from "../../../types/DashboardTypes";
 import { CDN_URL } from "../../../utils/api";
 import axios from "axios";
@@ -217,10 +217,10 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
                 </td>
                 <td className="p-2 border border-gray-300">
                   <div className="flex flex-col gap-y-4">
-                    <button onClick={async () => await fetchRekomendasiIDM(desa.kode_wilayah, desa.tahun, desa.nama_deskel)} className="px-3 py-1 bg-sky-200 text-sky-500 rounded-md cursor-pointer">
+                    <button onClick={async () => await fetchRekomendasiIDM(desa.kode_wilayah, desa.tahun, desa.nama_deskel)} style={exportReportButtonStyle} className="px-3 py-1 bg-sky-200 hover:!bg-neutral-300 text-sky-500 rounded-md cursor-pointer">
                       Rekomendasi IDM
                     </button>
-                    <button onClick={async () => await fetchRekomendasiSDGS(desa.kode_wilayah)} className="px-3 py-1 bg-sky-200 text-sky-500 rounded-md cursor-pointer">
+                    <button onClick={async () => await fetchRekomendasiSDGS(desa.kode_wilayah)} style={exportReportButtonStyle} className="px-3 py-1 bg-sky-200 hover:!bg-neutral-300 text-sky-500 rounded-md cursor-pointer">
                       Rekomendasi SDGS
                     </button>
                   </div>
