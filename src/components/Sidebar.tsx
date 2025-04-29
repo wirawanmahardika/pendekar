@@ -20,7 +20,7 @@ export default function Sidebar() {
         <nav className="flex flex-col mt-10 w-full gap-y-6">
             <span className="font-semibold">MENU</span>
 
-            <Nav text="Dashboard" url="/" icon={<BiSolidDashboard className="p-0 size-5" />} />
+            <Nav text="Dashboard" url="/dashboard" icon={<BiSolidDashboard className="p-0 size-5" />} />
             <NavWithSubNav text="Administrator" icon={<RiAdminLine className="p-0 size-5" />} subNavs={[
                 { text: 'Umum', url: '/umum' },
                 { text: 'Kependudukan', url: '/kependudukan' },

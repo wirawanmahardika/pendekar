@@ -1,12 +1,7 @@
-import { useRouteError } from "react-router-dom";
 import HeadHtml from "../components/HeadHtml";
 import { notFoundStyle } from "../utils/themeSetting";
 
 const NotFound = () => {
-  const error  = useRouteError()
-  console.log(error);
-  
-
   return (
     <div className=" flex items-center justify-center h-screen" style={notFoundStyle}>
       <HeadHtml title="NOT FOUND" />
@@ -17,7 +12,7 @@ const NotFound = () => {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <a
-          href="/"
+          href="/dashboard"
           className="mt-6 inline-block px-6 py-3 bg-white text-black rounded-lg text-lg font-semibold hover:bg-gray-200 transition-colors"
         >
           Go Home
