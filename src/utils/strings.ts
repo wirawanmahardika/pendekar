@@ -1,6 +1,5 @@
 import defaultUser from '../assets/profil/default.png'
 
-
 export const STRINGS: any = {
   ketapangkab: {
     title: "SiCesa",
@@ -18,14 +17,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      background_color: "#0077B2",
-      text_color: "#0077B2",
-      btn_color: "#cddff7",
-      pagination_color: '#0077B2',
-      table_header_color: '#8ec5ff',
-      icon_color: "#0077B2",
-      nav_underline_color: '#0077B2',
-      nav_underline_text_color: '#0077B2'
+      color_deep: "#0077B2",
+      color_normal: "#8ec5ff",
+      color_light: "#cddff7",
+      text_color: "#ffffff",
     }
   },
   enrekangkab: {
@@ -50,14 +45,11 @@ export const STRINGS: any = {
     menu_pengaduan: "hide",
     alternative_style: "assets/css/style.css",
     theme: {
-      background_color: "#3B2D64",
+      color_deep: "#42213D",
+      color_normal: "#6D3764",
+      color_light: "#CFA0C7",
       text_color: "#ffffff",
-      btn_color: "#3B2D64",
-      pagination_color: '#3B2D64',
-      table_header_color: '#3B2D64',
-      icon_color: "#3B2D64",
-      nav_underline_color: '#3B2D64',
-      nav_underline_text_color: '#3B2D64',
+
     },
   },
   luwukab: {
@@ -84,14 +76,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -119,14 +107,10 @@ export const STRINGS: any = {
     menu_pelayanan: "",
     menu_pengaduan: "hide",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -154,14 +138,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -189,14 +169,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -224,15 +200,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#ffffff",
-      pagination_color: '#0077B2',
-      table_header_color: '#8ec5ff',
-      icon_color: "#0077B2",
-      nav_underline_color: '#0077B2',
-      nav_underline_text_color: '#0077B2',
-      alternative: true
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -254,14 +225,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -283,14 +250,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -312,14 +275,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   },
@@ -341,14 +300,10 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "",
     theme: {
-      background_color: "#327A6E",
-      text_color: "#327A6E",
-      btn_color: "#D2EFE9",
-      pagination_color: "#327A6E",
-      table_header_color: "#8FD6C7",
-      icon_color: "#327A6E",
-      nav_underline_color: "#327A6E",
-      nav_underline_text_color: "#327A6E"
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
     },
     alternative_style: "assets/css/alternative-style.css"
   }
