@@ -10,6 +10,8 @@ export default function KetapangLoginPage () {
     const LeftPart = () => {
         const logoKabupaten = STRINGS[KODE_SLUG].logo_kab_url
         const logoApp = STRINGS[KODE_SLUG].logo_dss_url
+        const bupati = STRINGS[KODE_SLUG].nama_user
+        const wakilBupati = STRINGS[KODE_SLUG].nama_user_2
 
         return <div className="justify-center items-center flex flex-col w-full mx-auto relative">
             <div className="flex absolute top-5 left-5 w-full gap-x-4 h-fit">
@@ -17,7 +19,7 @@ export default function KetapangLoginPage () {
                 <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
             </div>
 
-            <div style={loginTextStyle} className="flex relative text-sm gap-x-16 bg-white w-2/3 translate-y-20 justify-evenly font-bold px-3 py-1 rounded">
+            <div style={loginTextStyle} className="flex relative text-sm gap-x-16 bg-white w-5/6 translate-y-20 justify-evenly font-bold px-3 py-1 rounded">
                 <img src="/img/bupati.png" alt="" className="w-7/12 absolute bottom-full left-5" />
                 <img src="/img/wakil.png" alt="" className="w-7/12 absolute bottom-full right-2" />
 
@@ -26,11 +28,11 @@ export default function KetapangLoginPage () {
                 </div>
 
                 <div className="flex flex-col text-center absolute left-[20px] 2xl:left-[65px] 2xl:text-lg">
-                    <span>John Doe Kurniawan S.Pd.</span>
+                    <span>{bupati}</span>
                     <span className="font-normal italic text-xs">Bupati Ketapang</span>
                 </div>
                 <div className="flex flex-col text-center absolute right-[20px] 2xl:right-[80px] 2xl:text-lg">
-                    <span>John Doe S.Pd.</span>
+                    <span>{wakilBupati}</span>
                     <span className="font-normal italic text-xs">Wakil Bupati Ketapang</span>
                 </div>
             </div>

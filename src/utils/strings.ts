@@ -12,6 +12,7 @@ export const STRINGS: any = {
     logo_background_image_login: 'ketapangkab.jpeg',
     nama_user: "Alexander Wilyo, S.STP., M.Si.",
     jabatan_user: "Bupati Ketapang",
+    nama_user_2: "Jamhuri Amir, S.H.",
     logo_user: defaultUser,
     logo_user_2: "/img/wakil.png",
     menu_pelayanan: "hide",
