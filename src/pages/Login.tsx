@@ -24,7 +24,7 @@ export default function Login() {
             if (res.status >= 400) throw new Error('username dan password tidak valid');
             const token = res.data.data.token
             localStorage.setItem('token', token)
-            navigate('/dashboard')
+            navigate('/')
         } catch (error: any) {
             setError(error.message)
         }
