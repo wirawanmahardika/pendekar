@@ -16,9 +16,10 @@ export default function Perencanaan() {
     const [resultData, setResultData] = useState<dataToDisplayPerencanaanType>([])
     const [loading, setLoading] = useState(true)
 
+
     useEffect(() => {
-        AxiosAuth.get(`${BASE_API_URL}perencanaan/GetTabelDokumen`)
-            .then(res => setResultData(res.data.data))
+        AxiosAuth.post(`${BASE_API_URL}perencanaan/GetTabelDokumen`, { limit: 9999 }, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
+            .then(res => { setResultData(res.data.data) })
             .finally(() => setLoading(false))
     }, [])
 
