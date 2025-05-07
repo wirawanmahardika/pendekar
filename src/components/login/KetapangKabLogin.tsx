@@ -4,6 +4,7 @@ import { STRINGS } from "../../utils/strings"
 import { loginFormBacgkroundStyle, loginTextStyle } from "../../utils/themeSetting"
 import { AxiosAuth } from "../../utils/axios"
 import { useNavigate } from "react-router-dom"
+import HeadHtml from "../HeadHtml"
 
 export default function KetapangLoginPage () {
 
@@ -14,6 +15,7 @@ export default function KetapangLoginPage () {
         const wakilBupati = STRINGS[KODE_SLUG].nama_user_2
 
         return <div className="justify-center items-center flex flex-col w-full mx-auto relative">
+            <HeadHtml title="Login" />
             <div className="flex absolute top-5 left-5 w-full gap-x-4 h-fit">
                 <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
                 <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
