@@ -32,7 +32,7 @@ const DaftarDesaDanKelengkapanDokumen = () => {
 
   const fetchDaftarDesa = () => {
     const reqBody = {
-      limit: "9999",
+      limit: 9007199254740990,
     };
     AxiosAuth.post(`${BASE_API_URL}perencanaan/GetDaftarDesa`, reqBody, {
       headers: {

@@ -18,7 +18,7 @@ export default function Perencanaan() {
 
 
     useEffect(() => {
-        AxiosAuth.post(`${BASE_API_URL}perencanaan/GetTabelDokumen`, { limit: 9999 }, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
+        AxiosAuth.post(`${BASE_API_URL}perencanaan/GetTabelDokumen`, { limit: 9007199254740990 }, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
             .then(res => { setResultData(res.data.data) })
             .finally(() => setLoading(false))
     }, [])

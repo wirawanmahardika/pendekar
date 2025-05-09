@@ -93,8 +93,6 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
                 <option value="">Pilih Desa</option>
                 {filter.desa.map(f => <option key={f} value={f}>{f}</option>)}
             </select>
-
-
         </div>
         <TabelWithPagination data={dataToDisplay} />
     </div>
