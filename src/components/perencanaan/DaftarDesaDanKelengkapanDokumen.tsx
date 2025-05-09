@@ -28,7 +28,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
   const [selectedDesa, setSelectedDesa] = useState("");
   const [selectedProgress, setSelectedProgress] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
 
   const fetchDaftarDesa = () => {
     const reqBody = {
@@ -96,8 +95,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
       return matchesTahun && matchesKecamatan && matchesDesa && matchesProgress;
     });
 
-    console.log(newData);
-
     setDataToDisplay(newData)
   }, [allData, selectedTahun, selectedKecamatan, selectedDesa, selectedProgress,])
 
@@ -128,18 +125,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
   const handleProgressChange = (e: any) => {
     setSelectedProgress(e.target.value);
     setCurrentPage(1);
-  };
-
-  const totalPages = Math.ceil(dataTodisplay.length / itemsPerPage);
-  const paginatedData = dataTodisplay.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const changePage = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
   };
 
   return (
@@ -200,32 +185,87 @@ const DaftarDesaDanKelengkapanDokumen = () => {
           ))}
         </select>
       </div>
-      <table className="rounded text-sm w-full mt-4 overflow-hidden">
-        <thead>
-          <tr className="bg-[#AEDDF5] text-gray-700">
-            <th className="border-2 border-gray-100 text-center w-2/12 py-2">
-              Nama Kecamatan
-            </th>
-            <th className="border-2 border-gray-100 text-center w-3/12 py-2">
-              Nama Desa
-            </th>
-            <th className="border-2 border-gray-100 text-center w-1/12 py-2">
-              RPJMDes
-            </th>
-            <th className="border-2 border-gray-100 text-center w-1/12 py-2">
-              RKPDes
-            </th>
-            <th className="border-2 border-gray-100 text-center w-1/12 py-2">
-              APBDes
-            </th>
-            <th className="border-2 border-gray-100 text-center w-4/12 py-2">
-              Progress
-            </th>
-          </tr>
-        </thead>
 
-        <tbody>
-          {loading ? (
+      <TabelWithPagination data={dataTodisplay} loading={loading} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+    </div>
+  );
+};
+
+
+function getPaginationRange(currentPage: number, totalPages: number) {
+  const delta = 1; // jumlah halaman di kiri dan kanan currentPage
+  const range = [];
+  const rangeWithDots = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (
+      i === 1 ||
+      i === totalPages ||
+      (i >= currentPage - delta && i <= currentPage + delta)
+    ) {
+      range.push(i);
+    }
+  }
+
+  let prev = 0;
+  for (let i of range) {
+    if (prev && i - prev !== 1) {
+      rangeWithDots.push("...");
+    }
+    rangeWithDots.push(i);
+    prev = i;
+  }
+
+  return rangeWithDots;
+}
+
+
+function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { data: KelengkapanDokumenType; loading: boolean; currentPage: number; setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const paginatedData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(1)
+  }, [data])
+
+
+  const changePage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  return <>
+    <table className="rounded text-sm w-full mt-4 overflow-hidden">
+      <thead>
+        <tr className="bg-[#AEDDF5] text-gray-700">
+          <th className="border-2 border-gray-100 text-center w-2/12 py-2">
+            Nama Kecamatan
+          </th>
+          <th className="border-2 border-gray-100 text-center w-3/12 py-2">
+            Nama Desa
+          </th>
+          <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+            RPJMDes
+          </th>
+          <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+            RKPDes
+          </th>
+          <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+            APBDes
+          </th>
+          <th className="border-2 border-gray-100 text-center w-4/12 py-2">
+            Progress
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          loading ? (
             <tr>
               <td colSpan={6} className="relative h-20">
                 <span
@@ -234,96 +274,108 @@ const DaftarDesaDanKelengkapanDokumen = () => {
                 ></span>
               </td>
             </tr>
-          ) : (
-            paginatedData?.map((item, index: any) => {
-              return (
-                <tr key={index}>
-                  <td className="border border-neutral-200 px-2 py-3 text-center">
-                    {item.kecamatan}
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center">
-                    {item.desa}
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center">
-                    {item.rpjmdes ? "\u2713" : "\u2716"}
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center">
-                    {item.rkpdes ? "\u2713" : "\u2716"}
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center">
-                    {item.apbdes ? "\u2713" : "\u2716"}
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center">
-                    <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
-                      <div
-                        style={{ width: `${item.progress}%` }}
-                        className="bg-sky-400 h-full"
-                      ></div>
-                      <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">
-                        {item.progress}%
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })
-          )}
-        </tbody>
-      </table>
+          ) :
+          paginatedData?.map((item, index: any) => {
+            return (
+              <tr key={index}>
+                <td className="border border-neutral-200 px-2 py-3 text-center">
+                  {item.kecamatan}
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center">
+                  {item.desa}
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center">
+                  {item.rpjmdes ? "\u2713" : "\u2716"}
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center">
+                  {item.rkpdes ? "\u2713" : "\u2716"}
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center">
+                  {item.apbdes ? "\u2713" : "\u2716"}
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center">
+                  <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
+                    <div
+                      style={{ width: `${item.progress}%` }}
+                      className="bg-sky-400 h-full"
+                    ></div>
+                    <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">
+                      {item.progress}%
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            );
+          })
+        }
 
-      <div className={`${loading && "hidden"} flex mt-4 justify-center`}>
-        <div className="join">
-          <button
-            style={exportReportButtonStyle}
-            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
-            onClick={() => changePage(1)}
-            disabled={currentPage === 1}
-          >
-            {"<<"}
-          </button>
-          <button
-            style={exportReportButtonStyle}
-            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
-            onClick={() => changePage(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            {"<"}
-          </button>
+      </tbody>
+    </table>
 
-          {Array.from({ length: totalPages }).map((_, idx) => {
-            const page = idx + 1;
+    <div className={`flex mt-4 justify-center ${loading && "hidden"}`}>
+      <div className="join">
+        <button
+          style={exportReportButtonStyle}
+          className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
+          onClick={() => changePage(1)}
+          disabled={currentPage === 1}
+        >
+          {"<<"}
+        </button>
+        <button
+          style={exportReportButtonStyle}
+          className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
+          onClick={() => changePage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          {"<"}
+        </button>
+
+        {getPaginationRange(currentPage, totalPages).map((item, index) => {
+          if (typeof item === 'string') {
             return (
               <button
-                key={page}
-                className={`join-item btn ${page === currentPage ? "bg-blue-500 text-white" : "bg-white text-gray-800 disabled:border-black shadow-none"
-                  }`}
-                onClick={() => changePage(page)}
+                key={`ellipsis-${index}`}
+                className="join-item btn border text-gray-400"
               >
-                {page}
+                ...
               </button>
             );
-          })}
+          }
 
-          <button
-            style={exportReportButtonStyle}
-            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
-            onClick={() => changePage(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            {">"}
-          </button>
-          <button
-            style={exportReportButtonStyle}
-            className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
-            onClick={() => changePage(totalPages)}
-            disabled={currentPage === totalPages}
-          >
-            {">>"}
-          </button>
-        </div>
+          return (
+            <button
+              key={item}
+              className={`join-item btn ${item === currentPage
+                ? "bg-blue-500 text-white"
+                : "bg-white text-gray-800 shadow-none"
+                }`}
+              onClick={() => changePage(item)}
+            >
+              {item}
+            </button>
+          );
+        })}
+
+        <button
+          style={exportReportButtonStyle}
+          className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
+          onClick={() => changePage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          {">"}
+        </button>
+        <button
+          style={exportReportButtonStyle}
+          className="join-item btn disabled:!bg-stone-100 disabled:!text-stone-400 text-lg disabled:!cursor-not-allowed text-gray-500  shadow-none"
+          onClick={() => changePage(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          {">>"}
+        </button>
       </div>
     </div>
-  );
-};
+  </>
+}
 
 export default DaftarDesaDanKelengkapanDokumen;
