@@ -163,7 +163,7 @@ function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
             <tbody>
                 {
                     paginatedData.map(d => {
-                        return <tr>
+                        return <tr key={d.desa + d.id_dokumen}>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.kecamatan}</td>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.desa}</td>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.nama_dokumen}</td>
