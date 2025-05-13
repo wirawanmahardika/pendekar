@@ -32,7 +32,7 @@ export const STRINGS: any = {
     slogan: "Tana Rigalla' Tana Riabussungi",
     logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/enrekang.png",
     logo_dss_url: "https://cdn.digitaldesa.com/statics/online/homepage/img/logo_desa_emas_enrekang.svg",
-    logo_background_image_login: 'enrekangkab.jpg',
+    logo_background_image_login: 'enrekangkab.png',
     nama_user: "Dr. H. Baba, SE., MM.",
     nama_user_2: "",
     jabatan_user: "Pj. Bupati Enrekang",
@@ -46,7 +46,7 @@ export const STRINGS: any = {
     menu_pengaduan: "hide",
     alternative_style: "assets/css/style.css",
     theme: {
-      color_deep: "#42213D",
+      color_deep: "#6b1fd1",
       color_normal: "#6D3764",
       color_light: "#CFA0C7",
       text_color: "#ffffff",

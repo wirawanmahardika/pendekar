@@ -63,7 +63,7 @@ export default function Login() {
 
         <div
             className="hidden lg:flex justify-center items-center flex-col w-full mx-auto relative bg-cover bg-center"
-            style={{ backgroundColor: "#643ae1" }}
+            style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}
         >
             <div className="flex z-20 absolute left-3 top-3 xl:top-5 xl:left-5 w-3/4 gap-x-4 h-fit">
                 <img src={STRINGS[KODE_SLUG].logo_kab_url} alt="logo-ketapang" className={`${!STRINGS[KODE_SLUG].logo_kab_url && 'hidden'} w-14 xl:w-16`} />
