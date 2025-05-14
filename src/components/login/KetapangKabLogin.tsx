@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { BASE_API_URL, KODE_SLUG } from "../../utils/api"
+import { BASE_API_URL, CDN_URL, KODE_SLUG } from "../../utils/api"
 import { STRINGS } from "../../utils/strings"
 import { loginFormBacgkroundStyle, loginTextStyle } from "../../utils/themeSetting"
 import { AxiosAuth } from "../../utils/axios"
@@ -67,7 +67,7 @@ export default function KetapangLoginPage () {
             <div className="flex absolute left-9 top-9 gap-x-4">
                 <img
                     className="size-14"
-                    src="https://cdn.digitaldesa.com/statics/landing/homepage/media/misc/favicon/digides.png"
+                    src={`${CDN_URL}statics/landing/homepage/media/misc/favicon/digides.png`}
                     alt="digides-logo"
                 />
                 <div className="border-l-2 border-white"></div>

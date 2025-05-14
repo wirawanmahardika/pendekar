@@ -1,15 +1,16 @@
 import { BsFillSignTurnRightFill } from "react-icons/bs"
 import { umkmProdukDesaStyle } from "../../utils/themeSetting"
 import { umkmCardType } from "../../types/umkmTypes"
+import { CDN_URL } from "../../utils/api"
 
 const ProdukCard = ({ data }: { data: umkmCardType }) => {
     return <div className="flex bg-white rounded p-5 shadow gap-x-3 items-center">
         <div className="w-1/2 relative">
             <img
-                // src="https://cdn.digitaldesa.com/uploads/marketplace/products/dbc9d16b76ad7eed18cf741223a5b9a8.jpg"
-                src={`https://cdn.digitaldesa.com/uploads/marketplace/products/${data.foto}`}
-                alt="produk" 
-                className="rounded-l-lg" 
+                // src="${CDN_URL}uploads/marketplace/products/dbc9d16b76ad7eed18cf741223a5b9a8.jpg"
+                src={`${CDN_URL}uploads/marketplace/products/${data.foto}`}
+                alt="produk"
+                className="rounded-l-lg"
             />
             <span style={umkmProdukDesaStyle.category} className="text-center px-2 py-1 rounded-tl-sm text-white absolute rounded-br-sm top-0 left-0 text-[10px]">{data.tipe_usaha}</span>
         </div>

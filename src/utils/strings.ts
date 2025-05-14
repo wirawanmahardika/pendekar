@@ -1,4 +1,5 @@
 import defaultUser from '../assets/profil/default.png'
+import { CDN_URL } from './api';
 
 export const STRINGS: any = {
   ketapangkab: {
@@ -7,7 +8,7 @@ export const STRINGS: any = {
     nama: "SiCesa",
     kabkota: "Kabupaten Ketapang",
     slogan: "",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/ketapangkab.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/ketapangkab.png",
     logo_dss_url: '/img/logo/sicesa.png',
     logo_background_image_login: 'ketapangkab.jpeg',
     nama_user: "Alexander Wilyo, S.STP., M.Si.",
@@ -30,12 +31,12 @@ export const STRINGS: any = {
     nama: "Desa Emas",
     kabkota: "Kabupaten Enrekang",
     slogan: "Tana Rigalla' Tana Riabussungi",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/enrekang.png",
-    logo_dss_url: "https://cdn.digitaldesa.com/statics/online/homepage/img/logo_desa_emas_enrekang.svg",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/enrekang.png",
+    logo_dss_url: CDN_URL + "statics/online/homepage/img/logo_desa_emas_enrekang.svg",
     logo_background_image_login: 'enrekangkab.png',
-    nama_user: "Dr. H. Baba, SE., MM.",
+    nama_user: "H. Muh. Yusuf Ritangnga",
     nama_user_2: "",
-    jabatan_user: "Pj. Bupati Enrekang",
+    jabatan_user: "Bupati Enrekang",
     jabatan_user_2: "",
     logo_user: defaultUser,
     logo_user_2: "",
@@ -59,7 +60,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kabupaten Luwu",
     slogan: "Luwu Wanua Mappatuo'e Naewai Alena, Toddo Puli Temmalara Te'bakke Tongengnge",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/luwu.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/luwu.png",
     logo_dss_url: "",
     logo_background_image_login: 'luwukab.jpg',
 
@@ -90,7 +91,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kabupaten Mamasa",
     slogan: "Mesa Kada Dipotuo, Pantan Kada Dipomate",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/mamasakab.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/mamasakab.png",
     logo_dss_url: "",
     logo_background_image_login: 'mamasakab.jpg',
 
@@ -121,7 +122,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kabupaten Gowa",
     slogan: "Butta Patturioloang",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/gowakab.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/gowakab.png",
     logo_dss_url: "",
     logo_background_image_login: 'gowakab.jpg',
 
@@ -152,7 +153,7 @@ export const STRINGS: any = {
     nama: "Mabello",
     kabkota: "Kabupaten Wajo",
     slogan: "Maradeka Towajoe Ade'na Napopuang",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/wajokab.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/wajokab.png",
     logo_dss_url: "https://i.postimg.cc/XYfS3Cfp/Logo-Mabello1-removebg-preview.png",
     logo_background_image_login: 'wajokab.jpg',
 
@@ -183,7 +184,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kabupaten Konawe",
     slogan: "Berdaya saing, sejahtera, adil, dan berkelanjutan (Konawe Bersahaja)",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/konawekab.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/konawekab.png",
     logo_dss_url: "",
     logo_background_image_login: 'konawekab.jpg',
 
@@ -214,7 +215,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kota Ambon",
     slogan: "Bersatu Manggurebe Maju",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/ambon.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/ambon.png",
     logo_dss_url: "",
     logo_background_image_login: 'ambon.png',
     nama_user: "PENDEKAR",
@@ -239,7 +240,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kecamatan Baguala",
     slogan: "Bersatu Manggurebe Maju",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/ambon.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/ambon.png",
     logo_dss_url: "",
     logo_background_image_login: 'ambon.png',
     nama_user: "KEC.BAGUALA",
@@ -264,7 +265,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kec. Wawotobi, Kab. Konawe",
     slogan: "Konawe Harapan Rakyat",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/konawekab.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/konawekab.png",
     logo_dss_url: "",
     logo_background_image_login: 'ambon.png',
     nama_user: "Harmin Ramba",
@@ -289,7 +290,7 @@ export const STRINGS: any = {
     nama: "PENDEKAR",
     kabkota: "Kec. Wawotobi, Kab. Konawe",
     slogan: "Konawe Harapan Rakyat",
-    logo_kab_url: "https://cdn.digitaldesa.com/uploads/landing/logo-desa/konawekab.png",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/konawekab.png",
     logo_dss_url: "",
     logo_background_image_login: '',
     nama_user: "Harmin Ramba",
