@@ -1,5 +1,5 @@
-export const KODE_SLUG = window.location.hostname.split(".")[0];
-// export const KODE_SLUG = "ketapangkab";
+// export const KODE_SLUG = window.location.hostname.split(".")[0];
+export const KODE_SLUG = "ketapangkab";
 
 export function getSlugType() {
     return KODE_SLUG.includes("-") ? "kecamatan" : "kabupaten";
