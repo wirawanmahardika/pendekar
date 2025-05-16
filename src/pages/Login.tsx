@@ -1,86 +1,111 @@
 import { useState } from "react"
-import { STRINGS } from "../utils/strings"
-import { BASE_API_URL, KODE_SLUG } from "../utils/api"
-import KetapangLoginPage from "../components/login/KetapangKabLogin"
+import { BASE_API_URL } from "../utils/api"
+import { loginFormBacgkroundStyle, loginTextStyle } from "../utils/themeSetting"
 import { AxiosAuth } from "../utils/axios"
 import { useNavigate } from "react-router-dom"
-import HeadHtml from "../components/HeadHtml"
+import DATAS from "../utils/datas"
+import useTitle from "../hooks/useTitle"
 
+export default function KetapangLoginPage () {
+    useTitle("Login")
 
-export default function Login() {
-    const [showPass, setShowPass] = useState(false)
-    const [error, setError] = useState('')
-    const navigate = useNavigate()
-    if (KODE_SLUG === "ketapangkab") return <KetapangLoginPage />
+    const LeftPart = () => {
+        const logoKabupaten = DATAS.logo_kab_url
+        const logoApp = DATAS.logo_dss_url
+        const bupati = DATAS.nama_user
+        const wakilBupati = DATAS.nama_user_2
 
+        return <div className="justify-center items-center flex flex-col w-full mx-auto relative">
+            <div className="flex absolute top-5 left-5 w-full gap-x-4 h-fit">
+                <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
+                <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
+            </div>
 
-    const loginHandler = async (e: any) => {
-        e.preventDefault();
+            <div style={loginTextStyle} className="flex relative text-sm gap-x-16 bg-white w-5/6 translate-y-20 justify-evenly font-bold px-3 py-1 rounded">
+                <img src="/img/bupati.png" alt="" className="w-7/12 absolute bottom-full left-5" />
+                <img src="/img/wakil.png" alt="" className="w-7/12 absolute bottom-full right-2" />
 
-        const form = new FormData(e.target);
-        try {
-            const res = await AxiosAuth.post(BASE_API_URL + "auth/login-post", form)
+                <div className="invisible flex flex-col text-center 2xl:text-lg">
+                    <span>John Doe Kurniawan S.Pd.</span><span className="font-normal italic text-xs">Bupati Ketapang</span>
+                </div>
 
-            if (res.status >= 400) throw new Error('username dan password tidak valid');
-            const token = res.data.data.token
-            localStorage.setItem('token', token)
-            navigate('/')
-        } catch (error: any) {
-            setError(error.message)
-        }
-    };
+                <div className="flex flex-col text-center absolute left-[20px] 2xl:left-[65px] 2xl:text-lg">
+                    <span>{bupati}</span>
+                    <span className="font-normal italic text-xs">Bupati Ketapang</span>
+                </div>
+                <div className="flex flex-col text-center absolute right-[20px] 2xl:right-[80px] 2xl:text-lg">
+                    <span>{wakilBupati}</span>
+                    <span className="font-normal italic text-xs">Wakil Bupati Ketapang</span>
+                </div>
+            </div>
+        </div>
 
-    return <div className="h-screen w-full grid lg:grid-cols-2 bg-gray-100 relative ">
-        <HeadHtml title="Login" />
+    }
 
-        <div className="flex flex-col justify-center items-center w-3/5 m-auto">
-            <img src="/img/logo/logo.png" alt="digides" className="w-16 xl:w-20 mx-auto mb-10" />
-            <h2 className="capitalize mb-3 xl:text-2xl font-semibold text-gray-700 text-center">{STRINGS[KODE_SLUG].desc}</h2>
-            <form onSubmit={loginHandler} className="flex flex-col gap-y-1 mt-5 justify-start w-full">
-                <span className="font-semibold text-xl xl:text-3xl text-gray-800">Masuk Akun</span>
+    const RightPart = () => {
+        const [showPass, setShowPass] = useState(false)
+        const navigate = useNavigate()
+        const [error, setError] = useState('')
+
+        const loginHandler = async (e: any) => {
+            e.preventDefault();
+
+            const form = new FormData(e.target);
+            try {
+                const res = await AxiosAuth.post(BASE_API_URL + "auth/login-post", form)
+
+                if (res.status >= 400) throw new Error('username dan password tidak valid');
+                const token = res.data.data.token
+                localStorage.setItem('token', token)
+                navigate('/')
+            } catch (error: any) {
+                setError(error.message)
+            }
+        };
+
+        return <div style={loginFormBacgkroundStyle} className="relative rounded-l-2xl overflow-y-auto text-white">
+            <div className="flex absolute left-9 top-9 gap-x-4">
+                <img
+                    className="size-14"
+                    src="https://cdn.digitaldesa.com/statics/landing/homepage/media/misc/favicon/digides.png"
+                    alt="digides-logo"
+                />
+                <div className="border-l-2 border-white"></div>
+
+                <div className="flex flex-col justify-center font-semibold">
+                    <span>{DATAS.nama}</span>
+                    <span>{DATAS.kabkota}</span>
+                </div>
+            </div>
+
+            <div className="flex justify-center items-center h-full w-full flex-col gap-y-6">
+                <span className="font-semibold text-xl">Sistem Cepat Informasi Desa</span>
+                <span className="font-bold text-3xl text-black">Masuk Akun</span>
 
                 <div role="alert" className={`${error ? 'block' : 'hidden'} alert alert-error`}>
                     <span>{error}</span>
                 </div>
 
-                <div className="flex flex-col gap-y-4 xl:gap-y-9 mt-6">
+                <form onSubmit={loginHandler} className="flex flex-col gap-y-4 w-3/5">
                     <div className="flex flex-col gap-y-1">
                         <label htmlFor="username" className="font-semibold">Username</label>
-                        <input name="username" type="text" className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm px-2 py-1 xl:py-2 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Username" />
+                        <input name="username" type="text" className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm px-4 py-2 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Username" />
                     </div>
 
                     <div className="flex flex-col gap-y-1 relative">
-                        <label htmlFor="password" className="font-semibold">Password</label>
-                        <input name="password" type={showPass ? "text" : "password"} className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm pl-2 pr-10 py-1 xl:py-2 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Password" />
+                        <label htmlFor="username" className="font-semibold">Password</label>
+                        <input name="password" type={showPass ? "text" : "password"} className="placeholder:text-stone-500 bg-gray-100 text-black placeholder:text-sm outline-none rounded-sm pl-4 pr-10 py-2 border-2 focus:border-sky-300 shadow-lg" placeholder="Masukkan Password" />
 
                         <img onClick={() => setShowPass((prev) => !prev)} src={showPass ? "/img/icon/show-password.svg" : "/img/icon/hide-password.svg"} alt="" className=" absolute size-5 bottom-2 right-3 cursor-pointer" />
                     </div>
-                </div>
 
-                <button className="btn btn-active border-none bg-sky-600 mt-4 xl:mt-6">Masuk</button>
-            </form>
-        </div>
-
-        <div
-            className="hidden lg:flex justify-center items-center flex-col w-full mx-auto relative bg-cover bg-center"
-            style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}
-        >
-            <div className="flex z-20 absolute left-3 top-3 xl:top-5 xl:left-5 w-3/4 gap-x-4 h-fit">
-                <img src={STRINGS[KODE_SLUG].logo_kab_url} alt="logo-ketapang" className={`${!STRINGS[KODE_SLUG].logo_kab_url && 'hidden'} w-14 xl:w-16`} />
-                <img src={STRINGS[KODE_SLUG].logo_dss_url} alt="logo-app" className={`${!STRINGS[KODE_SLUG].logo_dss_url && 'hidden'} w-10 xl:w-20`} />
-
-                <div className="border-l-3 rounded-xl border-white"></div>
-
-                <div className="flex flex-col gap-y-2">
-                    <span className="text-white xl:text-lg font-semibold">{STRINGS[KODE_SLUG].title}</span>
-                    <span className="text-white xl:text-lg font-semibold">{STRINGS[KODE_SLUG].kabkota}</span>
-                </div>
+                    <button className="btn btn-neutral">Masuk</button>
+                </form>
             </div>
-
-            <div
-                style={{ backgroundImage: `url('/img/bg/${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
-                className="absolute bg-red-800 bg-cover bg-center inset-24 xl:inset-40 z-20"
-            ></div>
         </div>
-    </div >
+    }
+    return <div className="h-screen w-screen grid grid-cols-2 bg-cover bg-bottom bg-no-repeat bg-[url(/img/login.png)]">
+        <LeftPart />
+        <RightPart />
+    </div>
 }

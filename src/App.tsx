@@ -1,6 +1,6 @@
 import { createRoutesFromElements, Route, RouterProvider, createBrowserRouter } from "react-router-dom"
 import Login from "./pages/Login"
-import Wrapper from "./components/Wrapper"
+import Wrapper, { WrapperPengaturan } from "./components/Wrapper"
 import Dashboard from "./pages/Dashboard"
 import Perencanaan from "./pages/Perencanaan"
 import Pembangunan from "./pages/Pembangunan"
@@ -12,6 +12,8 @@ import Wisata from "./pages/Wisata"
 import Kependudukan from "./pages/Kependudukan"
 import AdministrasiUmum from "./pages/AdministrasiUmum"
 import NotFound from "./pages/NotFound"
+import ManajemenAkun from "./pages/ManajemenAkun"
+import TemplateDokumen from "./pages/TemplateDokumen"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +30,10 @@ const router = createBrowserRouter(
         <Route path="/berita" element={<Berita />} />
         <Route path="/kependudukan" element={<Kependudukan />} />
         <Route path="/umum" element={<AdministrasiUmum />} />
+      </Route>
+      <Route path="/setting" element={<WrapperPengaturan />} errorElement={<NotFound />}>
+        <Route path="manajemen-akun" element={<ManajemenAkun />} />
+        <Route path="template-dokumen" element={<TemplateDokumen />} />
       </Route>
     </>
   )

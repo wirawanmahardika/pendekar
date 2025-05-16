@@ -9,10 +9,11 @@ import { KependudukanData } from "../types/administrasi/KependudukanTypes";
 import StatisticsSection from "../components/kependudukan/statistikKependudukan";
 import PopulationTableSection from "../components/kependudukan/PopulasiTableSection";
 import LoadingDots from "../components/LoadingDots";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 export default function Kependudukan() {
     useAuth();
+    useTitle("Kependudukan")
     
     const [loading, setLoading] = useState<boolean>(true);
     const [kependudukanData, setKependudukanData] = useState<KependudukanData | null>(null);
@@ -72,7 +73,6 @@ export default function Kependudukan() {
     if (loading) return <LoadingDots />;
     return (
       <div className="px-4 py-10">
-        <HeadHtml title="Administrasi Kependudukan" />
         <PageTitle title="ADMINISTRASI KEPENDUDUKAN" last_updated={kependudukanData?.last_updated} />
 
         {/* Populasi Chart Section */}

@@ -7,17 +7,17 @@ import PendudukMendapatBantuan from "../components/bansos/PendudukMendapatBantua
 import RekapPenerimaBantuanSosial from "../components/bansos/RekapPenerimaBantuanSosial";
 import { useState } from "react";
 import LoadingDots from "../components/LoadingDots";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 export default function Bansos() {
     useAuth()
+    useTitle("Bansos")
 
     const [loading, setIsLoading] = useState(false)
     const resultData = useGetResultData<bansosType>(`${BASE_API_URL}bansos`, setIsLoading);
     if(loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
-      <HeadHtml title="Bansos" />
       <PageTitle title="Bantuan Sosial" last_updated={ resultData?.last_updated } />
         <PendudukMendapatBantuan resultData={resultData} />
         <RekapPenerimaBantuanSosial resultData={resultData} />

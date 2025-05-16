@@ -8,10 +8,11 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import { BASE_API_URL, getApiToken } from "../utils/api";
 import LoadingDots from "../components/LoadingDots";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 const Pembangunan = () => {
   useAuth();
+  useTitle("Pembangunan")
   const [loading, setLoading] = useState(true);
   const [resultData, setResultData] = useState();
   const [modeKeuangan, setModeKeuangan] = useState("apbdes");
@@ -46,7 +47,6 @@ const Pembangunan = () => {
   if (loading || !resultData) return <LoadingDots />;
   return (
     <div className="px-4 py-10">
-      <HeadHtml title="Pembangunan" />
       <PageTitle title={"Pembangunan"} last_updated={lastUpdated} />
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-100 mb-8">

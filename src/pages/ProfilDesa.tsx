@@ -8,11 +8,12 @@ import TabelDesaKecamatan from "../components/profilDesa/TableDesaKecamatan";
 import { AxiosAuth } from "../utils/axios";
 import LoadingDots from "../components/LoadingDots";
 import useGetResultData from "../hooks/useGetResultData";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 
 export default function ProfilDesa() {
   useAuth()
+  useTitle("Profil Desa")
 
   const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
   const [dataTodisplay, setDataToDisplay] = useState<desaProfilDesa[]>()
@@ -41,7 +42,6 @@ export default function ProfilDesa() {
   if (isLoading) return <LoadingDots />;
 
   return <div className="px-4 py-10">
-    <HeadHtml title="Profil Desa" />
     <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={resultData?.last_updated} />
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex gap-x-5 pt-2">

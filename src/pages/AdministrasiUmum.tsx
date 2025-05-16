@@ -6,9 +6,10 @@ import { BASE_API_URL } from "../utils/api";
 import AdministrasiDataCard from "../components/administrasi/AdministrasiViewFilterAndCard";
 import AdministrasiDataTable from "../components/administrasi/AdministrasiDataTable";
 import LoadingDots from "../components/LoadingDots";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 export default function AdministrasiUmum() {
+  useTitle("Administrasi Umum")
   const [administrationData, setAdministrationData] = useState();
   const [administrationTypes, setAdministrationTypes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +36,6 @@ export default function AdministrasiUmum() {
   if (isLoading) return <LoadingDots />;
   return (
     <div className="px-4 py-10">
-      <HeadHtml title="Administrasi Umum" />
       <PageTitle title="Administrasi Umum" last_updated={lastUpdated || ''} />
       {administrationData && <AdministrasiDataCard administrationData={administrationData} />}
       {administrationData && <AdministrasiDataTable administrationData={administrationData} administrationTypes={administrationTypes} />}

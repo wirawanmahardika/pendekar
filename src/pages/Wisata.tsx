@@ -8,10 +8,11 @@ import { BASE_API_URL } from "../utils/api";
 import useGetResultData from "../hooks/useGetResultData";
 import { wisataCardType, wisataDataType } from "../types/WisataTypes";
 import LoadingDots from "../components/LoadingDots";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 export default function Wisata() {
     useAuth()
+    useTitle("Wisata")
 
     const [loading, setIsLoading] = useState(false)
     const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`, setIsLoading)
@@ -39,7 +40,6 @@ export default function Wisata() {
     if (loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
-        <HeadHtml title="Wisata" />
         <PageTitle title="WISATA DESA" last_updated={resultData?.last_updated} />
 
         <div className="flex mt-9 flex-col">

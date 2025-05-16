@@ -1,50 +1,49 @@
-import { KODE_SLUG } from "./api";
-import { STRINGS } from "./strings";
+import DATAS from "./datas";
 
 export const exportReportButtonStyle = {
-    color: STRINGS[KODE_SLUG].theme.color_deep,
-    backgroundColor: STRINGS[KODE_SLUG].theme.color_light,
+    color: DATAS.theme.color_deep,
+    backgroundColor: DATAS.theme.color_light,
 }
 
 export const cardAdministrationStyle = {
-    color: STRINGS[KODE_SLUG].theme.text_color,
-    backgroundColor: STRINGS[KODE_SLUG].theme.btn_color
+    color: DATAS.theme.text_color,
+    backgroundColor: DATAS.theme.color_deep
 }
 
 export const pageTitleStyle = {
-    title: { color: STRINGS[KODE_SLUG].theme.color_deep },
-    time: { backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }
+    title: { color: DATAS.theme.color_deep },
+    time: { backgroundColor: DATAS.theme.color_deep }
 }
 
 export const tableHeaderStyle = {
-    backgroundColor: STRINGS[KODE_SLUG].theme.color_normal,
-    color: STRINGS[KODE_SLUG].theme.text_color
+    backgroundColor: DATAS.theme.color_medium,
+    color: DATAS.theme.text_color
 }
 
-export const sidebarStyle = { backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }
+export const sidebarStyle = { backgroundColor: DATAS.theme.color_deep }
 
 
 export const loginTextStyle = {
-    color: STRINGS[KODE_SLUG].theme.color_normal,
-    boxShadow: '6px 6px 0px ' + STRINGS[KODE_SLUG].theme.color_deep
+    color: DATAS.theme.color_deep,
+    boxShadow: '6px 6px 0px ' + DATAS.theme.color_deep
 }
 
-export const loginFormBacgkroundStyle = { backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }
+export const loginFormBacgkroundStyle = { backgroundColor: DATAS.theme.color_deep }
 
 export const umkmProdukDesaStyle = {
-    penunjukArah: { color: STRINGS[KODE_SLUG].theme.icon_color },
-    category: { backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }
+    penunjukArah: { color: DATAS.theme.color_deep },
+    category: { backgroundColor: DATAS.theme.color_deep }
 }
 
 export const tabNavigationStyle = {
-    color: STRINGS[KODE_SLUG].theme.color_normal,
-    borderColor: STRINGS[KODE_SLUG].theme.color_deep
+    color: DATAS.theme.color_normal,
+    borderColor: DATAS.theme.color_deep
 }
 
 export const loadingDotsColors = {
-    color: STRINGS[KODE_SLUG].theme.color_normal,
+    color: DATAS.theme.color_deep,
 }
 
 export const notFoundStyle = {
-    backgroundColor: STRINGS[KODE_SLUG].theme.color_deep
+    backgroundColor: DATAS.theme.color_deep
 }

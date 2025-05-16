@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useId,  useState } from "react";
 import {
   DesaOption,
   KecamatanOption,
@@ -7,6 +7,7 @@ import {
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
 import { exportReportButtonStyle, loadingDotsColors } from "../../utils/themeSetting";
+import { TiArrowSortedDown } from "react-icons/ti";
 
 const DaftarDesaDanKelengkapanDokumen = () => {
   const [loading, setLoading] = useState(true);
@@ -221,6 +222,11 @@ function getPaginationRange(currentPage: number, totalPages: number) {
 
 
 function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { data: KelengkapanDokumenType; loading: boolean; currentPage: number; setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
+  const [idDetail, setIdDetail] = useState("")
+  const changeIdDetail = useCallback((id: string) => {
+    setIdDetail(id)
+  }, [])
+
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const paginatedData = data.slice(
@@ -236,11 +242,47 @@ function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { d
   const changePage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      setIdDetail("")
     }
   };
 
+  const DokumenStatus = useCallback(({ setId, status, openId }: { setId: (id: string) => void, status: boolean; openId: string }) => {
+    const [open, setOpen] = useState(false)
+    const id = useId()
+    
+    return <div className="relative">
+      <div onClick={() => {setId(id); setOpen(v => !v)}}>
+        {status ?
+          <div className="text-emerald-700 flex items-center gap-x-1 justify-center cursor-pointer">
+            <span>Selesai</span>
+            <TiArrowSortedDown size={20} className={open && openId === id ? "rotate-0" : "rotate-180"} />
+          </div>
+          :
+          <div className="text-red-700 flex items-center gap-x-1 justify-center cursor-pointer">
+            <span>Belum</span>
+            <TiArrowSortedDown size={20} className={open && openId === id ? "rotate-0" : "rotate-180"} />
+          </div>}
+      </div>
+
+      <div className={`${open && openId === id ? "flex" : "hidden"} p-3 shadow-md rounded absolute top-[110%] bg-white flex-col w-72 h-80 overflow-y-auto text-xs text-[#535353] z-10`}>
+        <span className="text-left font-semibold pl-4">MATRIK SKORING perubahan RPJM Desa</span>
+        <ol className="list-decimal flex justify-start flex-col px-3 text-justify mt-2">
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+        </ol>
+      </div>
+    </div>
+  }, [])
+
+
   return <>
-    <table className="rounded text-sm w-full mt-4 overflow-hidden">
+    <table className="rounded text-sm w-full mt-4">
       <thead>
         <tr className="bg-[#AEDDF5] text-gray-700">
           <th className="border-2 border-gray-100 text-center w-2/12 py-2">
@@ -275,38 +317,38 @@ function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { d
               </td>
             </tr>
           ) :
-          paginatedData?.map((item, index: any) => {
-            return (
-              <tr key={index}>
-                <td className="border border-neutral-200 px-2 py-3 text-center">
-                  {item.kecamatan}
-                </td>
-                <td className="border border-neutral-200 px-2 py-3 text-center">
-                  {item.desa}
-                </td>
-                <td className="border border-neutral-200 px-2 py-3 text-center">
-                  {item.rpjmdes ? "\u2713" : "\u2716"}
-                </td>
-                <td className="border border-neutral-200 px-2 py-3 text-center">
-                  {item.rkpdes ? "\u2713" : "\u2716"}
-                </td>
-                <td className="border border-neutral-200 px-2 py-3 text-center">
-                  {item.apbdes ? "\u2713" : "\u2716"}
-                </td>
-                <td className="border border-neutral-200 px-2 py-3 text-center">
-                  <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
-                    <div
-                      style={{ width: `${item.progress}%` }}
-                      className="bg-sky-400 h-full"
-                    ></div>
-                    <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">
-                      {item.progress}%
-                    </span>
-                  </div>
-                </td>
-              </tr>
-            );
-          })
+            paginatedData?.map((item, index: any) => {
+              return (
+                <tr key={index}>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    {item.kecamatan}
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    {item.desa}
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <DokumenStatus openId={idDetail} setId={changeIdDetail} status={item.rpjmdes} />
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <DokumenStatus openId={idDetail} setId={changeIdDetail} status={item.rkpdes} />
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <DokumenStatus openId={idDetail} setId={changeIdDetail} status={item.apbdes} />
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
+                      <div
+                        style={{ width: `${item.progress}%` }}
+                        className="bg-sky-400 h-full"
+                      ></div>
+                      <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">
+                        {item.progress}%
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })
         }
 
       </tbody>

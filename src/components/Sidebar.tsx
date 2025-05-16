@@ -3,19 +3,20 @@ import { motion } from "framer-motion";
 
 import { AiOutlineSchedule } from "react-icons/ai";
 import { BiSolidDashboard } from "react-icons/bi";
-import { FaHandsHelping, FaRegCircle } from "react-icons/fa";
+import { FaHandsHelping, FaRegCircle, FaUserCog, FaUserTie } from "react-icons/fa";
 import { GiBrickWall, GiVillage } from "react-icons/gi";
 import { MdTrendingUp } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
-import { STRINGS } from "../utils/strings";
-import { KODE_SLUG } from "../utils/api";
+import DATAS from "../utils/datas";
+import { IoDocumentTextSharp, IoSettings } from "react-icons/io5";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 
 export default function Sidebar() {
-    return <div className="flex flex-col items-center p-5 w-[20vw] text-white">
-        <h2 className="font-semibold text-3xl mt-3">{STRINGS[KODE_SLUG].nama}</h2>
-        <span className="text-yellow-300 text-sm text-center mt-3 capitalize">{STRINGS[KODE_SLUG].desc}</span>
+    return <div className="flex flex-col items-center p-5 w-[20vw] text-white h-full">
+        <h2 className="font-semibold text-3xl mt-3">{DATAS.nama}</h2>
+        <span className="text-yellow-300 text-sm text-center mt-3 capitalize">{DATAS.desc}</span>
 
         <nav className="flex flex-col mt-10 w-full gap-y-6">
             <span className="font-semibold">MENU</span>
@@ -33,11 +34,33 @@ export default function Sidebar() {
             ]} />
             <Nav text="Profil Desa" url="profil-desa" icon={<GiVillage className="p-0 size-5" />} />
             <Nav text="Bansos" url="bansos" icon={<FaHandsHelping className="p-0 size-5" />} />
-            {
-                KODE_SLUG === "ketapangkab" &&
-                <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />
-            }
+            <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />
         </nav >
+
+        <NavLink to={'/setting'} style={{ color: DATAS.theme.color_deep }} className="flex gap-x-3 mt-auto items-center mb-10 bg-white rounded-md w-4/5 mx-auto px-2 py-2">
+            <IoSettings size={20} />
+            <span className="font-semibold">Pengaturan</span>
+        </NavLink>
+    </div >
+}
+
+export function SidebarPengaturan() {
+    return <div className="flex flex-col items-center p-5 w-[20vw] text-white h-full">
+        <h2 className="font-semibold text-3xl mt-3">{DATAS.nama}</h2>
+        <span className="text-yellow-300 text-sm text-center mt-3 capitalize">{DATAS.desc}</span>
+
+        <nav className="flex flex-col mt-10 w-full gap-y-6">
+            <span className="font-semibold">MENU</span>
+
+            <Nav text="Halaman Login" url="/" icon={<FaUserTie className="p-0 size-5" />} />
+            <Nav text="Template Dokumen" url="template-dokumen" icon={<IoDocumentTextSharp className="p-0 size-5" />} />
+            <Nav text="Manajemen Akun" url="manajemen-akun" icon={<FaUserCog className="p-0 size-5" />} />
+        </nav >
+
+        <NavLink to={'/'} style={{ color: DATAS.theme.color_deep }} className="flex gap-x-6 mt-auto items-center mb-10 bg-white rounded-md w-4/5 mx-auto px-2 py-2">
+            <IoIosArrowRoundBack size={24} />
+            <span className="font-semibold">Dashboard SiCesa</span>
+        </NavLink>
     </div >
 }
 

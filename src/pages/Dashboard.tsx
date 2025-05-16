@@ -13,10 +13,11 @@ import { BASE_API_URL } from "../utils/api";
 import { dashboardResultDataType } from "../types/DashboardTypes";
 import { useState } from "react";
 import LoadingDots from "../components/LoadingDots";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 export default function Dashboard() {
   useAuth();
+  useTitle("Dashboard")
 
   const [loading, setIsLoading] = useState(false);
   const resultData = useGetResultData<dashboardResultDataType>(
@@ -27,7 +28,6 @@ export default function Dashboard() {
 
   return (
     <div className="px-4 py-10">
-      <HeadHtml title="Dashboard" />
 
       <PageTitle title="Dashboard" last_updated={resultData?.last_updated} />
 

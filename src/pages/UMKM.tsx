@@ -8,16 +8,17 @@ import JenisUsaha from "../components/umkm/JenisUsaha";
 import UsahaDiWilayah from "../components/umkm/UsahaDiWilayah";
 import { useState } from "react";
 import LoadingDots from "../components/LoadingDots";
-import HeadHtml from "../components/HeadHtml";
+import useTitle from "../hooks/useTitle";
 
 export default function UMKM() {
     useAuth()
+    useTitle("UMKM")
+
     const [loading, setIsLoading] = useState(false)
     const resultData = useGetResultData<umkmDataType>(`${BASE_API_URL}umkm?k3=&k4=&search=&type=&limit=`, setIsLoading);
     if (loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
-        <HeadHtml title="UMKM" />
         <PageTitle title="UMKM" />
 
         <div className="grid grid-cols-2 gap-3">
