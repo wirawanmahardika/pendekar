@@ -1,29 +1,29 @@
 import { useState } from "react"
 import { BASE_API_URL } from "../utils/api"
-import { loginFormBacgkroundStyle, loginTextStyle } from "../utils/themeSetting"
+import { loginFormBacgkroundStyle } from "../utils/themeSetting"
 import { AxiosAuth } from "../utils/axios"
 import { useNavigate } from "react-router-dom"
 import DATAS from "../utils/datas"
 import useTitle from "../hooks/useTitle"
 
-export default function KetapangLoginPage () {
+export default function KetapangLoginPage() {
     useTitle("Login")
 
     const LeftPart = () => {
-        const logoKabupaten = DATAS.logo_kab_url
-        const logoApp = DATAS.logo_dss_url
-        const bupati = DATAS.nama_user
-        const wakilBupati = DATAS.nama_user_2
+        
+        // const bupati = DATAS.nama_user
+        // const wakilBupati = DATAS.nama_user_2
 
         return <div className="justify-center items-center flex flex-col w-full mx-auto relative">
-            <div className="flex absolute top-5 left-5 w-full gap-x-4 h-fit">
-                <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
-                <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
-            </div>
 
-            <div style={loginTextStyle} className="flex relative text-sm gap-x-16 bg-white w-5/6 translate-y-20 justify-evenly font-bold px-3 py-1 rounded">
+
+
+            <div className="flex relative text-sm gap-x-16 w-5/6 justify-evenly font-bold px-3 py-1 rounded -translate-y-24">
+                <img src="/img/ketapangkab.png" className="w-4/5" />
+            </div>
+            {/* <div style={loginTextStyle} className="flex relative text-sm gap-x-16 bg-white w-5/6 translate-y-20 justify-evenly font-bold px-3 py-1 rounded">
                 <img src="/img/bupati.png" alt="" className="w-7/12 absolute bottom-full left-5" />
-                <img src="/img/wakil.png" alt="" className="w-7/12 absolute bottom-full right-2" />
+                <img src="/img/wakil.png" alt="" className="w-6/12 absolute bottom-full right-2" />
 
                 <div className="invisible flex flex-col text-center 2xl:text-lg">
                     <span>John Doe Kurniawan S.Pd.</span><span className="font-normal italic text-xs">Bupati Ketapang</span>
@@ -37,12 +37,14 @@ export default function KetapangLoginPage () {
                     <span>{wakilBupati}</span>
                     <span className="font-normal italic text-xs">Wakil Bupati Ketapang</span>
                 </div>
-            </div>
+            </div> */}
         </div>
 
     }
 
     const RightPart = () => {
+        const logoKabupaten = DATAS.logo_kab_url
+        const logoApp = DATAS.logo_dss_url
         const [showPass, setShowPass] = useState(false)
         const navigate = useNavigate()
         const [error, setError] = useState('')
@@ -65,11 +67,10 @@ export default function KetapangLoginPage () {
 
         return <div style={loginFormBacgkroundStyle} className="relative rounded-l-2xl overflow-y-auto text-white">
             <div className="flex absolute left-9 top-9 gap-x-4">
-                <img
-                    className="size-14"
-                    src="https://cdn.digitaldesa.com/statics/landing/homepage/media/misc/favicon/digides.png"
-                    alt="digides-logo"
-                />
+                <div className="flex gap-x-2 h-fit">
+                    <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
+                    <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
+                </div>
                 <div className="border-l-2 border-white"></div>
 
                 <div className="flex flex-col justify-center font-semibold">
