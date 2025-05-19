@@ -52,7 +52,7 @@ export function SidebarPengaturan() {
         <nav className="flex flex-col mt-10 w-full gap-y-6">
             <span className="font-semibold">MENU</span>
 
-            <Nav text="Halaman Login" url="/" icon={<FaUserTie className="p-0 size-5" />} />
+            <Nav text="Pengaturan Beranda" url="/setting/pengaturan-beranda" icon={<FaUserTie className="p-0 size-5" />} />
             <Nav text="Template Dokumen" url="template-dokumen" icon={<IoDocumentTextSharp className="p-0 size-5" />} />
             <Nav text="Manajemen Akun" url="manajemen-akun" icon={<FaUserCog className="p-0 size-5" />} />
         </nav >
