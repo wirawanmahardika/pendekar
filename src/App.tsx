@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         <Route path="/umum" element={<AdministrasiUmum />} />
       </Route>
       <Route path="/setting" element={<WrapperPengaturan />} errorElement={<NotFound />}>
-        <Route path="pengaturan-beranda" element={<PengaturanBeranda />} />
+        <Route index element={<PengaturanBeranda />} />
         <Route path="manajemen-akun" element={<ManajemenAkun />} />
         <Route path="template-dokumen" element={<TemplateDokumen />} />
       </Route>
