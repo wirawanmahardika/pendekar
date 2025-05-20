@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId,  useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DesaOption,
   KecamatanOption,
@@ -7,7 +7,6 @@ import {
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
 import { exportReportButtonStyle, loadingDotsColors } from "../../utils/themeSetting";
-import { TiArrowSortedDown } from "react-icons/ti";
 
 const DaftarDesaDanKelengkapanDokumen = () => {
   const [loading, setLoading] = useState(true);
@@ -222,10 +221,7 @@ function getPaginationRange(currentPage: number, totalPages: number) {
 
 
 function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { data: KelengkapanDokumenType; loading: boolean; currentPage: number; setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
-  const [idDetail, setIdDetail] = useState("")
-  const changeIdDetail = useCallback((id: string) => {
-    setIdDetail(id)
-  }, [])
+  const [modalOpen, setModalOpen] = useState(false);
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -242,46 +238,27 @@ function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { d
   const changePage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      setIdDetail("")
     }
   };
 
-  const DokumenStatus = useCallback(({ setId, status, openId }: { setId: (id: string) => void, status: boolean; openId: string }) => {
-    const [open, setOpen] = useState(false)
-    const id = useId()
-    
-    return <div className="relative">
-      <div onClick={() => {setId(id); setOpen(v => !v)}}>
-        {status ?
-          <div className="text-emerald-700 flex items-center gap-x-1 justify-center cursor-pointer">
-            <span>Selesai</span>
-            <TiArrowSortedDown size={20} className={open && openId === id ? "rotate-0" : "rotate-180"} />
-          </div>
-          :
-          <div className="text-red-700 flex items-center gap-x-1 justify-center cursor-pointer">
-            <span>Belum</span>
-            <TiArrowSortedDown size={20} className={open && openId === id ? "rotate-0" : "rotate-180"} />
-          </div>}
-      </div>
-
-      <div className={`${open && openId === id ? "flex" : "hidden"} p-3 shadow-md rounded absolute top-[110%] bg-white flex-col w-72 h-80 overflow-y-auto text-xs text-[#535353] z-10`}>
-        <span className="text-left font-semibold pl-4">MATRIK SKORING perubahan RPJM Desa</span>
-        <ol className="list-decimal flex justify-start flex-col px-3 text-justify mt-2">
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
-          <li className="pl-2">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, perspiciatis!</li>
+  return <>
+    <div onClick={() => setModalOpen(false)} className={`${!modalOpen && "hidden"} fixed inset-0 backdrop-brightness-50 z-10`}>
+      <div className="absolute size-1/2 overflow-y-auto bg-white top-1/2 left-1/2 -translate-1/2 p-9 rounded shadow-lg">
+        <h2 className="text-center text-xl font-bold mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</h2>
+        <ol className="list-decimal list-inside">
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae! adipisicing elit. Quisquam, voluptatibus.</li>
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae!</li>
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae!</li>
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae!</li>
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae!</li>
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae!</li>
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae!</li>
+          <li className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dicta explicabo a libero accusamus asperiores reprehenderit, obcaecati architecto, eum odio quisquam facilis totam earum laudantium vitae quibusdam, eaque iste repudiandae!</li>
         </ol>
       </div>
+
     </div>
-  }, [])
 
-
-  return <>
     <table className="rounded text-sm w-full mt-4">
       <thead>
         <tr className="bg-[#AEDDF5] text-gray-700">
@@ -327,13 +304,13 @@ function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { d
                     {item.desa}
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <DokumenStatus openId={idDetail} setId={changeIdDetail} status={item.rpjmdes} />
+                    <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">5/32</span>
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <DokumenStatus openId={idDetail} setId={changeIdDetail} status={item.rkpdes} />
+                    <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">6/12</span>
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <DokumenStatus openId={idDetail} setId={changeIdDetail} status={item.apbdes} />
+                    <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">7/12</span>
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
                     <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
