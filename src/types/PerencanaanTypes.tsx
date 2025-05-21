@@ -85,6 +85,8 @@ export type DaftarKelengkapanDokumenSelectedFilterType = {
   desa: string
 }
 
+
+// filter
 export type KecamatanOption = {
   k3: string;
   kecamatan: string;
@@ -94,3 +96,10 @@ export type DesaOption = {
   k4: string;
   deskel: string;
 }
+
+export type FilterState = {
+  tahun: string;
+  kecamatan: string;
+  desa: string;
+  progress: string;
+};

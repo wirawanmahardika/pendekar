@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   DesaOption,
+  FilterState,
   KecamatanOption,
   KelengkapanDokumenType,
 } from "../../types/PerencanaanTypes";
@@ -8,35 +9,34 @@ import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
 import { exportReportButtonStyle, loadingDotsColors } from "../../utils/themeSetting";
 
+const initialFilter: FilterState = {
+  tahun: "",
+  kecamatan: "",
+  desa: "",
+  progress: "",
+};
+
 const DaftarDesaDanKelengkapanDokumen = () => {
   const [loading, setLoading] = useState(true);
-  const [dataTodisplay, setDataToDisplay] = useState<KelengkapanDokumenType>([])
   const [allData, setAllData] = useState<KelengkapanDokumenType>([]);
-  const [tahunOptions, setTahunOptions] = useState([]);
+  const [tahunOptions, setTahunOptions] = useState<string[]>([]);
   const [kecamatanOptions, setKecamatanOptions] = useState<KecamatanOption[]>([]);
   const [desaOptions, setDesaOptions] = useState<DesaOption[]>([]);
-  const [progressOptions] = useState([
+  const [filter, setFilter] = useState<FilterState>(initialFilter);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const progressOptions = [
     "Semua",
     "0-25%",
     "26-50%",
     "51-75%",
     "76-100%",
-  ]);
-
-  const [selectedTahun, setSelectedTahun] = useState("");
-  const [selectedKecamatan, setSelectedKecamatan] = useState("");
-  const [selectedDesa, setSelectedDesa] = useState("");
-  const [selectedProgress, setSelectedProgress] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+  ];
 
   const fetchDaftarDesa = () => {
-    const reqBody = {
-      limit: 9007199254740990,
-    };
+    const reqBody = { limit: 9007199254740990 };
     AxiosAuth.post(`${BASE_API_URL}perencanaan/GetDaftarDesa`, reqBody, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
     })
       .then(({ data }) => setAllData(data.data))
       .catch((error) => alert(error.message))
@@ -45,11 +45,8 @@ const DaftarDesaDanKelengkapanDokumen = () => {
 
   const fetchOptions = (optionType: string) => {
     const reqBody = new URLSearchParams({ type: optionType });
-
     AxiosAuth.post(`${BASE_API_URL}perencanaan/GetOption`, reqBody, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
     })
       .then((res) => {
         switch (optionType) {
@@ -60,43 +57,16 @@ const DaftarDesaDanKelengkapanDokumen = () => {
             setKecamatanOptions(res.data.data);
             break;
           case "deskel":
-            const sortedDesa = res.data.data.sort(
-              (a: DesaOption, b: DesaOption) => a.deskel.localeCompare(b.deskel)
+            setDesaOptions(
+              res.data.data.sort((a: DesaOption, b: DesaOption) =>
+                a.deskel.localeCompare(b.deskel)
+              )
             );
-            setDesaOptions(sortedDesa);
-            break;
-          default:
             break;
         }
       })
-      .catch((error) => {
-        alert(`Error fetching ${optionType}: ${error.message}`);
-      });
+      .catch((error) => alert(`Error fetching ${optionType}: ${error.message}`));
   };
-
-  useEffect(() => {
-    const newData = allData.filter((item) => {
-      const matchesTahun = !selectedTahun || item.tahun === selectedTahun;
-      const matchesKecamatan =
-        !selectedKecamatan || item.kecamatan === selectedKecamatan;
-      const matchesDesa = !selectedDesa || item.desa === selectedDesa;
-      const matchesProgress = (() => {
-        if (!selectedProgress || selectedProgress === "Semua") return true;
-        const progress = item.progress ?? 0;
-        if (selectedProgress === "0-25%") return progress <= 25;
-        if (selectedProgress === "26-50%")
-          return progress > 25 && progress <= 50;
-        if (selectedProgress === "51-75%")
-          return progress > 50 && progress <= 75;
-        if (selectedProgress === "76-100%") return progress > 75;
-        return true;
-      })();
-
-      return matchesTahun && matchesKecamatan && matchesDesa && matchesProgress;
-    });
-
-    setDataToDisplay(newData)
-  }, [allData, selectedTahun, selectedKecamatan, selectedDesa, selectedProgress,])
 
   useEffect(() => {
     fetchDaftarDesa();
@@ -105,25 +75,32 @@ const DaftarDesaDanKelengkapanDokumen = () => {
     fetchOptions("kecamatan");
   }, []);
 
+  // Filter data secara efisien dengan useMemo
+  const dataToDisplay = useMemo(() => {
+    return allData.filter((item) => {
+      const matchesTahun = !filter.tahun || item.tahun === filter.tahun;
+      const matchesKecamatan = !filter.kecamatan || item.kecamatan === filter.kecamatan;
+      const matchesDesa = !filter.desa || item.desa === filter.desa;
+      const matchesProgress = (() => {
+        if (!filter.progress || filter.progress === "Semua") return true;
+        const progress = item.progress ?? 0;
+        if (filter.progress === "0-25%") return progress <= 25;
+        if (filter.progress === "26-50%") return progress > 25 && progress <= 50;
+        if (filter.progress === "51-75%") return progress > 50 && progress <= 75;
+        if (filter.progress === "76-100%") return progress > 75;
+        return true;
+      })();
+      return matchesTahun && matchesKecamatan && matchesDesa && matchesProgress;
+    });
+  }, [allData, filter]);
 
-  const handleTahunChange = (e: any) => {
-    setSelectedTahun(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleKecamatanChange = (e: any) => {
-    setSelectedKecamatan(e.target.value);
-    setSelectedDesa("");
-    setCurrentPage(1);
-  };
-
-  const handleDesaChange = (e: any) => {
-    setSelectedDesa(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleProgressChange = (e: any) => {
-    setSelectedProgress(e.target.value);
+  // Handler filter
+  const handleFilterChange = (key: keyof FilterState) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilter((prev) => ({
+      ...prev,
+      [key]: e.target.value,
+      ...(key === "kecamatan" ? { desa: "" } : {}), // reset desa jika kecamatan berubah
+    }));
     setCurrentPage(1);
   };
 
@@ -134,63 +111,55 @@ const DaftarDesaDanKelengkapanDokumen = () => {
       </span>
       <div className="flex gap-x-5 pt-2">
         <select
-          value={selectedTahun}
-          onChange={handleTahunChange}
+          value={filter.tahun}
+          onChange={handleFilterChange("tahun")}
           className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2"
         >
           <option value="">Pilih Semua Tahun</option>
           {tahunOptions.map((tahun, index) => (
-            <option key={index} value={tahun}>
-              {tahun}
-            </option>
+            <option key={index} value={tahun}>{tahun}</option>
           ))}
         </select>
-
         <select
-          value={selectedKecamatan}
-          onChange={handleKecamatanChange}
+          value={filter.kecamatan}
+          onChange={handleFilterChange("kecamatan")}
           className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2"
         >
           <option value="">Semua Kecamatan</option>
           {kecamatanOptions.map((kec, index) => (
-            <option key={index} value={kec.kecamatan}>
-              {kec.kecamatan}
-            </option>
+            <option key={index} value={kec.kecamatan}>{kec.kecamatan}</option>
           ))}
         </select>
-
         <select
-          value={selectedDesa}
-          onChange={handleDesaChange}
+          value={filter.desa}
+          onChange={handleFilterChange("desa")}
           className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2"
         >
           <option value="">Pilih Desa</option>
           {desaOptions.map((desa, index) => (
-            <option key={index} value={desa.deskel}>
-              {desa.deskel}
-            </option>
+            <option key={index} value={desa.deskel}>{desa.deskel}</option>
           ))}
         </select>
-
         <select
-          value={selectedProgress}
-          onChange={handleProgressChange}
+          value={filter.progress}
+          onChange={handleFilterChange("progress")}
           className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2"
         >
           <option disabled value="">Filter Progress Perencanaan</option>
           {progressOptions.map((progress, index) => (
-            <option key={index} value={progress}>
-              {progress}
-            </option>
+            <option key={index} value={progress}>{progress}</option>
           ))}
         </select>
       </div>
-
-      <TabelWithPagination data={dataTodisplay} loading={loading} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <TabelWithPagination
+        data={dataToDisplay}
+        loading={loading}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
-
 
 function getPaginationRange(currentPage: number, totalPages: number) {
   const delta = 1; // jumlah halaman di kiri dan kanan currentPage
