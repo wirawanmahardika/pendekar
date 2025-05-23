@@ -45,8 +45,8 @@ function Ticker({news}: {news?: beritaDashboardType[]}) {
                         transition={{ duration: 0.5 }}
                         className="absolute w-full text-center text-lg font-semibold text-white h-full flex items-center gap-x-8 shadow-2xl"
                     >
-                        <img src={`${CDN_URL}uploads/profil/${news[index].kode_wilayah}/berita/thumbs/${news[index].foto}`} alt="login" className="h-full" />
-                        <span className=" text-black">{news[index].judul}</span>
+                        <img src={`${CDN_URL}uploads/profil/${news[index]?.kode_wilayah}/berita/thumbs/${news[index]?.foto}`} alt="login" className="h-full" />
+                        <span className=" text-black">{news[index]?.judul}</span>
                     </motion.div>
                 </AnimatePresence>
             </div>
