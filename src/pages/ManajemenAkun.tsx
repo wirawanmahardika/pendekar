@@ -14,46 +14,109 @@ import Swal from "sweetalert2";
 
 export default function ManajemenAkun() {
     useTitle("Manajemen Akun")
-    const [openFormTambah, setOpenFormTambah] = useState(false)
+    const [openFormKelola, setOpenFormKelola] = useState(false)
     const [akun, setAkun] = useState<AkunType[]>([])
+    const [formMode, setFormMode] = useState<"add" | "update">("add")
+    const [akunToUpdate, setAkunToUpdate] = useState<AkunType | null>(null)
 
     useEffect(() => {
         AxiosAuth.post(BASE_API_URL + "auth")
-            .then(res => { setAkun(res.data.data) })
+            .then(res => { setAkun(res.data.data); })
             .catch(err => { console.log(err) })
     }, [])
 
-    const tambahAkun = (e: React.FormEvent<HTMLFormElement>) => {
+    const kelolaAkun = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        formData.append("asdf", "admin");
-        formData.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
-        })
 
-        AxiosAuth.post(BASE_API_URL + "auth/add", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
-            .then(res => {
+        if (formMode === "update" && akunToUpdate) {
+            formData.append("id", akunToUpdate.id.toString())
+            try {
+                const res = await AxiosAuth.post(BASE_API_URL + "auth/update", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
                 Swal.fire({
                     title: res.data.message,
                     icon: "success",
                     draggable: true
                 })
-            })
-            .catch(err => {
+            } catch (err: any) {
                 Swal.fire({
-                    title: "Gagal menambahkan akun",
+                    title: "Gagal mengupdate akun",
                     text: err.response?.data?.message || "Terjadi kesalahan",
                     icon: "error",
                     draggable: true
                 })
+            }
+            return
+        }
+
+        try {
+            const res = await AxiosAuth.post(BASE_API_URL + "auth/add", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
+            Swal.fire({
+                title: res.data.message,
+                icon: "success",
+                draggable: true
             })
+        } catch (err: any) {
+            Swal.fire({
+                title: "Gagal menambahkan akun",
+                text: err.response?.data?.message || "Terjadi kesalahan",
+                icon: "error",
+                draggable: true
+            })
+        }
+    }
+
+    const hapusAkun = (id: number) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-error"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel!",
+            reverseButtons: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const formData = new FormData();
+                    formData.append("id", id.toString());
+                    const res = await AxiosAuth.post(BASE_API_URL + "auth/delete", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } });
+                    swalWithBootstrapButtons.fire({
+                        title: "Deleted!",
+                        text: res.data.message,
+                        icon: "success"
+                    });
+                } catch (error) {
+                    console.error("Gagal menghapus akun:", error);
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Gagal menghapus akun",
+                        icon: "error"
+                    });
+                }
+            } else {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Gagal menghapus akun",
+                    icon: "error"
+                });
+            }
+
+        });
     }
 
     return <div className="p-3">
         <div className="shadow bg-white rounded p-5 flex flex-col gap-y-4">
             <div className="flex items-center justify-between w-full">
                 <span className="font-bold text-xl">Manajemen Akun</span>
-                <button onClick={() => setOpenFormTambah(true)} className="overflow-hidden text-white btn flex gap-x-3" style={{ backgroundColor: DATAS.theme.color_deep }}>
+                <button onClick={() => { setOpenFormKelola(true); setFormMode("add") }} className="overflow-hidden text-white btn flex gap-x-3" style={{ backgroundColor: DATAS.theme.color_deep }}>
                     <IoMdPersonAdd />
                     Tambah Admin
                 </button>
@@ -87,8 +150,12 @@ export default function ManajemenAkun() {
                                     <td>
                                         <div className="flex gap-x-2 items-center">
                                             <button className="btn border-blue-500 text-blue-500"><BsArrowRepeat size={24} /> Reset Password</button>
-                                            <button className="btn border-sky-400"><LuSquarePen className="stroke-sky-400" size={24} /></button>
-                                            <button className="btn border-red-600"><BiTrash className="fill-red-600" size={24} /></button>
+                                            <button onClick={() => {
+                                                setFormMode("update");
+                                                setAkunToUpdate(akun)
+                                                setOpenFormKelola(true);
+                                            }} className="btn border-sky-400"><LuSquarePen className="stroke-sky-400" size={24} /></button>
+                                            <button onClick={() => hapusAkun(akun.id)} className="btn border-red-600"><BiTrash className="fill-red-600" size={24} /></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -112,41 +179,44 @@ export default function ManajemenAkun() {
         </div>
 
 
-        <div className={`${!openFormTambah && "hidden"} fixed inset-0 backdrop-brightness-70`}>
+        <div className={`${!openFormKelola && "hidden"} fixed inset-0 backdrop-brightness-70`}>
             <div className="absolute top-1/2 left-1/2 -translate-1/2 bg-white rounded flex flex-col gap-y-3 p-5 w-1/5">
                 <div className="flex w-full items-center">
                     <LuSquarePen />
                     <span className="ml-2 mr-auto font-normal">Tambah Admin</span>
-                    <RxCross2 className="hover:text-red-500 cursor-pointer" size={20} onClick={() => setOpenFormTambah(false)} />
+                    <RxCross2 className="hover:text-red-500 cursor-pointer" size={20} onClick={() => setOpenFormKelola(false)} />
                 </div>
 
                 <hr className="border-none h-0.5 bg-gray-500 w-full" />
 
-                <form onSubmit={tambahAkun} className="flex flex-col gap-y-5 mt-3">
+                <form onSubmit={kelolaAkun} className="flex flex-col gap-y-5 mt-3">
                     <div className="flex flex-col gap-y-1">
                         <label className="text-sm">Username <sup className="text-red-500">*</sup></label>
-                        <input type="text" name="username" className="input bg-yellow-100 w-full" required />
+                        <input type="text" defaultValue={formMode === "update" ? akunToUpdate?.username : ""} name="username" className="input bg-yellow-100 w-full" required />
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <label className="text-sm">Nama Lengkap <sup className="text-red-500">*</sup></label>
-                        <input type="text" name="fullname" className="input bg-yellow-100 w-full" required />
+                        <input type="text" defaultValue={formMode === "update" ? akunToUpdate?.fullname : ""} name="fullname" className="input bg-yellow-100 w-full" required />
                     </div>
-                    <div className="flex flex-col gap-y-1">
+
+                    {formMode === "add" && <div className="flex flex-col gap-y-1">
                         <label className="text-sm">OPD <sup className="text-red-500">*</sup></label>
                         <input type="text" name="opd" className="input bg-yellow-100 w-full" required />
-                    </div>
+                    </div>}
+
                     <div className="flex flex-col gap-y-1">
                         <label className="text-sm">Alamat Email</label>
-                        <input type="email" name="email" className="input bg-yellow-100 w-full" />
+                        <input type="email" defaultValue={formMode === "update" ? akunToUpdate?.email : ""} name="email" className="input bg-yellow-100 w-full" />
                     </div>
                     <div className="flex flex-col gap-y-1">
                         <label className="text-sm">Nomor HP</label>
-                        <input type="tel" name="phone" className="input bg-yellow-100 w-full" />
+                        <input type="tel" defaultValue={formMode === "update" ? akunToUpdate?.phone : ""} name="phone" className="input bg-yellow-100 w-full" />
                     </div>
-                    <div className="flex flex-col gap-y-1">
-                        <label className="text-sm">Password</label>
-                        <input type="password" name="password" className="input bg-yellow-100 w-full" />
-                    </div>
+
+                    {formMode === "add" && <div className="flex flex-col gap-y-1">
+                        <label className="text-sm">Password <sup className="text-red-500">*</sup></label>
+                        <input type="password" name="password" className="input bg-yellow-100 w-full" required />
+                    </div>}
 
                     <button className="btn btn-info w-fit ml-auto text-white">Simpan</button>
                 </form>

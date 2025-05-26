@@ -5,4 +5,5 @@ export type AkunType = {
     level: string;
     opd: string;
     username: string;
+    phone?: string;
 }
