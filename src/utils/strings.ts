@@ -307,6 +307,31 @@ export const STRINGS: any = {
     },
     alternative_style: "assets/css/alternative-style.css"
   },
+  "rengasdengklok-karawangkab": {
+    title: "PENDEKAR",
+    desc: "Pemantauan Desa dan Kelurahan Terintegrasi",
+    nama: "PENDEKAR",
+    kabkota: "Kecamatan Rengasdengklok",
+    slogan: "",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/karawang.png",
+    logo_dss_url: "",
+    logo_background_image_login: 'rengasdengklok.png',
+    nama_user: "KEC. RENGASDENGKLOK",
+    jabatan_user: "Camat Rengasdengklok",
+    background_color: "#327A6E",
+    font_color: "#ffffff",
+    bg_color_jumbotron: "#327A6E",
+    font_color_jumbotron: "#ffffff",
+    menu_pelayanan: "hide",
+    menu_pengaduan: "hide",
+    theme: {
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
+    },
+    alternative_style: "assets/css/alternative-style.css"
+  },
   default: {
     title: "SIMONI ADIK BANGDES",
     desc: "Sistem Informasi Monitoring Administrasi Kinerja Pembangunan Desa",
