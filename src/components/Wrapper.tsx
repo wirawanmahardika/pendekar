@@ -10,7 +10,7 @@ export default function Wrapper() {
     const navigate= useNavigate()
     
     const logout = () => {
-        localStorage.removeItem('token')
+        localStorage.clear()
         navigate('/login')        
     }
 

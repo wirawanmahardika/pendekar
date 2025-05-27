@@ -59,6 +59,7 @@ export default function KetapangLoginPage() {
                 if (res.status >= 400) throw new Error('username dan password tidak valid');
                 const token = res.data.data.token
                 localStorage.setItem('token', token)
+                localStorage.setItem("role", res.data.data.user.level)
                 navigate('/')
             } catch (error: any) {
                 setError(error.message)
