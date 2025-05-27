@@ -61,16 +61,43 @@ const hapusAkun = (id: number) => {
 
 export default function ManajemenAkun() {
     useTitle("Manajemen Akun")
+
     const [openFormKelola, setOpenFormKelola] = useState(false)
     const [akun, setAkun] = useState<AkunType[]>([])
     const [formMode, setFormMode] = useState<"add" | "update">("add")
     const [akunToUpdate, setAkunToUpdate] = useState<AkunType | null>(null)
+    const [idChangePassword, setIdChangePassword] = useState<number | null>(null);
+    const [openChangePassword, setOpenChangePassword] = useState(false);
 
     useEffect(() => {
         AxiosAuth.post(BASE_API_URL + "auth")
             .then(res => { setAkun(res.data.data); })
             .catch(err => { console.log(err) })
     }, [])
+
+    const resetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        formData.append("id", idChangePassword?.toString() || "0");
+        try {
+            const res = await AxiosAuth.post(BASE_API_URL + "auth/ChangePassword", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
+            Swal.fire({
+                title: res.data.message,
+                icon: "success",
+                draggable: true
+            })
+        } catch (err: any) {
+            Swal.fire({
+                title: "Gagal mereset password",
+                text: err.response?.data?.message || "Terjadi kesalahan",
+                icon: "error",
+                draggable: true
+            })
+        }
+        setOpenChangePassword(false);
+    }
+
+
 
     return <div className="p-3">
         <div className="shadow bg-white rounded p-5 flex flex-col gap-y-4">
@@ -108,7 +135,7 @@ export default function ManajemenAkun() {
                                     <td>{akun.fullname}</td>
                                     <td>
                                         <div className="flex gap-x-2 items-center">
-                                            <button className="btn border-blue-500 text-blue-500"><BsArrowRepeat size={24} /> Reset Password</button>
+                                            <button onClick={() => { setIdChangePassword(akun.id); setOpenChangePassword(true) }} className="btn border-blue-500 text-blue-500"><BsArrowRepeat size={24} /> Change Password</button>
                                             <button onClick={() => {
                                                 setFormMode("update");
                                                 setAkunToUpdate(akun)
@@ -138,6 +165,26 @@ export default function ManajemenAkun() {
         </div>
 
         <KelolaAkun formMode={formMode} akunToUpdate={akunToUpdate} openFormKelola={openFormKelola} setOpenFormKelola={setOpenFormKelola} />
+        <div className={`${!openChangePassword && "hidden"} fixed inset-0 backdrop-brightness-70`}>
+            <div className="absolute top-1/2 left-1/2 -translate-1/2 bg-white rounded flex flex-col gap-y-3 p-5 w-1/5">
+                <div className="flex w-full items-center">
+                    <LuSquarePen />
+                    <span className="ml-2 mr-auto font-normal">Change Password</span>
+                    <RxCross2 className="hover:text-red-500 cursor-pointer" size={20} onClick={() => setOpenChangePassword(false)} />
+                </div>
+
+                <hr className="border-none h-0.5 bg-gray-500 w-full" />
+
+                <form onSubmit={resetPassword} className="flex flex-col gap-y-5 mt-3">
+                    <div className="flex flex-col gap-y-1">
+                        <label className="text-sm">Password <sup className="text-red-500">*</sup></label>
+                        <input type="password" name="password" className="input bg-yellow-100 w-full" required />
+                    </div>
+
+                    <button className="btn btn-info w-fit ml-auto text-white">Ganti</button>
+                </form>
+            </div>
+        </div>
     </div>
 }
 
