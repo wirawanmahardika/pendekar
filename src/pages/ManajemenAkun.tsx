@@ -11,6 +11,7 @@ import { AxiosAuth } from "../utils/axios";
 import { BASE_API_URL } from "../utils/api";
 import { AkunType } from "../types/ManajemenAkunTypes";
 import Swal from "sweetalert2";
+import { useAuthSuperAdmin } from "../hooks/useAuth";
 
 
 const hapusAkun = (id: number) => {
@@ -61,6 +62,7 @@ const hapusAkun = (id: number) => {
 
 export default function ManajemenAkun() {
     useTitle("Manajemen Akun")
+    useAuthSuperAdmin()
 
     const [openFormKelola, setOpenFormKelola] = useState(false)
     const [akun, setAkun] = useState<AkunType[]>([])

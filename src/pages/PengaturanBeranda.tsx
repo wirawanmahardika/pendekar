@@ -1,6 +1,10 @@
 import bupati_konawe from "../assets/profil/bupati_konawe.jpg";
+import { useAuthSuperAdmin } from "../hooks/useAuth";
+import useTitle from "../hooks/useTitle";
 
 export default function PengaturanBeranda() {
+    useTitle("Pengaturan Beranda")
+    useAuthSuperAdmin()
     return <div className="p-6 bg-white">
         <div className="p-6">
             <div className="max-w-7xl items-center mx-auto shadow rounded p-4">

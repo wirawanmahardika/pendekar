@@ -5,9 +5,11 @@ import { BiTrash } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
 import useTitle from "../hooks/useTitle";
+import { useAuthSuperAdmin } from "../hooks/useAuth";
 
 export default function TemplateDokumen() {
     useTitle("Template Dokumen")
+    useAuthSuperAdmin()
     const [openFormTambah, setOpenFormTambah] = useState(false)
 
     return <div className="p-3">
