@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import { dataToDisplayPerencanaanType, TabelDokumenDanPerencanaanDesaFilterType, TabelDokumenDanPerencanaanDesaSelectedFilterType } from "../../types/PerencanaanTypes";
 import { exportReportButtonStyle } from "../../utils/themeSetting";
+import dayjs from "dayjs";
 
 export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultData: dataToDisplayPerencanaanType }) {
     const [dataToDisplay, setDataToDisplay] = useState<dataToDisplayPerencanaanType>([])
@@ -128,6 +129,8 @@ function getPaginationRange(currentPage: number, totalPages: number) {
 
 
 function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
+    console.log(data);
+
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -151,17 +154,20 @@ function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
         <table className="rounded text-sm w-full mt-4 overflow-hidden">
             <thead>
                 <tr className="bg-[#AEDDF5] text-gray-700">
-                    <th className="border-2 border-neutral-100 text-center w-1/6 py-2">Nama Kecamatan</th>
-                    <th className="border-2 border-neutral-100 text-center w-1/6 py-2">Nama Desa</th>
-                    <th className="border-2 border-neutral-100 text-center w-2/6 py-2">Nama Dokumen</th>
-                    <th className="border-2 border-neutral-100 text-center w-1/6 py-2">Berkas</th>
-                    <th className="border-2 border-neutral-100 text-center w-1/6 py-2">Status</th>
+                    <th className="border-2 border-neutral-100 text-center w-1/12 py-2">PIC</th>
+                    <th className="border-2 border-neutral-100 text-center w-2/12 py-2">Nama Kecamatan</th>
+                    <th className="border-2 border-neutral-100 text-center w-1/12 py-2">Nama Desa</th>
+                    <th className="border-2 border-neutral-100 text-center w-2/12 py-2">Nama Dokumen</th>
+                    <th className="border-2 border-neutral-100 text-center w-2/12 py-2">Berkas</th>
+                    <th className="border-2 border-neutral-100 text-center w-2/12 py-2">Versi Dokumen</th>
+                    <th className="border-2 border-neutral-100 text-center w-2/12 py-2">Status</th>
                 </tr>
             </thead>
             <tbody>
                 {
                     paginatedData.map(d => {
                         return <tr key={d.desa + d.id_dokumen}>
+                            <td className="border-2 border-neutral-100 px-2 py-3">{d.pic}</td>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.kecamatan}</td>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.desa}</td>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.nama_dokumen}</td>
@@ -170,6 +176,9 @@ function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
                                     <span>Lihat Berkas</span>
                                     <i className="bi bi-eye"></i>
                                 </a>
+                            </td>
+                            <td className="border-2 border-neutral-100 px-2 py-3">
+                                <JenisDokumenField jenis_dokumen={d.jenis_dokumen} tanggal_perubahan={dayjs(d.tanggal_perubahan).locale("id").format("D MMM YYYY")} />
                             </td>
                             <td className="border-2 border-neutral-100 px-2 py-3">
                                 <div className="flex justify-around items-center">
@@ -254,4 +263,11 @@ function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
             </div>
         </div>
     </>
+}
+
+function JenisDokumenField({ jenis_dokumen, tanggal_perubahan }: { jenis_dokumen: string; tanggal_perubahan: string }) {
+    return <div className="p-1 flex flex-col gap-y-3">
+        <button className={`btn ${jenis_dokumen === "Perubahan" ? "bg-yellow-200" : "bg-emerald-200"} `}>{jenis_dokumen}</button>
+        <span className="text-gray-700">{tanggal_perubahan}</span>
+    </div>
 }

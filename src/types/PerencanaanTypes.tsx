@@ -1,5 +1,8 @@
 export type dataToDisplayPerencanaanType = {
   id_dokumen: string;
+  pic: string;
+  jenis_dokumen: string;
+  tanggal_perubahan: string;
   desa: string;
   kecamatan: string;
   kode: string;
