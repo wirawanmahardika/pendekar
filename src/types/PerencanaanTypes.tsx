@@ -26,9 +26,9 @@ export type dataToDisplayPartType = {
 }
 
 export type TabelDokumenDanPerencanaanDesaFilterType = {
-  tahun: string[],
-  kecamatan: string[],
-  desa: string[]
+  tahun: {id: number, tahun: string}[],
+  kecamatan: {id: number, kecamatan: string}[],
+  desa: {id: number, desa: string}[]
 }
 
 export type TabelDokumenDanPerencanaanDesaSelectedFilterType = {

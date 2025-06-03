@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import { dataToDisplayPerencanaanType, TabelDokumenDanPerencanaanDesaFilterType, TabelDokumenDanPerencanaanDesaSelectedFilterType } from "../../types/PerencanaanTypes";
 import { exportReportButtonStyle } from "../../utils/themeSetting";
 import dayjs from "dayjs";
+import { getPaginationRange } from "../../utils/pagination";
+import createIdGenerator from "../../utils/idGenerator";
 
 export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultData: dataToDisplayPerencanaanType }) {
+    const getId = createIdGenerator()
     const [dataToDisplay, setDataToDisplay] = useState<dataToDisplayPerencanaanType>([])
     const [filter, setFilter] = useState<TabelDokumenDanPerencanaanDesaFilterType>({
         tahun: [],
@@ -23,12 +26,15 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
     useEffect(() => {
         setDataToDisplay(resultData);
 
-        const tahun = [... new Set(resultData.map((d: any) => d.tahun))] as string[]
-        const kecamatan = [... new Set(resultData.map((d: any) => d.kecamatan))] as string[]
-        const desa = [... new Set(resultData.map((d: any) => d.desa))] as string[]
+        const tahun = [... new Set(resultData.map((d: any) => d.tahun))]
+        const kecamatan = [... new Set(resultData.map((d: any) => d.kecamatan))]
+        const desa = [... new Set(resultData.map((d: any) => d.desa))]
 
-
-        setFilter({ tahun: tahun.sort(), kecamatan, desa })
+        setFilter({
+            tahun: tahun.sort().map(t => ({ id: getId(), tahun: t })),
+            kecamatan: kecamatan.map(k => ({ id: getId(), kecamatan: k })),
+            desa: desa.map(d => ({ id: getId(), desa: d }))
+        })
     }, [])
 
     const filterTahunChange = (e: any) => {
@@ -37,13 +43,22 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
 
         const newDataToDisplay = !resultData ? [] : resultData.filter(d => {
             let status: boolean = true
-            if (selectedTahun) { status = status && selectedTahun === d.tahun }
+            if (selectedTahun) { status = status && selectedTahun === d.tahun.toString() }
             if (selectedFilter.kecamatan) { status = status && selectedFilter.kecamatan === d.kecamatan }
             if (selectedFilter.desa) { status = status && selectedFilter.desa === d.desa }
             return status
         })
 
+        
+
         setDataToDisplay(newDataToDisplay)
+        setFilter(filter => {
+            return {
+                ...filter,
+                kecamatan: [... new Set(newDataToDisplay.map((d: any) => d.kecamatan))].map(k => ({ id: getId(), kecamatan: k })),
+                desa: [... new Set(newDataToDisplay.map((d: any) => d.desa))].map(d => ({id: getId(), desa: d}))
+            }
+        })
     }
 
     const filterKecamatanChange = (e: any) => {
@@ -53,12 +68,18 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
         const newDataToDisplay = !resultData ? [] : resultData.filter(d => {
             let status: boolean = true
             if (selectedKec) { status = status && selectedKec === d.kecamatan }
-            if (selectedFilter.tahun) { status = status && selectedFilter.tahun === d.tahun }
+            if (selectedFilter.tahun) { status = status && selectedFilter.tahun === d.tahun.toString() }
             if (selectedFilter.desa) { status = status && selectedFilter.desa === d.desa }
             return status
         })
 
         setDataToDisplay(newDataToDisplay)
+        setFilter(filter => {
+            return {
+                ...filter,
+                desa: [... new Set(newDataToDisplay.map((d: any) => d.desa))].map(d => ({id: getId(), desa: d}))
+            }
+        })
     }
 
     const filterDesaChange = (e: any) => {
@@ -82,51 +103,22 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
         <div className="flex gap-x-5 pt-2">
             <select onChange={filterTahunChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
                 <option value="">Pilih Tahun</option>
-                {filter.tahun.map(f => <option key={f} value={f}>{f}</option>)}
+                {filter.tahun.map(f => <option key={f.id} value={f.tahun}>{f.tahun}</option>)}
             </select>
 
             <select onChange={filterKecamatanChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
                 <option value="">Semua Kecamatan</option>
-                {filter.kecamatan.map(f => <option key={f} value={f}>{f}</option>)}
+                {filter.kecamatan.map(f => <option key={f.id} value={f.kecamatan}>{f.kecamatan}</option>)}
             </select>
 
             <select onChange={filterDesaChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
                 <option value="">Pilih Desa</option>
-                {filter.desa.map(f => <option key={f} value={f}>{f}</option>)}
+                {filter.desa.map(f => <option key={f.id} value={f.desa}>{f.desa}</option>)}
             </select>
         </div>
         <TabelWithPagination data={dataToDisplay} />
     </div>
 }
-
-
-function getPaginationRange(currentPage: number, totalPages: number) {
-    const delta = 1; // jumlah halaman di kiri dan kanan currentPage
-    const range = [];
-    const rangeWithDots = [];
-
-    for (let i = 1; i <= totalPages; i++) {
-        if (
-            i === 1 ||
-            i === totalPages ||
-            (i >= currentPage - delta && i <= currentPage + delta)
-        ) {
-            range.push(i);
-        }
-    }
-
-    let prev = 0;
-    for (let i of range) {
-        if (prev && i - prev !== 1) {
-            rangeWithDots.push("...");
-        }
-        rangeWithDots.push(i);
-        prev = i;
-    }
-
-    return rangeWithDots;
-}
-
 
 function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
     console.log(data);
