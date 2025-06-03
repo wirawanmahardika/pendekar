@@ -121,7 +121,10 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
 }
 
 function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
-    console.log(data);
+    const getID = createIdGenerator()
+    data = data.map(d => {
+        return {id: getID(), ...d}
+    })
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
@@ -158,7 +161,7 @@ function TabelWithPagination({ data }: { data: dataToDisplayPerencanaanType }) {
             <tbody>
                 {
                     paginatedData.map(d => {
-                        return <tr key={d.desa + d.id_dokumen}>
+                        return <tr key={d.id}>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.pic}</td>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.kecamatan}</td>
                             <td className="border-2 border-neutral-100 px-2 py-3">{d.desa}</td>

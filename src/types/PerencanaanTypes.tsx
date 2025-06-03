@@ -1,4 +1,5 @@
 export type dataToDisplayPerencanaanType = {
+  id?: number;
   id_dokumen: string;
   pic: string;
   jenis_dokumen: string;
