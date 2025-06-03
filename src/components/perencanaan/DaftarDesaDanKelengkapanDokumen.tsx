@@ -7,7 +7,7 @@ import {
 } from "../../types/PerencanaanTypes";
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
-import { exportReportButtonStyle, loadingDotsColors } from "../../utils/themeSetting";
+import { exportReportButtonStyle } from "../../utils/themeSetting";
 
 const initialFilter: FilterState = {
   tahun: "",
@@ -16,9 +16,7 @@ const initialFilter: FilterState = {
   progress: "",
 };
 
-const DaftarDesaDanKelengkapanDokumen = () => {
-  const [loading, setLoading] = useState(true);
-  const [allData, setAllData] = useState<KelengkapanDokumenType>([]);
+const DaftarDesaDanKelengkapanDokumen = ({ allData }: { allData: KelengkapanDokumenType }) => {
   const [tahunOptions, setTahunOptions] = useState<string[]>([]);
   const [kecamatanOptions, setKecamatanOptions] = useState<KecamatanOption[]>([]);
   const [desaOptions, setDesaOptions] = useState<DesaOption[]>([]);
@@ -32,16 +30,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
     "51-75%",
     "76-100%",
   ];
-
-  const fetchDaftarDesa = () => {
-    const reqBody = { limit: 9007199254740990 };
-    AxiosAuth.post(`${BASE_API_URL}perencanaan/GetDaftarDesa`, reqBody, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    })
-      .then(({ data }) => setAllData(data.data))
-      .catch((error) => alert(error.message))
-      .finally(() => setLoading(false));
-  };
 
   const fetchOptions = (optionType: string) => {
     const reqBody = new URLSearchParams({ type: optionType });
@@ -69,7 +57,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
   };
 
   useEffect(() => {
-    fetchDaftarDesa();
     fetchOptions("deskel");
     fetchOptions("tahun");
     fetchOptions("kecamatan");
@@ -153,7 +140,6 @@ const DaftarDesaDanKelengkapanDokumen = () => {
       </div>
       <TabelWithPagination
         data={dataToDisplay}
-        loading={loading}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
@@ -189,7 +175,7 @@ function getPaginationRange(currentPage: number, totalPages: number) {
 }
 
 
-function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { data: KelengkapanDokumenType; loading: boolean; currentPage: number; setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
+function TabelWithPagination({ data, currentPage, setCurrentPage }: { data: KelengkapanDokumenType; currentPage: number; setCurrentPage: React.Dispatch<React.SetStateAction<number>> }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const itemsPerPage = 10;
@@ -253,54 +239,44 @@ function TabelWithPagination({ data, loading, currentPage, setCurrentPage }: { d
       </thead>
       <tbody>
         {
-          loading ? (
-            <tr>
-              <td colSpan={6} className="relative h-20">
-                <span
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-dots w-16"
-                  style={loadingDotsColors}
-                ></span>
-              </td>
-            </tr>
-          ) :
-            paginatedData?.map((item, index: any) => {
-              return (
-                <tr key={index}>
-                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    {item.kecamatan}
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    {item.desa}
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">5/32</span>
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">6/12</span>
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">7/12</span>
-                  </td>
-                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
-                      <div
-                        style={{ width: `${item.progress}%` }}
-                        className="bg-sky-400 h-full"
-                      ></div>
-                      <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">
-                        {item.progress}%
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })
+          paginatedData?.map((item, index: any) => {
+            return (
+              <tr key={index}>
+                <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                  {item.kecamatan}
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                  {item.desa}
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                  <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">5/32</span>
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                  <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">6/12</span>
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                  <span onClick={() => setModalOpen(true)} className="cursor-pointer hover:text-sky-600">7/12</span>
+                </td>
+                <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                  <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
+                    <div
+                      style={{ width: `${item.progress}%` }}
+                      className="bg-sky-400 h-full"
+                    ></div>
+                    <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3">
+                      {item.progress}%
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            );
+          })
         }
 
       </tbody>
     </table>
 
-    <div className={`flex mt-4 justify-center ${loading && "hidden"}`}>
+    <div className={`flex mt-4 justify-center`}>
       <div className="join">
         <button
           style={exportReportButtonStyle}

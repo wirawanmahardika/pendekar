@@ -35,7 +35,9 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
             kecamatan: kecamatan.map(k => ({ id: getId(), kecamatan: k })),
             desa: desa.map(d => ({ id: getId(), desa: d }))
         })
-    }, [])
+    }, [resultData])
+
+    
 
     const filterTahunChange = (e: any) => {
         const selectedTahun = e.target.value
