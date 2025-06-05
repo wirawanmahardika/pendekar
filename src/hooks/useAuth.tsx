@@ -8,3 +8,12 @@ export default function useAuth() {
         if(!token) navigate('/login', {replace: true}) 
     }, [])
 }
+
+export function useAuthSuperAdmin() {
+    const navigate = useNavigate()
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        const role = localStorage.getItem('role')
+        if(!token || role !== "Super Admin") navigate('/login', {replace: true}) 
+    }, [])
+}

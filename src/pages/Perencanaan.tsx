@@ -2,25 +2,33 @@ import useAuth from "../hooks/useAuth";
 import PageTitle from "../components/PageTitle";
 import TabelDokumenDanPerencanaanDesa from "../components/perencanaan/TabelDokumenDanPerencanaanDesa";
 import MonitoringPerencanaan from "../components/perencanaan/MonitoringPerencanaan";
-import HeadHtml from "../components/HeadHtml";
 import { useEffect, useState } from "react";
 import LoadingDots from "../components/LoadingDots";
 import { BASE_API_URL } from "../utils/api";
 import { AxiosAuth } from "../utils/axios";
-import { dataToDisplayPerencanaanType } from "../types/PerencanaanTypes";
+import { dataToDisplayPerencanaanType, KelengkapanDokumenType, ringkasanPerencanaanType } from "../types/PerencanaanTypes";
 import DaftarDesaDanKelengkapanDokumen from "../components/perencanaan/DaftarDesaDanKelengkapanDokumen";
+import HeadHtml from "../components/HeadHtml";
 
 export default function Perencanaan() {
     useAuth()
+    const [dataKelengkapanDokumen, setDataKelengkapanDokumen] = useState<KelengkapanDokumenType>([])
+    const [dataDokumenDanPerencanaan, setDataDokumenDanPerencanaan] = useState<dataToDisplayPerencanaanType>([])
+    const [monitoringData, setMonitoringData] = useState<ringkasanPerencanaanType | null>(null);
 
-    const [resultData, setResultData] = useState<dataToDisplayPerencanaanType>([])
     const [loading, setLoading] = useState(true)
-
-
+        
     useEffect(() => {
-        AxiosAuth.post(`${BASE_API_URL}perencanaan/GetTabelDokumen`, { limit: 9007199254740990 }, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
-            .then(res => { setResultData(res.data.data) })
-            .finally(() => setLoading(false))
+        Promise.all([
+            AxiosAuth.get(`${BASE_API_URL}perencanaan`),
+            AxiosAuth.post(`${BASE_API_URL}perencanaan/GetDaftarDesa`, { limit: Number.MAX_SAFE_INTEGER }, { headers: { "Content-Type": "application/x-www-form-urlencoded" }, }),
+            AxiosAuth.post(`${BASE_API_URL}perencanaan/GetTabelDokumen`, { limit: Number.MAX_SAFE_INTEGER }, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
+        ]).then(([monitoringData, kelengkapanDokumen, dokumenDanPerencanaan]) => {
+            setMonitoringData(monitoringData.data.data)
+            setDataKelengkapanDokumen(kelengkapanDokumen.data.data)
+            setDataDokumenDanPerencanaan(dokumenDanPerencanaan.data.data)
+        }).finally(() => setLoading(false))
+
     }, [])
 
     if (loading) return <LoadingDots />
@@ -29,9 +37,9 @@ export default function Perencanaan() {
             <HeadHtml title="Perencanaan" />
             <PageTitle title="Perencanaan" />
 
-            <MonitoringPerencanaan />
-            <DaftarDesaDanKelengkapanDokumen />
-            <TabelDokumenDanPerencanaanDesa resultData={resultData} />
+            <MonitoringPerencanaan monitoringData={monitoringData} />
+            <DaftarDesaDanKelengkapanDokumen allData={dataKelengkapanDokumen} />
+            <TabelDokumenDanPerencanaanDesa resultData={dataDokumenDanPerencanaan} />
         </div>
     );
 };

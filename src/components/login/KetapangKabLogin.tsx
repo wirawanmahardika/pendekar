@@ -1,48 +1,23 @@
 import { useState } from "react"
-import { BASE_API_URL, KODE_SLUG } from "../../utils/api"
-import { STRINGS } from "../../utils/strings"
-import { loginFormBacgkroundStyle, loginTextStyle } from "../../utils/themeSetting"
-import { AxiosAuth } from "../../utils/axios"
 import { useNavigate } from "react-router-dom"
+import { STRINGS } from "../../utils/strings"
+import { BASE_API_URL, KODE_SLUG } from "../../utils/api"
+import { AxiosAuth } from "../../utils/axios"
+import { loginFormBacgkroundStyle } from "../../utils/themeSetting"
 import HeadHtml from "../HeadHtml"
 
-export default function KetapangLoginPage () {
-
+export default function KetapangLoginPage() {
     const LeftPart = () => {
-        const logoKabupaten = STRINGS[KODE_SLUG].logo_kab_url
-        const logoApp = STRINGS[KODE_SLUG].logo_dss_url
-        const bupati = STRINGS[KODE_SLUG].nama_user
-        const wakilBupati = STRINGS[KODE_SLUG].nama_user_2
-
         return <div className="justify-center items-center flex flex-col w-full mx-auto relative">
-            <HeadHtml title="Login" />
-            <div className="flex absolute top-5 left-5 w-full gap-x-4 h-fit">
-                <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
-                <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
-            </div>
-
-            <div style={loginTextStyle} className="flex relative text-sm gap-x-16 bg-white w-5/6 translate-y-20 justify-evenly font-bold px-3 py-1 rounded">
-                <img src="/img/bupati.png" alt="" className="w-7/12 absolute bottom-full left-5" />
-                <img src="/img/wakil.png" alt="" className="w-7/12 absolute bottom-full right-2" />
-
-                <div className="invisible flex flex-col text-center 2xl:text-lg">
-                    <span>John Doe Kurniawan S.Pd.</span><span className="font-normal italic text-xs">Bupati Ketapang</span>
-                </div>
-
-                <div className="flex flex-col text-center absolute left-[20px] 2xl:left-[65px] 2xl:text-lg">
-                    <span>{bupati}</span>
-                    <span className="font-normal italic text-xs">Bupati Ketapang</span>
-                </div>
-                <div className="flex flex-col text-center absolute right-[20px] 2xl:right-[80px] 2xl:text-lg">
-                    <span>{wakilBupati}</span>
-                    <span className="font-normal italic text-xs">Wakil Bupati Ketapang</span>
-                </div>
+            <div className="flex relative text-sm gap-x-16 w-5/6 justify-evenly font-bold px-3 py-1 rounded -translate-y-24">
+                <img src="/img/ketapangkab.png" className="w-4/5" />
             </div>
         </div>
-
     }
 
     const RightPart = () => {
+        const logoKabupaten = STRINGS[KODE_SLUG].logo_kab_url
+        const logoApp = STRINGS[KODE_SLUG].logo_dss_url
         const [showPass, setShowPass] = useState(false)
         const navigate = useNavigate()
         const [error, setError] = useState('')
@@ -57,6 +32,7 @@ export default function KetapangLoginPage () {
                 if (res.status >= 400) throw new Error('username dan password tidak valid');
                 const token = res.data.data.token
                 localStorage.setItem('token', token)
+                localStorage.setItem("role", res.data.data.user.level)
                 navigate('/')
             } catch (error: any) {
                 setError(error.message)
@@ -64,12 +40,12 @@ export default function KetapangLoginPage () {
         };
 
         return <div style={loginFormBacgkroundStyle} className="relative rounded-l-2xl overflow-y-auto text-white">
+            <HeadHtml title="Login" />
             <div className="flex absolute left-9 top-9 gap-x-4">
-                <img
-                    className="size-14"
-                    src="https://cdn.digitaldesa.com/statics/landing/homepage/media/misc/favicon/digides.png"
-                    alt="digides-logo"
-                />
+                <div className="flex gap-x-2 h-fit">
+                    <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
+                    <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
+                </div>
                 <div className="border-l-2 border-white"></div>
 
                 <div className="flex flex-col justify-center font-semibold">
@@ -99,7 +75,7 @@ export default function KetapangLoginPage () {
                         <img onClick={() => setShowPass((prev) => !prev)} src={showPass ? "/img/icon/show-password.svg" : "/img/icon/hide-password.svg"} alt="" className=" absolute size-5 bottom-2 right-3 cursor-pointer" />
                     </div>
 
-                    <button className="btn btn-active">Masuk</button>
+                    <button className="btn btn-neutral">Masuk</button>
                 </form>
             </div>
         </div>

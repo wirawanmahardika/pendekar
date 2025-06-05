@@ -18,10 +18,11 @@ export const STRINGS: any = {
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      color_deep: "#0077B2",
-      color_normal: "#8ec5ff",
-      color_light: "#cddff7",
-      text_color: "#ffffff",
+        color_deep: "#0077B2",
+        color_medium: "#479ed8",
+        color_normal: "#8ec5ff",
+        color_light: "#cddff7",
+        text_color: "#ffffff",
     }
   },
   enrekangkab: {

@@ -1,5 +1,9 @@
 export type dataToDisplayPerencanaanType = {
+  id?: number;
   id_dokumen: string;
+  pic: string;
+  jenis_dokumen: string;
+  tanggal_perubahan: string;
   desa: string;
   kecamatan: string;
   kode: string;
@@ -23,9 +27,9 @@ export type dataToDisplayPartType = {
 }
 
 export type TabelDokumenDanPerencanaanDesaFilterType = {
-  tahun: string[],
-  kecamatan: string[],
-  desa: string[]
+  tahun: {id: number, tahun: string}[],
+  kecamatan: {id: number, kecamatan: string}[],
+  desa: {id: number, desa: string}[]
 }
 
 export type TabelDokumenDanPerencanaanDesaSelectedFilterType = {
@@ -60,13 +64,40 @@ export type ringkasanPerencanaanType = {
 
 export type KelengkapanDokumen = {
   kode: string;
+  k3: string;
+  kecamatan: string;
+  k4: string;
+  desa: string;
+  data_per_tahun : [
+    {
+      tahun:string;
+      rpjmdes: number[];
+      rkpdes: number[];
+      apbdes: number[];
+    }
+  ]
+  
+}
+
+export type TransformedData = {
   kecamatan: string;
   desa: string;
-  rpjmdes: boolean;
-  rkpdes: boolean;
-  apbdes: boolean;
   tahun: string;
+  rpjmdes: number[];
+  rkpdes: number[];
+  apbdes: number[];
   progress: number;
+}
+
+export type BlankoPerencanaan = {
+   total_rpjmdes: number;
+  data: BlankoDocument[];
+}
+
+export type BlankoDocument = {
+  id: number;
+  modul: string;
+  filename: string;
 }
 
 export type KelengkapanDokumenType = KelengkapanDokumen[];
@@ -85,6 +116,8 @@ export type DaftarKelengkapanDokumenSelectedFilterType = {
   desa: string
 }
 
+
+// filter
 export type KecamatanOption = {
   k3: string;
   kecamatan: string;
@@ -94,3 +127,10 @@ export type DesaOption = {
   k4: string;
   deskel: string;
 }
+
+export type FilterState = {
+  tahun: string;
+  kecamatan: string;
+  desa: string;
+  progress: string;
+};
