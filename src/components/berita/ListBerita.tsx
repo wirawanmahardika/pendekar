@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { exportReportButtonStyle } from "../../utils/themeSetting";
 import { beritaCardType } from "../../types/BeritaTypes";
+import { CDN_URL } from "../../utils/api";
 
 export default function ListBerita({ data }: { data?: beritaCardType[] }) {
     if (!data) return;
@@ -31,7 +32,7 @@ export default function ListBerita({ data }: { data?: beritaCardType[] }) {
                     return <div className="flex gap-x-3 items-center">
                         <img
                             className="w-1/6 rounded"
-                            src={`https://cdn.digitaldesa.com/uploads/profil/${item.kode_wilayah}/berita/thumbs/${item.foto}`}
+                            src={`${CDN_URL}uploads/profil/${item.kode_wilayah}/berita/thumbs/${item.foto}`}
                             alt="berita"
                         />
 

@@ -4,7 +4,7 @@ import PageTitle from "../components/PageTitle";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { AxiosAuth } from "../utils/axios";
-import { BASE_API_URL } from "../utils/api";
+import { BASE_API_URL, CDN_URL } from "../utils/api";
 import useGetResultData from "../hooks/useGetResultData";
 import { wisataCardType, wisataDataType } from "../types/WisataTypes";
 import LoadingDots from "../components/LoadingDots";
@@ -67,6 +67,7 @@ export default function Wisata() {
             {dataTodisplay?.map(w => {
                 return <WisataCard
                     key={w.kode_wilayah}
+                    kode={w.kode_wilayah}
                     foto={w.foto}
                     judul={w.judul}
                     subjudul={w.subjudul}
@@ -77,11 +78,11 @@ export default function Wisata() {
     </div>
 }
 
-const WisataCard = ({ foto, judul, subjudul, url }: { foto: string, judul: string, subjudul: string, url: string }) => {
+const WisataCard = ({ kode, foto, judul, subjudul, url }: { kode: string, foto: string, judul: string, subjudul: string, url: string }) => {
     return <a href={url} className="card bg-base-100 shadow-sm overflow-hidden">
         <figure>
             <img
-                src={`https://cdn.digitaldesa.com/uploads/profil/61.04.17.2002/berita/${foto}`}
+                src={`${CDN_URL}uploads/profil/${kode}/berita/${foto}`}
                 alt="Shoes" />
         </figure>
         <div className="card-body bg-white">
