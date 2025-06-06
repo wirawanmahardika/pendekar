@@ -2,7 +2,7 @@ import { FaMessage } from "react-icons/fa6";
 import StatusChanger from "./StatusChanger";
 import Swal from "sweetalert2";
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { dataToDisplayPerencanaanType, TabelDokumenDanPerencanaanDesaFilterType, TabelDokumenDanPerencanaanDesaSelectedFilterType } from "../../types/PerencanaanTypes";
+import { dataToDisplayPerencanaanType, TabelDokumenDanPerencanaanDesaSelectedFilterType } from "../../types/PerencanaanTypes";
 import dayjs from "dayjs";
 import createIdGenerator from "../../utils/idGenerator";
 import Pagination from "../Pagination";
@@ -11,32 +11,11 @@ const getId = createIdGenerator();
 
 export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultData: dataToDisplayPerencanaanType }) {
     const [dataToDisplay, setDataToDisplay] = useState<dataToDisplayPerencanaanType>([]);
-    const [filter, setFilter] = useState<TabelDokumenDanPerencanaanDesaFilterType>({
-        tahun: [],
-        kecamatan: [],
-        desa: []
-    });
-
     const [selectedFilter, setSelectedFilter] = useState<TabelDokumenDanPerencanaanDesaSelectedFilterType>({
         tahun: '',
         kecamatan: '',
         desa: ''
     });
-
-    useEffect(() => {
-        setDataToDisplay(resultData);
-
-        const tahun = [...new Set(resultData.map((d: any) => d.tahun))];
-        const kecamatan = [...new Set(resultData.map((d: any) => d.kecamatan))];
-        const desa = [...new Set(resultData.map((d: any) => d.desa))];
-
-        setFilter({
-            tahun: tahun.sort().map(t => ({ id: getId(), tahun: t })),
-            kecamatan: kecamatan.map(k => ({ id: getId(), kecamatan: k })),
-            desa: desa.map(d => ({ id: getId(), desa: d }))
-        });
-        setSelectedFilter({ tahun: '', kecamatan: '', desa: '' });
-    }, [resultData]);
 
     const filteredData = useMemo(() => {
         return resultData.filter(d => {
@@ -48,18 +27,35 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
         });
     }, [resultData, selectedFilter]);
 
+
     useEffect(() => {
         setDataToDisplay(filteredData);
-
-        const kecamatan = [...new Set(filteredData.map((d: any) => d.kecamatan))];
-        const desa = [...new Set(filteredData.map((d: any) => d.desa))];
-
-        setFilter(f => ({
-            ...f,
-            kecamatan: kecamatan.map(k => ({ id: getId(), kecamatan: k })),
-            desa: desa.map(d => ({ id: getId(), desa: d }))
-        }));
     }, [filteredData]);
+
+    const tahunOptions = useMemo(() => {
+        const tahun = [...new Set(resultData.map((d: any) => d.tahun))].sort();
+        return tahun.map(t => ({tahun: t, id: getId()}))
+    }, [resultData]);
+
+    const kecamatanOptions = useMemo(() => {
+        const filtered = selectedFilter.tahun
+            ? resultData.filter(d => d.tahun.toString() === selectedFilter.tahun)
+            : resultData;
+        const kecamatan = [...new Set(filtered.map((d: any) => d.kecamatan))];
+        return kecamatan.map(k => ({kecamatan: k, id: getId()}))
+    }, [resultData, selectedFilter.tahun]);
+
+    const desaOptions = useMemo(() => {
+        let filtered = resultData;
+        if (selectedFilter.tahun) {
+            filtered = filtered.filter(d => d.tahun.toString() === selectedFilter.tahun);
+        }
+        if (selectedFilter.kecamatan) {
+            filtered = filtered.filter(d => d.kecamatan === selectedFilter.kecamatan);
+        }
+        const desa = [...new Set(filtered.map((d: any) => d.desa))];
+        return desa.map(d => ({desa: d, id: getId()}))
+    }, [resultData, selectedFilter.tahun, selectedFilter.kecamatan]);
 
     const filterTahunChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedFilter(f => ({ ...f, tahun: e.target.value }));
@@ -77,15 +73,15 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
             <div className="flex gap-x-5 pt-2">
                 <select value={selectedFilter.tahun} onChange={filterTahunChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
                     <option value="">Pilih Tahun</option>
-                    {filter.tahun.map(f => <option key={f.id} value={f.tahun}>{f.tahun}</option>)}
+                    {tahunOptions.map(f => <option key={f.id} value={f.tahun}>{f.tahun}</option>)}
                 </select>
                 <select value={selectedFilter.kecamatan} onChange={filterKecamatanChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
                     <option value="">Semua Kecamatan</option>
-                    {filter.kecamatan.map(f => <option key={f.id} value={f.kecamatan}>{f.kecamatan}</option>)}
+                    {kecamatanOptions.map(f => <option key={f.id} value={f.kecamatan}>{f.kecamatan}</option>)}
                 </select>
                 <select value={selectedFilter.desa} onChange={filterDesaChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
                     <option value="">Pilih Desa</option>
-                    {filter.desa.map(f => <option key={f.id} value={f.desa}>{f.desa}</option>)}
+                    {desaOptions.map(f => <option key={f.id} value={f.desa}>{f.desa}</option>)}
                 </select>
             </div>
             <Pagination data={dataToDisplay} displayData={(paginatedData) => {

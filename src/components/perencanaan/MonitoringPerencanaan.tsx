@@ -174,7 +174,7 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPe
                 cy="50"
                 r="40"
                 stroke="white"
-                stroke-width="10"
+                strokeWidth="10"
                 fill="none"
               />
               <circle
@@ -182,20 +182,20 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPe
                 cy="50"
                 r="40"
                 stroke="#008DF9"
-                stroke-width="10"
+                strokeWidth="10"
                 fill="none"
-                stroke-dasharray={calculateChartSize(
+                strokeDasharray={calculateChartSize(
                   monitoringData?.persentase_dokumen?.rpjmdes
                 )}
-                stroke-linecap="round"
+                strokeLinecap="round"
                 transform="rotate(-90 50 50)"
               />
               <text
                 x="50"
                 y="55"
-                text-anchor="middle"
-                font-size="20"
-                font-weight="bold"
+                textAnchor="middle"
+                fontSize="20"
+                fontWeight="bold"
                 fill="#333"
               >
                 {monitoringData?.persentase_dokumen?.rpjmdes}%
@@ -208,7 +208,7 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPe
                 cy="50"
                 r="40"
                 stroke="white"
-                stroke-width="10"
+                strokeWidth="10"
                 fill="none"
               />
               <circle
@@ -216,20 +216,20 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPe
                 cy="50"
                 r="40"
                 stroke="#FF8000"
-                stroke-width="10"
+                strokeWidth="10"
                 fill="none"
-                stroke-dasharray={calculateChartSize(
+                strokeDasharray={calculateChartSize(
                   monitoringData?.persentase_dokumen?.rkpdes
                 )}
-                stroke-linecap="round"
+                strokeLinecap="round"
                 transform="rotate(-90 50 50)"
               />
               <text
                 x="50"
                 y="55"
-                text-anchor="middle"
-                font-size="20"
-                font-weight="bold"
+                textAnchor="middle"
+                fontSize="20"
+                fontWeight="bold"
                 fill="#333"
               >
                 {monitoringData?.persentase_dokumen?.rkpdes}%
@@ -242,7 +242,7 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPe
                 cy="50"
                 r="40"
                 stroke="white"
-                stroke-width="10"
+                strokeWidth="10"
                 fill="none"
               />
               <circle
@@ -250,20 +250,20 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPe
                 cy="50"
                 r="40"
                 stroke="#06D97D"
-                stroke-width="10"
+                strokeWidth="10"
                 fill="none"
-                stroke-dasharray={calculateChartSize(
+                strokeDasharray={calculateChartSize(
                   monitoringData?.persentase_dokumen?.apbdes
                 )}
-                stroke-linecap="round"
+                strokeLinecap="round"
                 transform="rotate(-90 50 50)"
               />
               <text
                 x="50"
                 y="55"
-                text-anchor="middle"
-                font-size="20"
-                font-weight="bold"
+                textAnchor="middle"
+                fontSize="20"
+                fontWeight="bold"
                 fill="#333"
               >
                 {monitoringData?.persentase_dokumen?.apbdes}%
