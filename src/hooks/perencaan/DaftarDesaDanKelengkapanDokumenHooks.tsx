@@ -22,9 +22,11 @@ export const useGetKecamatanFilter = () => {
 
 export const useGetInitialDesaFilter = () => {
   const [desaOptions, setDesaOptions] = useState<DesaOption[]>([]);
-  
+  const [initialValueDesaOptions, setInitialValueDesaOptions] = useState<DesaOption[]>([]);
+
   useEffect(() => {
-    AxiosAuth.post(BASE_API_URL + "perencanaan/GetOption", new URLSearchParams({ type: "deskel" })).then(res => setDesaOptions(res.data.data))
+    AxiosAuth.post(BASE_API_URL + "perencanaan/GetOption", new URLSearchParams({ type: "deskel" }))
+      .then(res => { setDesaOptions(res.data.data); setInitialValueDesaOptions(res.data.data) })
   }, [])
-  return { desaOptions, setDesaOptions }
+  return { desaOptions, setDesaOptions, initialValueDesaOptions }
 }

@@ -27,11 +27,12 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
 
   const tahunOptions = useGetTahunFilter()
   const kecamatanOptions = useGetKecamatanFilter()
-  const { desaOptions, setDesaOptions } = useGetInitialDesaFilter()
+  const { desaOptions, setDesaOptions, initialValueDesaOptions } = useGetInitialDesaFilter()
 
   useEffect(() => {
     const selectedKecamatanOption = kecamatanOptions.find(k => k.kecamatan === filter.kecamatan)
-    selectedKecamatanOption ? setDesaOptions(selectedKecamatanOption.deskel_list.map(d => ({ id: getId(), deskel: d }))) : []
+    if (selectedKecamatanOption) setDesaOptions(selectedKecamatanOption.deskel_list.map(d => ({ id: getId(), deskel: d })))
+    else setDesaOptions(initialValueDesaOptions)
   }, [allData, filter.kecamatan])
 
   const handleFilterChange = (value: string, type: "tahun" | "kecamatan" | "deskel" | "progress") => {
@@ -53,7 +54,7 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
     }
   }
   // kode diatas untuk filter
-  
+
   const [blankoData, setBlankoData] = useState<{ [key: string]: BlankoDocument[] }>({});
   const [totalDokumen, setTotalDokumen] = useState<{ [key: string]: number }>({});
 
@@ -115,7 +116,7 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
         progress: calculateProgress(desa, filter.tahun, totalDokumen),
       };
     });
-  }, [allData, filter.tahun, totalDokumen]);
+  }, [allData, filter, totalDokumen]);
 
 
   // Filter data secara efisien dengan useMemo
