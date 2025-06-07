@@ -140,6 +140,8 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
     });
   }, [transformedData, filter]);
 
+
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<{
     type: string;
@@ -158,6 +160,9 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
     });
     setModalOpen(true);
   };
+
+
+
 
 
   return (
@@ -207,49 +212,10 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
           ))}
         </select>
       </div>
+
+      <Modal modalData={modalData} modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <Pagination data={dataToDisplay} displayData={(paginatedData) => {
         return <>
-          <div
-            onClick={() => setModalOpen(false)}
-            className={`${!modalOpen && "hidden"
-              } fixed inset-0 backdrop-brightness-50 z-10`}
-          >
-            <div
-              className="absolute w-1/2 h-1/2 overflow-y-auto bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 rounded shadow-lg"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2 className="text-center text-xl font-bold mb-4">
-                Detail Dokumen {modalData?.type} - {modalData?.desa}
-              </h2>
-              <div className="mb-4">
-                <p className="font-semibold">
-                  Progress: {modalData?.uploaded.length}/{modalData?.total.length}{" "}
-                  dokumen
-                </p>
-              </div>
-              <ol className="list-decimal list-inside space-y-2">
-                {modalData?.total.map((doc) => (
-                  <li
-                    key={doc.id}
-                    className={`mb-2 ${modalData.uploaded.includes(doc.id)
-                      ? "text-green-600 font-medium"
-                      : "text-red-500"
-                      }`}
-                  >
-                    <span
-                      className={`inline-block w-3 h-3 rounded-full mr-2 ${modalData.uploaded.includes(doc.id)
-                        ? "bg-green-500"
-                        : "bg-red-500"
-                        }`}
-                    ></span>
-                    {doc.filename}
-                    {modalData.uploaded.includes(doc.id) ? " ✓" : " ✗"}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-
           <table className="rounded text-sm w-full mt-4">
             <thead>
               <tr className="bg-[#AEDDF5] text-gray-700">
@@ -334,3 +300,54 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
     </div>
   );
 };
+
+function Modal({ modalOpen, setModalOpen, modalData }: {
+  modalOpen: boolean; setModalOpen: React.Dispatch<React.SetStateAction<boolean>>; modalData: {
+    type: string;
+    uploaded: number[];
+    total: BlankoDocument[];
+    desa: string;
+  } | null;
+}) {
+  return <div
+    onClick={() => setModalOpen(false)}
+    className={`${!modalOpen && "hidden"
+      } fixed inset-0 backdrop-brightness-50 z-10`}
+  >
+    <div
+      className="absolute w-1/2 h-1/2 overflow-y-auto bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 rounded shadow-lg"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h2 className="text-center text-xl font-bold mb-4">
+        Detail Dokumen {modalData?.type} - {modalData?.desa}
+      </h2>
+      <div className="mb-4">
+        <p className="font-semibold">
+          Progress: {modalData?.uploaded.length}/{modalData?.total.length}{" "}
+          dokumen
+        </p>
+      </div>
+      <ol className="list-decimal list-inside space-y-2">
+        {modalData?.total.map((doc) => (
+          <li
+            key={doc.id}
+            className={`mb-2 ${modalData.uploaded.includes(doc.id)
+              ? "text-green-600 font-medium"
+              : "text-red-500"
+              }`}
+          >
+            <span
+              className={`inline-block w-3 h-3 rounded-full mr-2 ${modalData.uploaded.includes(doc.id)
+                ? "bg-green-500"
+                : "bg-red-500"
+                }`}
+            ></span>
+            {doc.filename}
+            {modalData.uploaded.includes(doc.id) ? " ✓" : " ✗"}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+
+}
