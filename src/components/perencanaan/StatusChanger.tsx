@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import Swal from "sweetalert2"
 import { AxiosAuth } from "../../utils/axios"
-import { dataToDisplayPartType } from "../../types/PerencanaanTypes"
 import { BASE_API_URL } from "../../utils/api"
+import { dokumenDanPerencaanPartType } from "../../types/perencaan/DokumenDanPerencanaan"
 
-const StatusChanger = ({ data, defaultStatus }: { data: dataToDisplayPartType, defaultStatus: "Revisi" | "Ditolak" | "Disetujui" | "Baru" }) => {
+const StatusChanger = ({ data, defaultStatus }: { data: dokumenDanPerencaanPartType, defaultStatus: "Revisi" | "Ditolak" | "Disetujui" | "Baru" }) => {
   const [status, setStatus] = useState(defaultStatus)
   const [color, setColor] = useState('bg-yellow-200 border-yellow-500')
 
@@ -30,7 +30,7 @@ const StatusChanger = ({ data, defaultStatus }: { data: dataToDisplayPartType, d
   </div>
 }
 
-const popup = async (status: string, data: dataToDisplayPartType) => {
+const popup = async (status: string, data: dokumenDanPerencaanPartType) => {
   switch (status) {
     case "Ditolak":
       Swal.fire({

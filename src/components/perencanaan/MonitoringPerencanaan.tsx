@@ -1,4 +1,4 @@
-import { ringkasanPerencanaanType } from "../../types/PerencanaanTypes";
+import { ringkasanPerencanaanType } from "../../types/perencaan/MonitoringPerencanaan";
 
 const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPerencanaanType | null }) => {
   const statusPerencanaan = monitoringData?.status_perencanaan;

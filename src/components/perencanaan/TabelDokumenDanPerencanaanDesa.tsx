@@ -2,19 +2,19 @@ import { FaMessage } from "react-icons/fa6";
 import StatusChanger from "./StatusChanger";
 import Swal from "sweetalert2";
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { dataToDisplayPerencanaanType, TabelDokumenDanPerencanaanDesaSelectedFilterType } from "../../types/PerencanaanTypes";
 import dayjs from "dayjs";
 import createIdGenerator from "../../utils/idGenerator";
 import Pagination from "../Pagination";
+import { dokumenDanPerencaanType, dokumenDanPerencaanFilterType } from "../../types/perencaan/DokumenDanPerencanaan";
 
 const getId = createIdGenerator();
 
-export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultData: dataToDisplayPerencanaanType }) {
-    const [dataToDisplay, setDataToDisplay] = useState<dataToDisplayPerencanaanType>([]);
-    const [selectedFilter, setSelectedFilter] = useState<TabelDokumenDanPerencanaanDesaSelectedFilterType>({
-        tahun: '',
-        kecamatan: '',
-        desa: ''
+export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultData: dokumenDanPerencaanType[] }) {
+    const [dataToDisplay, setDataToDisplay] = useState<dokumenDanPerencaanType[]>([]);
+    const [selectedFilter, setSelectedFilter] = useState<dokumenDanPerencaanFilterType>({
+        tahun: "",
+        kecamatan: "",
+        desa: ""
     });
 
     const filteredData = useMemo(() => {
