@@ -42,7 +42,6 @@ const hapusAkun = (id: number) => {
                     icon: "success"
                 });
             } catch (error) {
-                console.error("Gagal menghapus akun:", error);
                 swalWithBootstrapButtons.fire({
                     title: "Cancelled",
                     text: "Gagal menghapus akun",
@@ -237,7 +236,7 @@ function KelolaAkun({ formMode, akunToUpdate, openFormKelola, setOpenFormKelola 
         <div className="absolute top-1/2 left-1/2 -translate-1/2 bg-white rounded flex flex-col gap-y-3 p-5 w-1/5">
             <div className="flex w-full items-center">
                 <LuSquarePen />
-                <span className="ml-2 mr-auto font-normal">Tambah Admin</span>
+                <span className="ml-2 mr-auto font-normal">{formMode === "add" ? "Tambah Admin" : "Update Admin"}</span>
                 <RxCross2 className="hover:text-red-500 cursor-pointer" size={20} onClick={() => setOpenFormKelola(false)} />
             </div>
 
