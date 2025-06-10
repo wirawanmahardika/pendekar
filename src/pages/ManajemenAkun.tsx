@@ -12,56 +12,11 @@ import { useAuthSuperAdmin } from "../hooks/useAuth";
 import HeadHtml from "../components/HeadHtml";
 import { STRINGS } from "../utils/strings";
 import { AkunType } from "../types/ManajemenAkunTypes";
-
-
-const hapusAkun = (id: number) => {
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: "btn btn-success",
-            cancelButton: "btn btn-error"
-        },
-        buttonsStyling: false
-    });
-    swalWithBootstrapButtons.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            try {
-                const formData = new FormData();
-                formData.append("id", id.toString());
-                const res = await AxiosAuth.post(BASE_API_URL + "auth/delete", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } });
-                swalWithBootstrapButtons.fire({
-                    title: "Deleted!",
-                    text: res.data.message,
-                    icon: "success"
-                });
-            } catch (error) {
-                swalWithBootstrapButtons.fire({
-                    title: "Cancelled",
-                    text: "Gagal menghapus akun",
-                    icon: "error"
-                });
-            }
-        } else {
-            swalWithBootstrapButtons.fire({
-                title: "Cancelled",
-                text: "Gagal menghapus akun",
-                icon: "error"
-            });
-        }
-
-    });
-}
+import LoadingDots from "../components/LoadingDots";
 
 export default function ManajemenAkun() {
     useAuthSuperAdmin()
-
+    const [loading, setIsLoading] = useState(true)
     const [openFormKelola, setOpenFormKelola] = useState(false)
     const [akun, setAkun] = useState<AkunType[]>([])
     const [formMode, setFormMode] = useState<"add" | "update">("add")
@@ -73,6 +28,7 @@ export default function ManajemenAkun() {
         AxiosAuth.post(BASE_API_URL + "auth")
             .then(res => { setAkun(res.data.data); })
             .catch(err => { console.log(err) })
+            .finally(() => setIsLoading(false))
     }, [])
 
     const resetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -97,7 +53,7 @@ export default function ManajemenAkun() {
         setOpenChangePassword(false);
     }
 
-
+    if (loading) return <LoadingDots />
 
     return <div className="p-3">
         <HeadHtml title="Manajemen Akun" />
@@ -276,4 +232,50 @@ function KelolaAkun({ formMode, akunToUpdate, openFormKelola, setOpenFormKelola 
         </div>
 
     </div>
+}
+
+
+const hapusAkun = (id: number) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-error"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+                const formData = new FormData();
+                formData.append("id", id.toString());
+                const res = await AxiosAuth.post(BASE_API_URL + "auth/delete", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } });
+                swalWithBootstrapButtons.fire({
+                    title: "Deleted!",
+                    text: res.data.message,
+                    icon: "success"
+                });
+            } catch (error) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Gagal menghapus akun",
+                    icon: "error"
+                });
+            }
+        } else {
+            swalWithBootstrapButtons.fire({
+                title: "Cancelled",
+                text: "Gagal menghapus akun",
+                icon: "error"
+            });
+        }
+
+    });
 }

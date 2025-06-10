@@ -13,8 +13,8 @@ import Kependudukan from "./pages/Kependudukan"
 import AdministrasiUmum from "./pages/AdministrasiUmum"
 import NotFound from "./pages/NotFound"
 import ManajemenAkun from "./pages/ManajemenAkun"
-import TemplateDokumen from "./pages/TemplateDokumen"
-import PengaturanBeranda from "./pages/PengaturanBeranda"
+// import TemplateDokumen from "./pages/TemplateDokumen"
+// import PengaturanBeranda from "./pages/PengaturanBeranda"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,9 +33,9 @@ const router = createBrowserRouter(
         <Route path="/umum" element={<AdministrasiUmum />} />
       </Route>
       <Route path="/setting" element={<WrapperPengaturan />} errorElement={<NotFound />}>
-        <Route index element={<PengaturanBeranda />} />
-        <Route path="manajemen-akun" element={<ManajemenAkun />} />
-        <Route path="template-dokumen" element={<TemplateDokumen />} />
+        <Route index element={<ManajemenAkun />} />
+        {/* <Route index element={<PengaturanBeranda />} /> */}
+        {/* <Route path="template-dokumen" element={<TemplateDokumen />} /> */}
       </Route>
     </>
   )
