@@ -22,6 +22,7 @@ export type dokumenDanPerencaanFilterType = {
 
 export type dokumenDanPerencaanPartType = {
   id_dokumen: string;
+  pic: string;
   desa: string;
   kecamatan: string;
   kode: string;

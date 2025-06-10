@@ -16,8 +16,8 @@ const StatusChanger = ({ data, defaultStatus }: { data: dokumenDanPerencaanPartT
   }, [status])
 
   const statusChange = async (e: any) => {
-    setStatus(e.target.value)
-    await popup(e.target.value, data)
+    const isSuccess = await popup(e.target.value, data)
+    if (isSuccess) setStatus(e.target.value)
   }
 
   return <div className={`flex w-fit gap-x-1 items-center`}>
@@ -31,32 +31,29 @@ const StatusChanger = ({ data, defaultStatus }: { data: dokumenDanPerencaanPartT
 }
 
 const popup = async (status: string, data: dokumenDanPerencaanPartType) => {
+  let isSuccess = true;
   switch (status) {
     case "Ditolak":
       Swal.fire({
         title: "<strong>Ditolak</strong>",
         icon: "error",
-        html: `
-                  <span>Masukkan Komentar : </span>
-                `,
+        html: `<span>Masukkan Komentar : </span>`,
         input: 'textarea',
         showCloseButton: true,
         showCancelButton: true,
         focusConfirm: false,
-        confirmButtonText: `
-                  Submit
-                `,
+        confirmButtonText: `Submit`,
         confirmButtonAriaLabel: "Thumbs up, great!",
-        cancelButtonText: `
-                  Cancel
-                `,
+        cancelButtonText: `Cancel`,
         cancelButtonAriaLabel: "Thumbs down",
         preConfirm: async (inputValue) => {
           const form = new FormData()
+          console.log(inputValue);
           form.append('status', "Ditolak")
           form.append('komentar', inputValue)
           form.append('id_dokumen', data.id_dokumen)
           form.append('kode_desa', data.kode)
+          form.append('id_pic', localStorage.getItem("id") || "")
           try {
             await AxiosAuth.post(`${BASE_API_URL}perencanaan/ChangeStatus`, form, { headers: { 'Content-Type': "application/x-www-form-urlencoded" } })
             return "Berhasil ditolak"
@@ -66,37 +63,55 @@ const popup = async (status: string, data: dokumenDanPerencaanPartType) => {
         },
       }).then(res => {
         Swal.fire({
-          title: res.value,
+          title: res.isConfirmed ? res.value : "Proses penggantian status dibatalkan",
           icon: "info",
-        })
+        });
       })
       break;
 
     case "Disetujui":
-      const form = new FormData()
-      form.append('status', "Disetujui")
-      form.append('komentar', " ")
-      form.append('id_dokumen', data.id_dokumen)
-      form.append('kode_desa', data.kode)
-      try {
-        await AxiosAuth.post(`${BASE_API_URL}perencanaan/ChangeStatus`, form, { headers: { 'Content-Type': "application/x-www-form-urlencoded" } })
+      Swal.fire({
+        title: "<strong>Disetujui</strong>",
+        icon: "success",
+        html: `<span>Masukkan Komentar : </span>`,
+        input: 'textarea',
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: `Submit`,
+        confirmButtonAriaLabel: "Thumbs up, great!",
+        cancelButtonText: `Cancel`,
+        cancelButtonAriaLabel: "Thumbs down",
+        preConfirm: async (inputValue) => {
+          const form = new FormData()
+          console.log(inputValue);
+          
+          form.append('status', "Disetujui")
+          form.append('komentar', inputValue)
+          form.append('id_dokumen', data.id_dokumen)
+          form.append('kode_desa', data.kode)
+          form.append('id_pic', localStorage.getItem("id") || "")
+          try {
+            await AxiosAuth.post(`${BASE_API_URL}perencanaan/ChangeStatus`, form, { headers: { 'Content-Type': "application/x-www-form-urlencoded" } })
+            return "Berhasil Disetujui"
+          } catch (error: any) {
+            return "Terjadi kesalahan saat menyetujui dokumen"
+          }
+        },
+      }).then(res => {
         Swal.fire({
-          title: "Berhasil disetujui",
-          icon: "success",
-          draggable: true
+          title: res.isConfirmed ? res.value : "Proses penggantian status dibatalkan",
+          icon: "info",
         });
-      } catch (error: any) {
-        Swal.fire({
-          title: "Gagal menyetujui, terjadi kesalahan",
-          icon: "error",
-          draggable: true
-        });
-      }
+      })
+
       break;
 
     default:
       break;
   }
+
+  return isSuccess
 }
 
 

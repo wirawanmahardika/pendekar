@@ -6,16 +6,17 @@ import { useEffect, useState } from "react";
 import LoadingDots from "../components/LoadingDots";
 import { BASE_API_URL } from "../utils/api";
 import { AxiosAuth } from "../utils/axios";
-import { dataToDisplayPerencanaanType, ringkasanPerencanaanType } from "../types/PerencanaanTypes";
 import DaftarDesaDanKelengkapanDokumen from "../components/perencanaan/DaftarDesaDanKelengkapanDokumen";
 import HeadHtml from "../components/HeadHtml";
 import { KelengkapanDokumen } from "../types/perencaan/DaftarDesaDanKelengkapanDokumentTypes";
+import { dokumenDanPerencaanType } from "../types/perencaan/DokumenDanPerencanaan";
+import { monitoringPerencanaanType } from "../types/perencaan/MonitoringPerencanaan";
 
 export default function Perencanaan() {
     useAuth()
     const [dataKelengkapanDokumen, setDataKelengkapanDokumen] = useState<KelengkapanDokumen[]>([])
-    const [dataDokumenDanPerencanaan, setDataDokumenDanPerencanaan] = useState<dataToDisplayPerencanaanType>([])
-    const [monitoringData, setMonitoringData] = useState<ringkasanPerencanaanType | null>(null);
+    const [dataDokumenDanPerencanaan, setDataDokumenDanPerencanaan] = useState<dokumenDanPerencaanType[]>([])
+    const [monitoringData, setMonitoringData] = useState< monitoringPerencanaanType| null>(null);
 
     const [loading, setLoading] = useState(true)
         

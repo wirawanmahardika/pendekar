@@ -33,6 +33,7 @@ export default function KetapangLoginPage() {
                 const token = res.data.data.token
                 localStorage.setItem('token', token)
                 localStorage.setItem("role", res.data.data.user.level)
+                localStorage.setItem("id", res.data.data.user.id)
                 navigate('/')
             } catch (error: any) {
                 setError(error.message)

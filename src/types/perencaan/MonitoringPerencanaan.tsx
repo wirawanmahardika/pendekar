@@ -1,4 +1,4 @@
-export type ringkasanPerencanaanType = {
+export type monitoringPerencanaanType = {
   ringkasan_perencaanaan: {
     desa_belum_upload: number;
     desa_sudah_upload: number;

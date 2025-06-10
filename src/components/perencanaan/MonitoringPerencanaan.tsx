@@ -1,6 +1,6 @@
-import { ringkasanPerencanaanType } from "../../types/perencaan/MonitoringPerencanaan";
+import { monitoringPerencanaanType } from "../../types/perencaan/MonitoringPerencanaan";
 
-const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: ringkasanPerencanaanType | null }) => {
+const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: monitoringPerencanaanType | null }) => {
   const statusPerencanaan = monitoringData?.status_perencanaan;
   const maxValue = Math.max(
     statusPerencanaan?.desa_dokumen_baru || 0,

@@ -117,13 +117,12 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
                                     <div className="flex justify-around items-center">
                                         <StatusChanger data={d} defaultStatus={d.status} />
                                         <FaMessage onClick={() => {
-                                            if (d.status !== 'Ditolak') return;
                                             Swal.fire({
                                                 title: "Komentar",
-                                                text: d.komentar,
+                                                text: d.komentar || "Tidak ada komentar",
                                                 icon: "info"
                                             });
-                                        }} className={`${d.status !== 'Ditolak' ? "text-gray-700" : "text-sky-700 cursor-pointer"}`} size={20} />
+                                        }} className={`text-sky-700 cursor-pointer`} size={20} />
                                     </div>
                                 </td>
                             </tr>
