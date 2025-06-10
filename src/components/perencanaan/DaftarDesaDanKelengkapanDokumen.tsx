@@ -118,7 +118,6 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
     });
   }, [allData, filter, totalDokumen]);
 
-
   // Filter data secara efisien dengan useMemo
   const dataToDisplay = useMemo(() => {
     return transformedData.filter((item) => {
@@ -140,8 +139,6 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
     });
   }, [transformedData, filter]);
 
-
-
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<{
     type: string;
@@ -160,10 +157,6 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
     });
     setModalOpen(true);
   };
-
-
-
-
 
   return (
     <div className="bg-white p-5 mt-10 rounded shadow">
@@ -215,87 +208,79 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
 
       <Modal modalData={modalData} modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <Pagination data={dataToDisplay} displayData={(paginatedData) => {
-        return <>
-          <table className="rounded text-sm w-full mt-4">
-            <thead>
-              <tr className="bg-[#AEDDF5] text-gray-700">
-                <th className="border-2 border-gray-100 text-center w-2/12 py-2">
-                  Nama Kecamatan
-                </th>
-                <th className="border-2 border-gray-100 text-center w-3/12 py-2">
-                  Nama Desa
-                </th>
-                <th className="border-2 border-gray-100 text-center w-1/12 py-2">
-                  RPJMDes
-                </th>
-                <th className="border-2 border-gray-100 text-center w-1/12 py-2">
-                  RKPDes
-                </th>
-                <th className="border-2 border-gray-100 text-center w-1/12 py-2">
-                  APBDes
-                </th>
-                <th className="border-2 border-gray-100 text-center w-4/12 py-2">
-                  Progress
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedData?.map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                      {item.kecamatan}
-                    </td>
-                    <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                      {item.desa}
-                    </td>
-                    <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                      <span
-                        onClick={() =>
-                          handleDocumentClick("rpjmdes", item.rpjmdes, item.desa)
-                        }
-                        className="cursor-pointer hover:text-sky-600"
-                      >
-                        {item.rpjmdes.length}/{totalDokumen.rpjmdes || 0}
+        return <table className="rounded text-sm w-full mt-4">
+          <thead>
+            <tr className="bg-[#AEDDF5] text-gray-700">
+              <th className="border-2 border-gray-100 text-center w-2/12 py-2">
+                Nama Kecamatan
+              </th>
+              <th className="border-2 border-gray-100 text-center w-3/12 py-2">
+                Nama Desa
+              </th>
+              <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+                RPJMDes
+              </th>
+              <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+                RKPDes
+              </th>
+              <th className="border-2 border-gray-100 text-center w-1/12 py-2">
+                APBDes
+              </th>
+              <th className="border-2 border-gray-100 text-center w-4/12 py-2">
+                Progress
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginatedData?.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    {item.kecamatan}
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    {item.desa}
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <span
+                      onClick={() => handleDocumentClick("rpjmdes", item.rpjmdes, item.desa)}
+                      className={`btn ${item.rpjmdes.length === totalDokumen.rpjmdes ? "bg-emerald-500" : "bg-red-500"}`}
+                    >
+                      {item.rpjmdes.length === totalDokumen.rpjmdes ? "Selesai" : "Belum"}
+                    </span>
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <span
+                      onClick={() => handleDocumentClick("rkpdes", item.rkpdes, item.desa)}
+                      className={`btn ${item.rkpdes.length === totalDokumen.rkpdes ? "bg-emerald-500" : "bg-red-500"}`}
+                    >
+                      {item.rkpdes.length === totalDokumen.rkpdes ? "Selesai" : "Belum"}
+                    </span>
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <span
+                      onClick={() => handleDocumentClick("apbdes", item.apbdes, item.desa)}
+                      className={`btn ${item.apbdes.length === totalDokumen.apbdes ? "bg-emerald-500" : "bg-red-500"}`}
+                    >
+                      {item.apbdes.length === totalDokumen.apbdes ? "Selesai" : "Belum"}
+                    </span>
+                  </td>
+                  <td className="border border-neutral-200 px-2 py-3 text-center relative">
+                    <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
+                      <div
+                        style={{ width: `${item.progress}%` }}
+                        className="bg-sky-400 h-full transition-all duration-300"
+                      ></div>
+                      <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3 text-xs">
+                        {item.progress}%
                       </span>
-                    </td>
-                    <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                      <span
-                        onClick={() =>
-                          handleDocumentClick("rkpdes", item.rkpdes, item.desa)
-                        }
-                        className="cursor-pointer hover:text-sky-600"
-                      >
-                        {item.rkpdes.length}/{totalDokumen.rkpdes || 0}
-                      </span>
-                    </td>
-                    <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                      <span
-                        onClick={() =>
-                          handleDocumentClick("apbdes", item.apbdes, item.desa)
-                        }
-                        className="cursor-pointer hover:text-sky-600"
-                      >
-                        {item.apbdes.length}/{totalDokumen.apbdes || 0}
-                      </span>
-                    </td>
-                    <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                      <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
-                        <div
-                          style={{ width: `${item.progress}%` }}
-                          className="bg-sky-400 h-full transition-all duration-300"
-                        ></div>
-                        <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3 text-xs">
-                          {item.progress}%
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       }} />
     </div>
   );
