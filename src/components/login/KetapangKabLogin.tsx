@@ -36,7 +36,7 @@ export default function KetapangLoginPage() {
                 localStorage.setItem("id", res.data.data.user.id)
                 navigate('/')
             } catch (error: any) {
-                setError(error.message)
+                setError(error.response.data.message || "Terjadi kesalahan")
             }
         };
 
