@@ -28,17 +28,18 @@ export default function KelolaAkun(
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const newAkun: AkunType = {
-            email: formData.get("email")?.toString() ?? "",
+            id: getId(),
             fullname: formData.get("fullname")?.toString() ?? "",
             level: formData.get("level")?.toString() ?? "admin",
             opd: formData.get("opd")?.toString() ?? "",
             username: formData.get("username")?.toString() ?? "",
             phone: formData.get("phone")?.toString() ?? "",
-            id: getId(),
+            email: formData.get("email")?.toString() ?? "",
         }
 
         if (formMode === "update" && akunToUpdate) {
             formData.append("id", akunToUpdate.id.toString())
+            newAkun.id = akunToUpdate.id
             try {
                 const res = await AxiosAuth.post(BASE_API_URL + "auth/update", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
                 dispatch({ type: "update", payload: newAkun})
