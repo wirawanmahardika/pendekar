@@ -243,26 +243,32 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
                     <span
-                      onClick={() => handleDocumentClick("rpjmdes", item.rpjmdes, item.desa)}
-                      className={`btn ${item.rpjmdes.length === totalDokumen.rpjmdes ? "bg-emerald-500" : "bg-red-500"}`}
+                      onClick={() =>
+                        handleDocumentClick("rpjmdes", item.rpjmdes, item.desa)
+                      }
+                      className="cursor-pointer hover:text-sky-600"
                     >
-                      {item.rpjmdes.length === totalDokumen.rpjmdes ? "Selesai" : "Belum"}
+                      {item.rpjmdes.length}/{totalDokumen.rpjmdes || 0}
                     </span>
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
                     <span
-                      onClick={() => handleDocumentClick("rkpdes", item.rkpdes, item.desa)}
-                      className={`btn ${item.rkpdes.length === totalDokumen.rkpdes ? "bg-emerald-500" : "bg-red-500"}`}
+                      onClick={() =>
+                        handleDocumentClick("rkpdes", item.rkpdes, item.desa)
+                      }
+                      className="cursor-pointer hover:text-sky-600"
                     >
-                      {item.rkpdes.length === totalDokumen.rkpdes ? "Selesai" : "Belum"}
+                      {item.rkpdes.length}/{totalDokumen.rkpdes || 0}
                     </span>
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
                     <span
-                      onClick={() => handleDocumentClick("apbdes", item.apbdes, item.desa)}
-                      className={`btn ${item.apbdes.length === totalDokumen.apbdes ? "bg-emerald-500" : "bg-red-500"}`}
+                      onClick={() =>
+                        handleDocumentClick("apbdes", item.apbdes, item.desa)
+                      }
+                      className="cursor-pointer hover:text-sky-600"
                     >
-                      {item.apbdes.length === totalDokumen.apbdes ? "Selesai" : "Belum"}
+                      {item.apbdes.length}/{totalDokumen.apbdes || 0}
                     </span>
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
