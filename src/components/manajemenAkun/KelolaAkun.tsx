@@ -4,16 +4,44 @@ import { AxiosAuth } from "../../utils/axios";
 import { LuSquarePen } from "react-icons/lu";
 import { RxCross2 } from "react-icons/rx";
 import { AkunType } from "../../types/ManajemenAkunTypes";
+import createIdGenerator from "../../utils/idGenerator";
+import { manajemenAkunActionType } from "../../hooks/manajemenAkun/reducer";
 
-export default function KelolaAkun({ formMode, akunToUpdate, openFormKelola, setOpenFormKelola }: { formMode: "add" | "update", akunToUpdate: AkunType | null, openFormKelola: boolean, setOpenFormKelola: React.Dispatch<React.SetStateAction<boolean>> }) {
+const getId = createIdGenerator()
+export default function KelolaAkun(
+    { formMode,
+        akunToUpdate,
+        openFormKelola,
+        setOpenFormKelola,
+        dispatch
+    }:
+        {
+            formMode: "add" | "update",
+            akunToUpdate: AkunType | null,
+            openFormKelola: boolean,
+            setOpenFormKelola: React.Dispatch<React.SetStateAction<boolean>>,
+            dispatch: React.ActionDispatch<[action: manajemenAkunActionType]>
+        }
+) {
+
     const kelolaAkun = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+        const newAkun: AkunType = {
+            email: formData.get("email")?.toString() ?? "",
+            fullname: formData.get("fullname")?.toString() ?? "",
+            level: formData.get("level")?.toString() ?? "admin",
+            opd: formData.get("opd")?.toString() ?? "",
+            username: formData.get("username")?.toString() ?? "",
+            phone: formData.get("phone")?.toString() ?? "",
+            id: getId(),
+        }
 
         if (formMode === "update" && akunToUpdate) {
             formData.append("id", akunToUpdate.id.toString())
             try {
                 const res = await AxiosAuth.post(BASE_API_URL + "auth/update", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
+                dispatch({ type: "update", payload: newAkun})
                 Swal.fire({
                     title: res.data.message,
                     icon: "success",
@@ -31,7 +59,9 @@ export default function KelolaAkun({ formMode, akunToUpdate, openFormKelola, set
         }
 
         try {
+
             const res = await AxiosAuth.post(BASE_API_URL + "auth/add", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
+            dispatch({ type: "add", payload: newAkun })
             Swal.fire({
                 title: res.data.message,
                 icon: "success",

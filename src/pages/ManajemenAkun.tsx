@@ -29,7 +29,7 @@ export default function ManajemenAkun() {
 
     useEffect(() => {
         AxiosAuth.post(BASE_API_URL + "auth")
-            .then(res => { dispatch({type: "add", payload: res.data.data}); })
+            .then(res => { dispatch({type: "fill", payload: res.data.data}); })
             .catch(err => { console.log(err) })
             .finally(() => setIsLoading(false))
     }, [])
@@ -124,7 +124,7 @@ export default function ManajemenAkun() {
             </div>
         </div>
 
-        <KelolaAkun formMode={formMode} akunToUpdate={akunToUpdate} openFormKelola={openFormKelola} setOpenFormKelola={setOpenFormKelola} />
+        <KelolaAkun formMode={formMode} akunToUpdate={akunToUpdate} openFormKelola={openFormKelola} setOpenFormKelola={setOpenFormKelola} dispatch={dispatch} />
         <div className={`${!openChangePassword && "hidden"} fixed inset-0 backdrop-brightness-70`}>
             <div className="absolute top-1/2 left-1/2 -translate-1/2 bg-white rounded flex flex-col gap-y-3 p-5 w-1/5">
                 <div className="flex w-full items-center">
