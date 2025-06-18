@@ -23,13 +23,12 @@ export default function Perencanaan() {
 
     useEffect(() => {
         Promise.all([
-            // AxiosAuth.get(`${BASE_API_URL}perencanaan`),
-            // AxiosAuth.post(`${BASE_API_URL}perencanaan/GetDaftarDesa`, { limit: Number.MAX_SAFE_INTEGER }, { headers: { "Content-Type": "application/x-www-form-urlencoded" }, }),
+            AxiosAuth.get(`${BASE_API_URL}perencanaan`),
+            AxiosAuth.post(`${BASE_API_URL}perencanaan/GetDaftarDesa`, { limit: Number.MAX_SAFE_INTEGER }, { headers: { "Content-Type": "application/x-www-form-urlencoded" }, }),
             AxiosAuth.post(`${BASE_API_URL}perencanaan/GetTabelDokumen`, { limit: Number.MAX_SAFE_INTEGER }, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
-        ]).then(([dokumenDanPerencanaan]) => {
-            // ]).then(([monitoringData, kelengkapanDokumen, dokumenDanPerencanaan]) => {
-            // setMonitoringData(monitoringData.data.data)
-            // setDataKelengkapanDokumen(kelengkapanDokumen.data.data)
+            ]).then(([monitoringData, kelengkapanDokumen, dokumenDanPerencanaan]) => {
+            setMonitoringData(monitoringData.data.data)
+            setDataKelengkapanDokumen(kelengkapanDokumen.data.data)
             dispatchDataDokumenDanPerencanaan({
                 type: "add-all",
                 payload: dokumenDanPerencanaan.data.data.map((d: dokumenDanPerencaanType) => ({ ...d, id: `${d.kode} ${d.id_dokumen}` }))
@@ -44,8 +43,8 @@ export default function Perencanaan() {
             <HeadHtml title="Perencanaan" />
             <PageTitle title="Perencanaan" />
 
-            {/* <MonitoringPerencanaan monitoringData={monitoringData} />
-            <DaftarDesaDanKelengkapanDokumen allData={dataKelengkapanDokumen} /> */}
+            <MonitoringPerencanaan monitoringData={monitoringData} />
+            <DaftarDesaDanKelengkapanDokumen allData={dataKelengkapanDokumen} />
             <TabelDokumenDanPerencanaanDesa allData={dataDokumenDanPerencanaan} dispatchAllData={dispatchDataDokumenDanPerencanaan} />
         </div>
     );
