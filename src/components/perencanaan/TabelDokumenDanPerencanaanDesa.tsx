@@ -1,16 +1,17 @@
 import { FaMessage } from "react-icons/fa6";
-import StatusChanger from "./StatusChanger";
 import Swal from "sweetalert2";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import dayjs from "dayjs";
 import createIdGenerator from "../../utils/idGenerator";
 import Pagination from "../Pagination";
-import { dokumenDanPerencaanType, dokumenDanPerencaanFilterType } from "../../types/perencaan/DokumenDanPerencanaan";
+import { dokumenDanPerencaanType, dokumenDanPerencaanFilterType, dokumenDanPerencaanPartType } from "../../types/perencaan/DokumenDanPerencanaan";
+import { dokumenDanPerencanaanAction } from "../../hooks/perencaan/DokumenDanPerencanaanDesaReducer";
+import { AxiosAuth } from "../../utils/axios";
+import { BASE_API_URL } from "../../utils/api";
 
 const getId = createIdGenerator();
-
-export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultData: dokumenDanPerencaanType[] }) {
-    const [dataToDisplay, setDataToDisplay] = useState<dokumenDanPerencaanType[]>([]);
+export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllData }: { allData: dokumenDanPerencaanType[], dispatchAllData: React.ActionDispatch<[action: dokumenDanPerencanaanAction]> }) {
+    const [dataToDisplay, setDataToDisplay] = useState(allData)
     const [selectedFilter, setSelectedFilter] = useState<dokumenDanPerencaanFilterType>({
         tahun: "",
         kecamatan: "",
@@ -18,35 +19,35 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
     });
 
     const filteredData = useMemo(() => {
-        return resultData.filter(d => {
+        return allData.filter(d => {
             let status = true;
             if (selectedFilter.tahun) status = status && selectedFilter.tahun === d.tahun.toString();
             if (selectedFilter.kecamatan) status = status && selectedFilter.kecamatan === d.kecamatan;
             if (selectedFilter.desa) status = status && selectedFilter.desa === d.desa;
             return status;
         });
-    }, [resultData, selectedFilter]);
+    }, [allData, selectedFilter]);
 
 
     useEffect(() => {
-        setDataToDisplay(filteredData);
+        setDataToDisplay(filteredData)
     }, [filteredData]);
 
     const tahunOptions = useMemo(() => {
-        const tahun = [...new Set(resultData.map((d: any) => d.tahun))].sort();
-        return tahun.map(t => ({tahun: t, id: getId()}))
-    }, [resultData]);
+        const tahun = [...new Set(allData.map((d: any) => d.tahun))].sort();
+        return tahun.map(t => ({ tahun: t, id: getId() }))
+    }, [allData]);
 
     const kecamatanOptions = useMemo(() => {
         const filtered = selectedFilter.tahun
-            ? resultData.filter(d => d.tahun.toString() === selectedFilter.tahun)
-            : resultData;
+            ? allData.filter(d => d.tahun.toString() === selectedFilter.tahun)
+            : allData;
         const kecamatan = [...new Set(filtered.map((d: any) => d.kecamatan))];
-        return kecamatan.map(k => ({kecamatan: k, id: getId()}))
-    }, [resultData, selectedFilter.tahun]);
+        return kecamatan.map(k => ({ kecamatan: k, id: getId() }))
+    }, [allData, selectedFilter.tahun]);
 
     const desaOptions = useMemo(() => {
-        let filtered = resultData;
+        let filtered = allData;
         if (selectedFilter.tahun) {
             filtered = filtered.filter(d => d.tahun.toString() === selectedFilter.tahun);
         }
@@ -54,8 +55,8 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
             filtered = filtered.filter(d => d.kecamatan === selectedFilter.kecamatan);
         }
         const desa = [...new Set(filtered.map((d: any) => d.desa))];
-        return desa.map(d => ({desa: d, id: getId()}))
-    }, [resultData, selectedFilter.tahun, selectedFilter.kecamatan]);
+        return desa.map(d => ({ desa: d, id: getId() }))
+    }, [allData, selectedFilter.tahun, selectedFilter.kecamatan]);
 
     const filterTahunChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedFilter(f => ({ ...f, tahun: e.target.value }));
@@ -98,35 +99,64 @@ export default function TabelDokumenDanPerencanaanDesa({ resultData }: { resultD
                         </tr>
                     </thead>
                     <tbody>
-                        {paginatedData.map((d, idx) => (
-                            <tr key={d.id ?? idx}>
-                                <td className="border-2 border-neutral-100 px-2 py-3">{d.pic}</td>
-                                <td className="border-2 border-neutral-100 px-2 py-3">{d.kecamatan}</td>
-                                <td className="border-2 border-neutral-100 px-2 py-3">{d.desa}</td>
-                                <td className="border-2 border-neutral-100 px-2 py-3">{d.nama_dokumen}</td>
-                                <td className="border-2 border-neutral-100 px-2 py-3">
-                                    <a target="_blank" href={`https://online.digitaldesa.id/uploads/${d.kode}/perencanaan-keuangan-desa/${d.url_dokumen}`} className="flex bg-neutral-200 rounded text-sky-400 w-fit gap-x-2 px-2 py-1 cursor-pointer" rel="noopener noreferrer">
-                                        <span>Lihat Berkas</span>
-                                        <i className="bi bi-eye"></i>
-                                    </a>
-                                </td>
-                                <td className="border-2 border-neutral-100 px-2 py-3">
-                                    <JenisDokumenField jenis_dokumen={d.jenis_dokumen} tanggal_perubahan={dayjs(d.tanggal_perubahan).locale("id").format("D MMM YYYY")} />
-                                </td>
-                                <td className="border-2 border-neutral-100 px-2 py-3">
-                                    <div className="flex justify-around items-center">
-                                        <StatusChanger data={d} defaultStatus={d.status} />
-                                        <FaMessage onClick={() => {
-                                            Swal.fire({
-                                                title: "Komentar",
-                                                text: d.komentar || "Tidak ada komentar",
-                                                icon: "info"
-                                            });
-                                        }} className={`text-sky-700 cursor-pointer`} size={20} />
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+                        {paginatedData.map((d, idx) => {
+                            let color: string;
+                            if (d.status === 'Revisi') color = 'bg-yellow-200 border-yellow-500'
+                            else if (d.status === 'Ditolak') color = 'bg-red-200 border-red-500'
+                            else if (d.status === 'Baru') color = 'bg-sky-200 border-sky-500'
+                            else color = 'bg-green-200 border-green-500'
+
+                            return (
+                                <tr key={d.id ?? idx}>
+                                    <td className="border-2 border-neutral-100 px-2 py-3">{d.pic}</td>
+                                    <td className="border-2 border-neutral-100 px-2 py-3">{d.kecamatan}</td>
+                                    <td className="border-2 border-neutral-100 px-2 py-3">{d.desa}</td>
+                                    <td className="border-2 border-neutral-100 px-2 py-3">{d.nama_dokumen}</td>
+                                    <td className="border-2 border-neutral-100 px-2 py-3">
+                                        <a target="_blank" href={`https://online.digitaldesa.id/uploads/${d.kode}/perencanaan-keuangan-desa/${d.url_dokumen}`} className="flex bg-neutral-200 rounded text-sky-400 w-fit gap-x-2 px-2 py-1 cursor-pointer" rel="noopener noreferrer">
+                                            <span>Lihat Berkas</span>
+                                            <i className="bi bi-eye"></i>
+                                        </a>
+                                    </td>
+                                    <td className="border-2 border-neutral-100 px-2 py-3">
+                                        <JenisDokumenField jenis_dokumen={d.jenis_dokumen} tanggal_perubahan={dayjs(d.tanggal_perubahan).locale("id").format("D MMM YYYY")} />
+                                    </td>
+                                    <td className="border-2 border-neutral-100 px-2 py-3">
+                                        <div className="flex justify-around items-center">
+                                            <div className={`flex w-fit gap-x-1 items-center`}>
+                                                <select
+                                                    onChange={async (e) => {
+                                                        const newStatus = e.target.value as "Revisi" | "Ditolak" | "Disetujui" | "Baru";
+                                                        const isSuccess = await popup(newStatus, d);
+                                                        if (isSuccess) {
+                                                            dispatchAllData({ type: "ubah-status", payload: { id: d.id, status: newStatus } });
+                                                        }
+                                                    }}
+                                                    value={d.status}
+                                                    name="status"
+                                                    className={`pl-3 pr-9 rounded border py-1 ${color}`}
+                                                >
+                                                    <option disabled value="Baru">Baru</option>
+                                                    <option disabled value="Revisi">Revisi</option>
+                                                    <option value="Disetujui">Disetujui</option>
+                                                    <option value="Ditolak">Ditolak</option>
+                                                </select>
+                                            </div>
+                                            {/* <StatusChanger data={d} onStatusChange={(newStatus) => {
+                                            dispatchAllData({ type: "ubah-status", payload: { id: d.id, status: newStatus } });
+                                        }} /> */}
+                                            <FaMessage onClick={() => {
+                                                Swal.fire({
+                                                    title: "Komentar",
+                                                    text: d.komentar || "Tidak ada komentar",
+                                                    icon: "info"
+                                                });
+                                            }} className={`text-sky-700 cursor-pointer`} size={20} />
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             }} />
@@ -141,4 +171,81 @@ function JenisDokumenField({ jenis_dokumen, tanggal_perubahan }: { jenis_dokumen
             <span className="text-gray-700">{tanggal_perubahan}</span>
         </div>
     );
+}
+
+const popup = async (status: "Revisi" | "Ditolak" | "Disetujui" | "Baru", data: dokumenDanPerencaanPartType) => {
+    switch (status) {
+        case "Ditolak":
+            const res = await Swal.fire({
+                title: "<strong>Ditolak</strong>",
+                icon: "error",
+                html: `<span>Masukkan Komentar : </span>`,
+                input: 'textarea',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: `Submit`,
+                confirmButtonAriaLabel: "Thumbs up, great!",
+                cancelButtonText: `Cancel`,
+                cancelButtonAriaLabel: "Thumbs down",
+                preConfirm: async (inputValue) => {
+                    const form = new FormData()
+                    console.log(inputValue);
+                    form.append('status', "Ditolak")
+                    form.append('komentar', inputValue)
+                    form.append('id_dokumen', data.id_dokumen)
+                    form.append('kode_desa', data.kode)
+                    form.append('id_pic', localStorage.getItem("id") || "")
+                    try {
+                        await AxiosAuth.post(`${BASE_API_URL}perencanaan/ChangeStatus`, form, { headers: { 'Content-Type': "application/x-www-form-urlencoded" } })
+                        return "Berhasil ditolak"
+                    } catch (error: any) {
+                        return "Terjadi kesalahan saat menolak dokumen"
+                    }
+                },
+            })
+
+            await Swal.fire({
+                title: res.isConfirmed ? res.value : "Proses penggantian status dibatalkan",
+                icon: "info",
+            });
+            return res.isConfirmed
+
+        case "Disetujui":
+            const res2 = await Swal.fire({
+                title: "<strong>Disetujui</strong>",
+                icon: "success",
+                html: `<span>Masukkan Komentar : </span>`,
+                input: 'textarea',
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: `Submit`,
+                confirmButtonAriaLabel: "Thumbs up, great!",
+                cancelButtonText: `Cancel`,
+                cancelButtonAriaLabel: "Thumbs down",
+                preConfirm: async (inputValue) => {
+                    const form = new FormData()
+                    form.append('status', "Disetujui")
+                    form.append('komentar', inputValue)
+                    form.append('id_dokumen', data.id_dokumen)
+                    form.append('kode_desa', data.kode)
+                    form.append('id_pic', localStorage.getItem("id") || "")
+                    try {
+                        await AxiosAuth.post(`${BASE_API_URL}perencanaan/ChangeStatus`, form, { headers: { 'Content-Type': "application/x-www-form-urlencoded" } })
+                        return "Berhasil Disetujui"
+                    } catch (error: any) {
+                        return "Terjadi kesalahan saat menyetujui dokumen"
+                    }
+                },
+            })
+
+            await Swal.fire({
+                title: res2.isConfirmed ? res2.value : "Proses penggantian status dibatalkan",
+                icon: "info",
+            });
+            return res2.isConfirmed;
+        default:
+            return false
+    }
 }

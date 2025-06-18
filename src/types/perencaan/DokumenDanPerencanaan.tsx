@@ -1,5 +1,5 @@
 export type dokumenDanPerencaanType = {
-  id?: number;
+  id: string;
   id_dokumen: string;
   pic: string;
   jenis_dokumen: string;
