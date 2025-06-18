@@ -142,9 +142,6 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
                                                     <option value="Ditolak">Ditolak</option>
                                                 </select>
                                             </div>
-                                            {/* <StatusChanger data={d} onStatusChange={(newStatus) => {
-                                            dispatchAllData({ type: "ubah-status", payload: { id: d.id, status: newStatus } });
-                                        }} /> */}
                                             <FaMessage onClick={() => {
                                                 Swal.fire({
                                                     title: "Komentar",
@@ -168,7 +165,7 @@ function JenisDokumenField({ jenis_dokumen, tanggal_perubahan }: { jenis_dokumen
     return (
         <div className="p-1 flex flex-col gap-y-3">
             <button className={`btn ${jenis_dokumen === "Perubahan" ? "bg-yellow-200" : "bg-emerald-200"} `}>{jenis_dokumen}</button>
-            <span className="text-gray-700">{tanggal_perubahan}</span>
+            {jenis_dokumen === "Perubahan" && <span className="text-gray-700">{tanggal_perubahan}</span>}
         </div>
     );
 }
