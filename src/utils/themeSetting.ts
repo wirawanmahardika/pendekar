@@ -8,7 +8,7 @@ export const exportReportButtonStyle = {
 
 export const cardAdministrationStyle = {
     color: STRINGS[KODE_SLUG].theme.text_color,
-    backgroundColor: STRINGS[KODE_SLUG].theme.btn_color
+    backgroundColor: STRINGS[KODE_SLUG].theme.color_deep
 }
 
 export const pageTitleStyle = {

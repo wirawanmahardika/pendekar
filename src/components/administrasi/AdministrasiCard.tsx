@@ -6,7 +6,7 @@ const AdministrasiCard = ({ title, data, dataPerWeek }: IAdministrasiCard) => {
   return (
     <div className="flex justify-between rounded-lg shadow-md p-4">
       <div className="flex gap-x-4 items-center">
-        <div style={cardAdministrationStyle} className="bg-cyan-100 rounded-full p-3">
+        <div style={cardAdministrationStyle} className=" rounded-full p-3">
           <FaMapLocation size="30" />
         </div>  
         <div className="flex-col">
