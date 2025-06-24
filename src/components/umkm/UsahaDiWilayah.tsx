@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
 import { desaKecamatanChartType, umkmDataType } from "../../types/umkmTypes";
+import LoadingDots from "../LoadingDots";
 
 function totalUsaha(data: desaKecamatanChartType) {
     delete data.k1;
@@ -74,7 +75,10 @@ export default function UsahaDiWilayah({ resultData }: { resultData?: umkmDataTy
             </select>
         </div>
         <div className="h-full">
-            <BarChart data={dataTodisplay} />
+            {dataTodisplay ?
+                <BarChart data={dataTodisplay} />
+                : <LoadingDots />
+            }
         </div>
     </div>
 }
