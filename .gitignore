@@ -29,3 +29,6 @@ test.js
 # anything
 autoupdate.sh
 api.json
+
+context.json
+.context
