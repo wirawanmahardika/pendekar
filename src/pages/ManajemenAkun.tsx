@@ -30,7 +30,7 @@ export default function ManajemenAkun() {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 2;
+    const itemsPerPage = 10;
     const filteredAkun = akun.filter(a => a.fullname.toLowerCase().includes(searchQuery.toLowerCase()));
 
     const totalPages = Math.ceil(filteredAkun.length / itemsPerPage);
