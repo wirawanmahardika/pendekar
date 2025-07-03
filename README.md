@@ -1,54 +1,50 @@
-# React + TypeScript + Vite
+# 📁 Struktur Folder Proyek React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Tujuan
+Struktur proyek ini dirancang untuk menjaga **modularitas, keterbacaan, dan pemisahan konteks** antar halaman. Terdapat dua kategori file:
 
-Currently, two official plugins are available:
+1. **File Global** — Dipakai oleh banyak halaman.
+2. **File Spesifik Halaman** — Hanya digunakan di satu halaman tertentu (dipisahkan ke dalam subfolder sesuai nama halaman di folder `pages/`).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📂 Penjelasan Folder
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Folder        | Deskripsi |
+|---------------|-----------|
+| `components/` | Berisi komponen UI reusable. Komponen umum berada langsung di root folder ini, sedangkan komponen khusus halaman dikelompokkan dalam subfolder sesuai nama halaman. |
+| `hooks/`      | Custom hooks. File di root adalah hook global. Hook yang hanya digunakan oleh satu halaman tertentu diletakkan dalam subfolder berdasarkan nama halaman. |
+| `utils/`      | Fungsi utilitas. Utilitas umum di root folder. Utilitas khusus halaman disimpan di subfolder bernama sesuai halaman terkait. |
+| `types/`      | Tipe TypeScript. Tipe global diletakkan di root. Tipe yang hanya digunakan oleh satu halaman ditempatkan dalam subfolder khusus. |
+| `pages/`      | Menyimpan file halaman (route-level components). Setiap halaman boleh memiliki komponen, hook, utilitas, atau tipe sendiri di folder lain (dengan nama folder yang sama). |
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔍 Contoh
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Untuk halaman `Dashboard`:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- `pages/Dashboard.tsx` → Komponen halaman utama
+- `components/Dashboard/RevenueCard.tsx` → Komponen UI khusus dashboard
+- `hooks/Dashboard/useDashboardStats.ts` → Hook data dashboard
+- `utils/Dashboard/parseChartData.ts` → Fungsi utilitas parsing data grafik
+- `types/Dashboard/chart.ts` → Tipe data grafik dashboard
+
+---
+
+## ✅ Best Practices
+
+- Gunakan subfolder bernama sesuai halaman hanya jika file tersebut **tidak digunakan di tempat lain**.
+- Komponen dan fungsi **yang digunakan lintas halaman** **harus tetap di root folder** `components/`, `utils/`, dll.
+- Jangan membuat subfolder terlalu dalam — cukup satu level (`components/Dashboard/...`).
+- Jaga konsistensi penamaan agar mudah dicari dan tidak membingungkan developer lain.
+
+---
+
+## 📘 Kesimpulan
+
+Dengan pendekatan ini, proyek akan:
+- Lebih **terorganisir**
+- Mudah untuk **scaling dan refactor**
+- Meminimalkan duplikasi dan **conflict antar fitur**
+
