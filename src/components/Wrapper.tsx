@@ -40,7 +40,7 @@ export default function Wrapper() {
                         </div>
                     </div>
 
-                    <ul tabIndex={0} className="dropdown-content rounded z-1 w-64 shadow-sm bg-white flex flex-col items-center">
+                    <ul tabIndex={0} className="dropdown-content rounded z-1 w-64 shadow-sm bg-white flex flex-col items-center -translate-x-8">
                         <div className="flex flex-col gap-y-0.5 items-center p-3 text-center">
                             <span className="text-lg">{STRINGS[KODE_SLUG].nama_user}</span>
                             <span className="font-light text-sm text-gray-700">{STRINGS[KODE_SLUG].jabatan_user}</span>

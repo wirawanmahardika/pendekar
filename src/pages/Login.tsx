@@ -73,7 +73,7 @@ export default function Login() {
 
                 <div className="border-l-3 rounded-xl border-white"></div>
 
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-2 justify-center">
                     <span className="text-white xl:text-lg font-semibold">{STRINGS[KODE_SLUG].title}</span>
                     <span className="text-white xl:text-lg font-semibold">{STRINGS[KODE_SLUG].kabkota}</span>
                 </div>
@@ -81,7 +81,7 @@ export default function Login() {
 
             <div
                 style={{ backgroundImage: `url('/img/bg/${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
-                className="absolute bg-red-800 bg-cover bg-center inset-24 xl:inset-40 z-20"
+                className="absolute bg-cover bg-center inset-24 xl:inset-40 z-20"
             ></div>
         </div>
     </div >

@@ -1,29 +1,31 @@
 import defaultUser from '../assets/profil/default.png'
-import { CDN_URL } from './api';
+const CDN_URL = "https://cdn.digitaldesa.com/";
 
 export const STRINGS: any = {
   digikab: {
-    title: "SiCesa",
-    desc: "Sistem Cepat Informasi Desa",
-    nama: "SiCesa",
-    kabkota: "Kabupaten Ketapang",
+    title: "PENDEKAR",
+    desc: "Pemantauan Desa dan Kelurahan Terintegrasi",
+    nama: "PENDEKAR",
+    kabkota: "Kabupaten Digikab",
     slogan: "",
-    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/ketapangkab.png",
-    logo_dss_url: '/img/logo/sicesa.png',
-    logo_background_image_login: 'ketapangkab.jpeg',
-    nama_user: "Alexander Wilyo, S.STP., M.Si.",
-    jabatan_user: "Bupati Ketapang",
-    nama_user_2: "Jamhuri Amir, S.H.",
-    logo_user: defaultUser,
-    logo_user_2: "/img/wakil.png",
+    logo_kab_url: "/img/bg/alogo.png",
+    logo_dss_url: "",
+    logo_background_image_login: '/all.png',
+    nama_user: "Digikab Admin User",
+    jabatan_user: "Bupati Digikab",
+    background_color: "#327A6E",
+    font_color: "#ffffff",
+    bg_color_jumbotron: "#327A6E",
+    font_color_jumbotron: "#ffffff",
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
     theme: {
-      color_deep: "#0077B2",
-      color_normal: "#8ec5ff",
-      color_light: "#cddff7",
+      color_deep: "#327A6E",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
       text_color: "#ffffff",
-    }
+    },
+    alternative_style: "assets/css/alternative-style.css"
   },
   ketapangkab: {
     title: "SiCesa",
@@ -88,7 +90,7 @@ export const STRINGS: any = {
     logo_dss_url: "",
     logo_background_image_login: 'luwukab.png',
 
-    nama_user: "Basmin Mattayang",
+    nama_user: "H. Patahuddin, S.Ag",
     jabatan_user: "Bupati Luwu",
     logo_user: defaultUser,
     nama_user_2: "",
@@ -325,31 +327,6 @@ export const STRINGS: any = {
     font_color_jumbotron: "#ffffff",
     menu_pelayanan: "hide",
     menu_pengaduan: "hide",
-    theme: {
-      color_deep: "#327A6E",
-      color_normal: "#0cceae",
-      color_light: "#91EFF3",
-      text_color: "#ffffff",
-    },
-    alternative_style: "assets/css/alternative-style.css"
-  },
-  default: {
-    title: "SIMONI ADIK BANGDES",
-    desc: "Sistem Informasi Monitoring Administrasi Kinerja Pembangunan Desa",
-    nama: "PENDEKAR",
-    kabkota: "Kec. Wawotobi, Kab. Konawe",
-    slogan: "Konawe Harapan Rakyat",
-    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/konawekab.png",
-    logo_dss_url: "",
-    logo_background_image_login: '',
-    nama_user: "Harmin Ramba",
-    jabatan_user: "Pj.Kec Wawotobi",
-    background_color: "#327A6E",
-    font_color: "#ffffff",
-    bg_color_jumbotron: "#327A6E",
-    font_color_jumbotron: "#ffffff",
-    menu_pelayanan: "hide",
-    menu_pengaduan: "",
     theme: {
       color_deep: "#327A6E",
       color_normal: "#0cceae",

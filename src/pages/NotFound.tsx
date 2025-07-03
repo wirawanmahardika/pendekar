@@ -9,18 +9,18 @@ const NotFound = () => {
 
   return (
     <div className=" flex items-center justify-center h-screen" style={notFoundStyle}>
-      <HeadHtml title="NOT FOUND" />
+      <HeadHtml title="Halaman Tidak Ditemukan" />
       <div className="text-center">
         <h1 className="text-9xl font-extrabold text-white">404</h1>
-        <p className="text-2xl text-white mt-4">Oops! Page not found.</p>
+        <p className="text-2xl text-white mt-4">Halaman Tidak Ditemukan</p>
         <p className="text-white mt-2">
-          The page you're looking for doesn't exist or has been moved.
+          Halaman yang Anda cari tidak tersedia
         </p>
         <a
           href="/"
           className="mt-6 inline-block px-6 py-3 bg-white text-black rounded-lg text-lg font-semibold hover:bg-gray-200 transition-colors"
         >
-          Go Home
+          Kembali ke Beranda
         </a>
       </div>
     </div>
