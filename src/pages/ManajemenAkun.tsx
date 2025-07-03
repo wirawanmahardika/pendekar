@@ -16,6 +16,7 @@ import LoadingDots from "../components/LoadingDots";
 import hapusAkun from "../utils/manajemenAkun/hapusAkun";
 import KelolaAkun from "../components/manajemenAkun/KelolaAkun";
 import manajemenAkunReducer from "../hooks/manajemenAkun/reducer";
+import { ManajemenAkunPagination } from "../utils/manajemenAkun/pagination";
 
 export default function ManajemenAkun() {
     useAuthSuperAdmin()
@@ -27,9 +28,23 @@ export default function ManajemenAkun() {
     const [idChangePassword, setIdChangePassword] = useState<number | null>(null);
     const [openChangePassword, setOpenChangePassword] = useState(false);
 
+    const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 2;
+    const filteredAkun = akun.filter(a => a.fullname.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    const totalPages = Math.ceil(filteredAkun.length / itemsPerPage);
+    const paginatedAkun = filteredAkun.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, akun]);
+
     useEffect(() => {
         AxiosAuth.post(BASE_API_URL + "auth")
-            .then(res => { dispatch({type: "fill", payload: res.data.data}); })
+            .then(res => { dispatch({ type: "fill", payload: res.data.data }); })
             .catch(err => { console.log(err) })
             .finally(() => setIsLoading(false))
     }, [])
@@ -57,7 +72,6 @@ export default function ManajemenAkun() {
     }
 
     if (loading) return <LoadingDots />
-
     return <div className="p-3">
         <HeadHtml title="Manajemen Akun" />
         <div className="shadow bg-white rounded p-5 flex flex-col gap-y-4">
@@ -72,7 +86,13 @@ export default function ManajemenAkun() {
             <div className="flex justify-end">
                 <div className="relative">
                     <FaSearch className="absolute top-1/2 text-gray-800 z-10 -translate-y-1/2 left-3" size={16} />
-                    <input type="search" className="input bg-gray-200 pl-10" placeholder="Cari PIC..." />
+                    <input
+                        type="search"
+                        className="input bg-gray-200 pl-10"
+                        placeholder="Cari PIC..."
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                    />
                 </div>
             </div>
 
@@ -87,41 +107,33 @@ export default function ManajemenAkun() {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            akun.map((akun, idx) => {
-                                return <tr key={akun.id}>
-                                    <th>{idx + 1}</th>
-                                    <td><span className="rounded px-2 py-1" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_normal }}>{akun.level}</span></td>
-                                    <td>{akun.fullname}</td>
-                                    <td>
-                                        <div className="flex gap-x-2 items-center">
-                                            <button onClick={() => { setIdChangePassword(akun.id); setOpenChangePassword(true) }} className="btn border-blue-500 text-blue-500"><BsArrowRepeat size={24} /> Change Password</button>
-                                            <button onClick={() => {
-                                                setFormMode("update");
-                                                setAkunToUpdate(akun)
-                                                setOpenFormKelola(true);
-                                            }} className="btn border-sky-400"><LuSquarePen className="stroke-sky-400" size={24} /></button>
-                                            <button onClick={() => hapusAkun(akun.id, dispatch)} className="btn border-red-600"><BiTrash className="fill-red-600" size={24} /></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            })
-                        }
-
+                        {paginatedAkun.map((akun, idx) => {
+                            return <tr key={akun.id}>
+                                <th>{idx + 1}</th>
+                                <td><span className="rounded px-2 py-1" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_normal }}>{akun.level}</span></td>
+                                <td>{akun.fullname}</td>
+                                <td>
+                                    <div className="flex gap-x-2 items-center">
+                                        <button onClick={() => { setIdChangePassword(akun.id); setOpenChangePassword(true) }} className="btn border-blue-500 text-blue-500"><BsArrowRepeat size={24} /> Change Password</button>
+                                        <button onClick={() => {
+                                            setFormMode("update");
+                                            setAkunToUpdate(akun)
+                                            setOpenFormKelola(true);
+                                        }} className="btn border-sky-400"><LuSquarePen className="stroke-sky-400" size={24} /></button>
+                                        <button onClick={async () => await hapusAkun(akun.id, dispatch)} className="btn border-red-600"><BiTrash className="fill-red-600" size={24} /></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        })}
                     </tbody>
                 </table>
             </div>
 
-            <div className="flex justify-end items-center gap-x-5">
-                <span>Page</span>
-                <select name="" className="select w-fit">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                </select>
-                <span>of 10</span>
-            </div>
+            <ManajemenAkunPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
         </div>
 
         <KelolaAkun formMode={formMode} akunToUpdate={akunToUpdate} openFormKelola={openFormKelola} setOpenFormKelola={setOpenFormKelola} dispatch={dispatch} />
