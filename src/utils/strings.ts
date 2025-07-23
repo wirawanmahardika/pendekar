@@ -90,7 +90,7 @@ export const STRINGS: any = {
     logo_dss_url: "",
     logo_background_image_login: 'luwukab.png',
 
-    nama_user: "H. Patahuddin, S.Ag",
+    nama_user: "H. Patahudding, S.Ag.",
     jabatan_user: "Bupati Luwu",
     logo_user: defaultUser,
     nama_user_2: "",
