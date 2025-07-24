@@ -366,6 +366,37 @@ export const STRINGS: any = {
     },
     alternative_style: "assets/css/alternative-style.css"
   },
+  maroskab: {
+    title: "PENDEKAR",
+    desc: "Pemantauan Desa dan Kelurahan Terintegrasi",
+    nama: "PENDEKAR",
+    kabkota: "Kabupaten Maros",
+    slogan: "Maros Sejahtera, Religius, dan Berdaya Saing",
+    logo_kab_url: CDN_URL + "uploads/landing/logo-desa/maros.png",
+    logo_dss_url: "",
+    logo_background_image_login: CDN_URL + "uploads/pendekar/login-panel/maroskab.webp",
+
+    nama_user: "Dr. H. A. S. Chaidir Syam, S.IP., M.H.",
+    jabatan_user: "Bupati Maros",
+    logo_user: defaultUser,
+    nama_user_2: "",
+    jabatan_user_2: "",
+    logo_user_2: "",
+
+    background_color: "#00923F",
+    font_color: "#ffffff",
+    bg_color_jumbotron: "#00923F",
+    font_color_jumbotron: "#ffffff",
+    menu_pelayanan: "hide",
+    menu_pengaduan: "hide",
+    theme: {
+      color_deep: "#00923F",
+      color_normal: "#0cceae",
+      color_light: "#91EFF3",
+      text_color: "#ffffff",
+    },
+    alternative_style: "assets/css/alternative-style.css"
+  },
 
   // Kota
   ambon: {
