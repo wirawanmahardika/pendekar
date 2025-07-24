@@ -80,8 +80,9 @@ export default function Login() {
             </div>
 
             <div
-                style={{ backgroundImage: `url('/img/bg/${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
-                className="absolute bg-cover bg-center inset-24 xl:inset-40 z-20"
+                // style={{ backgroundImage: `url('/img/bg/${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
+                style={{ backgroundImage: `url('${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
+                className="absolute bg-contain bg-no-repeat bg-center inset-24 xl:inset-32 z-20"
             ></div>
         </div>
     </div >
