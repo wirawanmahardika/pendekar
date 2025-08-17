@@ -1,42 +1,15 @@
 import { BiSearch } from "react-icons/bi";
 import PageTitle from "../components/PageTitle";
 import useAuth from "../hooks/useAuth";
-import { AxiosAuth } from "../utils/axios";
-import { useEffect, useState } from "react";
-import { BASE_API_URL } from "../utils/api";
-import useGetResultData from "../hooks/useGetResultData";
-import { beritaCardType, beritaDataType } from "../types/BeritaTypes";
 import ListBerita from "../components/berita/ListBerita";
 import LoadingDots from "../components/LoadingDots";
 import HeadHtml from "../components/HeadHtml";
+import useBerita from "../hooks/berita/useBerita";
 
 export default function Berita() {
     useAuth()
 
-    const [loading, setIsLoading] = useState(false)
-    const resultData = useGetResultData<beritaDataType>(`${BASE_API_URL}berita?k3=&k4=&search=&limit=`, setIsLoading)
-    const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
-    const [dataTodisplay, setDataToDisplay] = useState<beritaCardType[]>()
-
-
-    useEffect(() => {
-        AxiosAuth
-            .get(`${BASE_API_URL}berita?k3=&k4=&search=&limit=`)
-            .then((result) => setDataToDisplay(result.data.data.list_berita))
-            .catch((error) => alert(error.message))
-    }, [])
-
-    useEffect(() => {
-        const listBerita = resultData?.list_berita.filter(lb => {
-            let status: boolean = true;
-            if (search.kecamatan) status = status && lb.nama_kecamatan === search.kecamatan
-            if (search.desa) status = status && lb.nama_desa === search.desa
-            if (search.text) status = status && lb.nama_desa.toLowerCase().includes(search.text.toLowerCase())
-            return status
-        })
-        setDataToDisplay(listBerita)
-    }, [search])
-    
+    const { loading, dataTodisplay, search, setSearch, resultData } = useBerita()
     if (loading) return <LoadingDots />
 
     return <div className="px-4 py-10">
