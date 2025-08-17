@@ -1,25 +1,20 @@
 import PageTitle from "../components/PageTitle";
 import useAuth from "../hooks/useAuth";
-import { BASE_API_URL } from "../utils/api";
-import { bansosType } from "../types/BansosTypes";
-import useGetResultData from "../hooks/useGetResultData";
 import PendudukMendapatBantuan from "../components/bansos/PendudukMendapatBantuan";
 import RekapPenerimaBantuanSosial from "../components/bansos/RekapPenerimaBantuanSosial";
-import { useState } from "react";
 import LoadingDots from "../components/LoadingDots";
 import HeadHtml from "../components/HeadHtml";
+import useBansos from "../hooks/bansos/useBansos";
 
 export default function Bansos() {
-    useAuth()
+  useAuth()
+  const { loading, bansosData } = useBansos()
+  if (loading) return <LoadingDots />
 
-    const [loading, setIsLoading] = useState(false)
-    const resultData = useGetResultData<bansosType>(`${BASE_API_URL}bansos`, setIsLoading);
-    if(loading) return <LoadingDots />
-
-    return <div className="px-4 py-10">
-      <HeadHtml title="Bansos" />
-      <PageTitle title="Bantuan Sosial" last_updated={ resultData?.last_updated } />
-        <PendudukMendapatBantuan resultData={resultData} />
-        <RekapPenerimaBantuanSosial resultData={resultData} />
-    </div>
+  return <div className="px-4 py-10">
+    <HeadHtml title="Bansos" />
+    <PageTitle title="Bantuan Sosial" last_updated={bansosData?.last_updated} />
+    <PendudukMendapatBantuan resultData={bansosData} />
+    <RekapPenerimaBantuanSosial resultData={bansosData} />
+  </div>
 }
