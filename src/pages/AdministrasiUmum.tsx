@@ -1,36 +1,15 @@
 
-import axios from "axios";
-import { useEffect, useState } from "react";
 import PageTitle from "../components/PageTitle";
-import { BASE_API_URL } from "../utils/api";
 import AdministrasiDataCard from "../components/administrasi/AdministrasiViewFilterAndCard";
 import AdministrasiDataTable from "../components/administrasi/AdministrasiDataTable";
 import LoadingDots from "../components/LoadingDots";
 import HeadHtml from "../components/HeadHtml";
+import useAdministrasiUmum from "../hooks/administrasiUmum/useAdministrasiUmum";
+import useAuth from "../hooks/useAuth";
 
 export default function AdministrasiUmum() {
-  const [administrationData, setAdministrationData] = useState();
-  const [administrationTypes, setAdministrationTypes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState("");
-
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(`${BASE_API_URL}administrasi-umum?k3=&k4=`, {
-        headers: { Authorization: localStorage.getItem("token") },
-      })
-      .then(({ data: result }) => {
-        const data = result.data;
-        setAdministrationData(data);
-        setAdministrationTypes(data.jenis_administrasi);
-        setLastUpdated(data.last_updated);
-      })
-      .catch((error) => {
-        alert(error.message);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+  useAuth()
+  const { isLoading, lastUpdated, administrationData, administrationTypes } = useAdministrasiUmum()
 
   if (isLoading) return <LoadingDots />;
   return (
