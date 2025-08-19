@@ -8,6 +8,8 @@ import { dokumenDanPerencaanType, dokumenDanPerencaanFilterType, dokumenDanPeren
 import { dokumenDanPerencanaanAction } from "../../hooks/perencaan/DokumenDanPerencanaanDesaReducer";
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL } from "../../utils/api";
+import DateRangeButton from "./DateRangeButton";
+import { Range } from "react-date-range";
 
 const getId = createIdGenerator();
 export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllData }: { allData: dokumenDanPerencaanType[], dispatchAllData: React.ActionDispatch<[action: dokumenDanPerencanaanAction]> }) {
@@ -17,6 +19,7 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
         kecamatan: "",
         desa: ""
     });
+    const [dateRange, setDateRange] = useState<Range | null>(null);
 
     const filteredData = useMemo(() => {
         return allData.filter(d => {
@@ -24,9 +27,16 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
             if (selectedFilter.tahun) status = status && selectedFilter.tahun === d.tahun.toString();
             if (selectedFilter.kecamatan) status = status && selectedFilter.kecamatan === d.kecamatan;
             if (selectedFilter.desa) status = status && selectedFilter.desa === d.desa;
+
+            // ✅ filter berdasarkan tanggal_perubahan jika ada dateRange
+            if (dateRange?.startDate && dateRange?.endDate) {
+                const tanggal = new Date(d.insert_date);
+                status = status && tanggal >= dateRange.startDate && tanggal <= dateRange.endDate;
+            }
+
             return status;
         });
-    }, [allData, selectedFilter]);
+    }, [allData, selectedFilter, dateRange]);
 
 
     useEffect(() => {
@@ -72,7 +82,7 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
         <div className="bg-white p-5 mt-10 rounded shadow">
             <span className="text-base font-bold">Tabel Dokumen dan Perencanaan Desa</span>
             <div className="flex gap-x-5 pt-2">
-                <select value={selectedFilter.tahun} onChange={filterTahunChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
+                <select value={selectedFilter.tahun} onChange={filterTahunChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/5 outline-none pl-2 pr-4 py-2">
                     <option value="">Pilih Tahun</option>
                     {tahunOptions.map(f => <option key={f.id} value={f.tahun}>{f.tahun}</option>)}
                 </select>
@@ -84,6 +94,7 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
                     <option value="">Pilih Desa</option>
                     {desaOptions.map(f => <option key={f.id} value={f.desa}>{f.desa}</option>)}
                 </select>
+                <DateRangeButton onChange={(range) => setDateRange(range)} />
             </div>
             <Pagination data={dataToDisplay} displayData={(paginatedData) => {
                 return <table className="rounded text-sm w-full mt-4 overflow-hidden">
@@ -112,8 +123,8 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
                                     <td className="border-2 border-neutral-100 px-2 py-3">{d.kecamatan}</td>
                                     <td className="border-2 border-neutral-100 px-2 py-3">{d.desa}</td>
                                     <td className="border-2 border-neutral-100 px-2 py-3">{d.nama_dokumen}</td>
-                                    <td className="border-2 border-neutral-100 px-2 py-3">
-                                        <a target="_blank" href={`https://online.digitaldesa.id/uploads/${d.kode}/perencanaan-keuangan-desa/${d.url_dokumen}`} className="flex bg-neutral-200 rounded text-sky-400 w-fit gap-x-2 px-2 py-1 cursor-pointer" rel="noopener noreferrer">
+                                    <td className="border-2 border-neutral-100 px-2 py-3 ">
+                                        <a target="_blank" href={`https://online.digitaldesa.id/uploads/${d.kode}/perencanaan-keuangan-desa/${d.url_dokumen}`} className="flex bg-neutral-200 mx-auto rounded text-sky-400 w-fit gap-x-2 px-2 py-1 cursor-pointer" rel="noopener noreferrer">
                                             <span>Lihat Berkas</span>
                                             <i className="bi bi-eye"></i>
                                         </a>
@@ -165,7 +176,7 @@ function JenisDokumenField({ jenis_dokumen, tanggal_perubahan }: { jenis_dokumen
     return (
         <div className="p-1 flex flex-col gap-y-3">
             <button className={`btn ${jenis_dokumen === "Perubahan" ? "bg-yellow-200" : "bg-emerald-200"} `}>{jenis_dokumen}</button>
-            {jenis_dokumen === "Perubahan" && <span className="text-gray-700">{tanggal_perubahan}</span>}
+            {jenis_dokumen === "Perubahan" && <span className="text-gray-700 text-center">{tanggal_perubahan}</span>}
         </div>
     );
 }
