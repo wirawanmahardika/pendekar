@@ -42,7 +42,7 @@ export default function KetapangLoginPage() {
 
         return <div style={loginFormBacgkroundStyle} className="relative rounded-l-2xl overflow-y-auto text-white">
             <HeadHtml title="Login" />
-            <div className="flex absolute left-9 top-9 gap-x-4">
+            <div className="flex absolute left-9 top-9 gap-x-4 right-9 items-center">
                 <div className="flex gap-x-2 h-fit">
                     <img src={logoKabupaten} alt="logo-ketapang" className={`${!logoKabupaten && 'hidden'} w-12`} />
                     <img src={logoApp} alt="logo-app" className={`${!logoApp && 'hidden'} w-20`} />
@@ -53,6 +53,11 @@ export default function KetapangLoginPage() {
                     <span>{STRINGS[KODE_SLUG].nama}</span>
                     <span>{STRINGS[KODE_SLUG].kabkota}</span>
                 </div>
+
+                <a href="/" className="ml-auto flex gap-x-2 hover:text-sky-300 cursor-pointer">
+                    <img src="/img/icon/open-new-tab.png" alt="new-tab" />
+                    <span className="underline underline-offset-4">Tentang SiCesa</span>
+                </a>
             </div>
 
             <div className="flex justify-center items-center h-full w-full flex-col gap-y-6">

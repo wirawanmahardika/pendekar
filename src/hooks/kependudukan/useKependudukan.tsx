@@ -16,9 +16,8 @@ export default function useKependudukan() {
 
     // Fetch data
     useEffect(() => {
-        AxiosAuth(`${BASE_API_URL}kependudukan?k3=&k4=`).then(({ data: result }) => {
+        AxiosAuth.post(`${BASE_API_URL}kependudukan?k3=&k4=`).then(({ data: result }) => {
             setKependudukanData(result.data);
-            // console.log(result.data)
         }).catch(err => {
             console.error("Error fetching data:", err);
         }).finally(() => setLoading(false));

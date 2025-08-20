@@ -10,9 +10,7 @@ export default function useBansos() {
     useEffect(() => {
         setLoading(true);
         AxiosAuth.get(`${BASE_API_URL}bansos`)
-            .then((result) => {
-                setBansosData(result.data.data);
-            })
+            .then((result) => { setBansosData(result.data.data); })
             .catch((error) => alert(error.message))
             .finally(() => setLoading(false));
     }, []);
