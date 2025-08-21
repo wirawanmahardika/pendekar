@@ -55,8 +55,8 @@ export const STRINGS: any = {
     },
     enrekangkab: {
         title: 'PENDEKAR',
-        desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
-        nama: 'Desa Emas',
+        desc: 'Pemantauan Desa dan Kelurahan Enrekang',
+        nama: 'Pendekar',
         kabkota: 'Kabupaten Enrekang',
         slogan: "Tana Rigalla' Tana Riabussungi",
         logo_kab_url: CDN_URL + 'uploads/landing/logo-desa/enrekang.png',
