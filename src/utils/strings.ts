@@ -66,8 +66,7 @@ export const STRINGS: any = {
         kabkota: 'Kabupaten Enrekang',
         slogan: "Tana Rigalla' Tana Riabussungi",
         logo_kab_url: CDN_URL + 'uploads/landing/logo-desa/enrekang.png',
-        logo_dss_url:
-            CDN_URL + 'statics/online/homepage/img/logo_desa_emas_enrekang.svg',
+        logo_dss_url: "",
         logo_background_image_login:
             CDN_URL + 'uploads/pendekar/login-panel/enrekangkab.webp',
         nama_user: 'H. Muh. Yusuf Ritangnga',
