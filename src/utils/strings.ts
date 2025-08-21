@@ -5,7 +5,9 @@ export const STRINGS: any = {
     // Kabupaten
     digikab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Digikab',
         slogan: '',
@@ -30,7 +32,9 @@ export const STRINGS: any = {
     },
     ketapangkab: {
         title: 'SiCesa',
+        version: "1.0",
         desc: 'Sistem Cepat Informasi Desa',
+        about_url: "https://pendekar.digital/landing-ketapangkab/",
         nama: 'SiCesa',
         kabkota: 'Kabupaten Ketapang',
         slogan: '',
@@ -55,7 +59,9 @@ export const STRINGS: any = {
     },
     enrekangkab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Enrekang',
+        about_url: "-",
         nama: 'Pendekar',
         kabkota: 'Kabupaten Enrekang',
         slogan: "Tana Rigalla' Tana Riabussungi",
@@ -86,7 +92,9 @@ export const STRINGS: any = {
     },
     luwukab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Luwu',
         slogan: "Luwu Wanua Mappatuo'e Naewai Alena, Toddo Puli Temmalara Te'bakke Tongengnge",
@@ -119,7 +127,9 @@ export const STRINGS: any = {
     },
     mamasakab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Mamasa',
         slogan: 'Mesa Kada Dipotuo, Pantan Kada Dipomate',
@@ -152,7 +162,9 @@ export const STRINGS: any = {
     },
     gowakab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Gowa',
         slogan: 'Butta Patturioloang',
@@ -185,7 +197,9 @@ export const STRINGS: any = {
     },
     wajokab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'Mabello',
         kabkota: 'Kabupaten Wajo',
         slogan: "Maradeka Towajoe Ade'na Napopuang",
@@ -219,7 +233,9 @@ export const STRINGS: any = {
     },
     konawekab: {
         title: 'SIMONI ADIK BANGDES',
+        version: "1.0",
         desc: 'Sistem Informasi Monitoring Administrasi Kinerja Pembangunan Desa',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Konawe',
         slogan: 'Berdaya saing, sejahtera, adil, dan berkelanjutan (Konawe Bersahaja)',
@@ -252,7 +268,9 @@ export const STRINGS: any = {
     },
     bantaengkab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Bantaeng',
         slogan: 'Bantaeng Emas Untuk Indonesia',
@@ -284,7 +302,9 @@ export const STRINGS: any = {
     },
     konaweutarakab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Konawe Utara',
         slogan: 'Merawat Kebaikan, Memastikan Keberlanjutan',
@@ -316,7 +336,9 @@ export const STRINGS: any = {
     },
     sinjaikab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Sinjai',
         slogan: 'Maju Bersama, Sejahtera Untuk Semua',
@@ -348,7 +370,9 @@ export const STRINGS: any = {
     },
     sintang: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Sintang',
         slogan: 'Kota Bersemi',
@@ -380,7 +404,9 @@ export const STRINGS: any = {
     },
     maroskab: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kabupaten Maros',
         slogan: 'Maros Sejahtera, Religius, dan Berdaya Saing',
@@ -414,7 +440,9 @@ export const STRINGS: any = {
     // Kota
     ambon: {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kota Ambon',
         slogan: 'Bersatu Manggurebe Maju',
@@ -443,7 +471,9 @@ export const STRINGS: any = {
     // Kecamatan
     'baguala-ambon': {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kecamatan Baguala',
         slogan: 'Bersatu Manggurebe Maju',
@@ -469,7 +499,9 @@ export const STRINGS: any = {
     },
     'wawotobi-konawekab': {
         title: 'SIMONI ADIK BANGDES',
+        version: "1.0",
         desc: 'Sistem Informasi Monitoring Administrasi Kinerja Pembangunan Desa',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kec. Wawotobi, Kab. Konawe',
         slogan: 'Konawe Harapan Rakyat',
@@ -495,7 +527,9 @@ export const STRINGS: any = {
     },
     'rengasdengklok-karawangkab': {
         title: 'PENDEKAR',
+        version: "1.0",
         desc: 'Pemantauan Desa dan Kelurahan Terintegrasi',
+        about_url: "-",
         nama: 'PENDEKAR',
         kabkota: 'Kecamatan Rengasdengklok',
         slogan: '',

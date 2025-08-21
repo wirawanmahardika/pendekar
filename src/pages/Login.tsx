@@ -6,7 +6,6 @@ import { AxiosAuth } from "../utils/axios"
 import { useNavigate } from "react-router-dom"
 import HeadHtml from "../components/HeadHtml"
 
-
 export default function Login() {
     const [showPass, setShowPass] = useState(false)
     const [error, setError] = useState('')
@@ -67,7 +66,7 @@ export default function Login() {
             className="hidden lg:flex justify-center items-center flex-col w-full mx-auto relative bg-cover bg-center"
             style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}
         >
-            <div className="flex z-20 absolute left-3 top-3 xl:top-5 xl:left-5 w-3/4 gap-x-4 h-fit">
+            <div className="flex z-20 absolute left-6 top-3 right-6 gap-x-4 h-fit items-center">
                 <img src={STRINGS[KODE_SLUG].logo_kab_url} alt="logo-ketapang" className={`${!STRINGS[KODE_SLUG].logo_kab_url && 'hidden'} w-14 xl:w-16`} />
                 <img src={STRINGS[KODE_SLUG].logo_dss_url} alt="logo-app" className={`${!STRINGS[KODE_SLUG].logo_dss_url && 'hidden'} w-10 xl:w-20`} />
 
@@ -80,10 +79,11 @@ export default function Login() {
             </div>
 
             <div
-                // style={{ backgroundImage: `url('/img/bg/${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
                 style={{ backgroundImage: `url('${STRINGS[KODE_SLUG].logo_background_image_login}')` }}
                 className="absolute bg-contain bg-no-repeat bg-center inset-24 xl:inset-32 z-20"
             ></div>
+
+            <span className="mb-6 mt-auto text-white text-xs">Version {STRINGS[KODE_SLUG].version}</span>
         </div>
     </div >
 }

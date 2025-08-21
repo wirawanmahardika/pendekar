@@ -5,6 +5,7 @@ import { BASE_API_URL, KODE_SLUG } from "../../utils/api"
 import { AxiosAuth } from "../../utils/axios"
 import { loginFormBacgkroundStyle } from "../../utils/themeSetting"
 import HeadHtml from "../HeadHtml"
+import { MdOpenInNew } from "react-icons/md"
 
 export default function KetapangLoginPage() {
     const LeftPart = () => {
@@ -55,8 +56,8 @@ export default function KetapangLoginPage() {
                 </div>
 
                 <a href="/" className="ml-auto flex gap-x-2 hover:text-sky-300 cursor-pointer">
-                    <img src="/img/icon/open-new-tab.png" alt="new-tab" />
-                    <span className="underline underline-offset-4">Tentang SiCesa</span>
+                    <MdOpenInNew size={28} />
+                    <a href={STRINGS[KODE_SLUG].about_url} target="_blank" className="underline underline-offset-4">Tentang SiCesa</a>
                 </a>
             </div>
 
@@ -83,6 +84,7 @@ export default function KetapangLoginPage() {
 
                     <button className="btn btn-neutral">Masuk</button>
                 </form>
+            <span className="absolute bottom-6 -translate-x-1/2 left-1/2 text-white text-xs">Version {STRINGS[KODE_SLUG].version}</span>
             </div>
         </div>
     }
