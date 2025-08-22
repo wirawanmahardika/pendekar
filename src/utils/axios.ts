@@ -3,7 +3,7 @@ import axios from "axios";
 export const AxiosAuth = axios.create()
 
 AxiosAuth.interceptors.request.use(config => {
-  config.headers.Authorization = localStorage.getItem('token')
+  config.headers["authorization"] = localStorage.getItem('token')
   return config
 })
 
