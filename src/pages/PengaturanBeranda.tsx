@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { removeBackground } from "@imgly/background-removal";
 import HeadHtml from "../components/HeadHtml";
 import { useAuthSuperAdmin } from "../hooks/useAuth";
@@ -9,9 +9,13 @@ import { BiTrash, BiZoomIn, BiZoomOut } from "react-icons/bi";
 import { fileToWebP } from "../utils/fileToWebp";
 import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import LoadingDots from "../components/LoadingDots";
+import useLeaderInfo from "../hooks/pengaturanBeranda/useLeaderInfo";
 
 export default function PengaturanBeranda() {
   useAuthSuperAdmin()
+  const { leaderInfo, loading } = useLeaderInfo()
+  
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [cropMode, setCropMode] = useState(false)
   const [crop, setCrop] = useState<Crop>({
@@ -26,20 +30,10 @@ export default function PengaturanBeranda() {
   const [scale, setScale] = useState(1); // State untuk zoom
   const [position, setPosition] = useState({ x: 0, y: 0 }); // State untuk pan
 
-  const [leaderInfo, setLeaderInfo] = useState<any>();
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("")
   const [nama, setNama] = useState("")
   const [jabatan, setJabatan] = useState("")
-
-  useEffect(() => {
-    AxiosAuth.get(BASE_API_URL + "/profil/get-leader-info")
-      .then(res => {
-        console.log(res.data.data);
-        
-        setLeaderInfo(res.data.data);
-      });
-  }, []);
 
   const getCroppedImage = async (crop: PixelCrop) => {
     if (!imgRef.current || !crop.width || !crop.height) return;
@@ -138,7 +132,7 @@ export default function PengaturanBeranda() {
 
     try {
       await AxiosAuth.post(BASE_API_URL + "profil/leader-info-upsert", formData);
-      Swal.fire({text: "Berhasil update foto!", title: "Sukses", icon: "success"});
+      Swal.fire({ text: "Berhasil update foto!", title: "Sukses", icon: "success" });
     } catch (err) {
       console.error(err);
     }
@@ -158,6 +152,7 @@ export default function PengaturanBeranda() {
     setPosition({ x: 0, y: 0 });
   };
 
+  if (loading) return <LoadingDots />
   return <div className="p-6 bg-white">
     <HeadHtml title="Pengaturan Beranda" />
     <div className="p-6">
@@ -230,24 +225,24 @@ export default function PengaturanBeranda() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
           <div className="bg-white p-4 rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
             <h3 className="text-lg font-semibold mb-4">Crop Gambar</h3>
-            
+
             {/* Kontrol Zoom */}
             <div className="flex gap-2 mb-4">
-              <button 
-                onClick={() => handleZoom('out')} 
+              <button
+                onClick={() => handleZoom('out')}
                 className="p-2 bg-gray-200 rounded hover:bg-gray-300"
                 disabled={scale <= 0.5}
               >
                 <BiZoomOut size={20} />
               </button>
-              <button 
+              <button
                 onClick={resetZoom}
                 className="p-2 bg-gray-200 rounded hover:bg-gray-300"
               >
                 Reset
               </button>
-              <button 
-                onClick={() => handleZoom('in')} 
+              <button
+                onClick={() => handleZoom('in')}
                 className="p-2 bg-gray-200 rounded hover:bg-gray-300"
                 disabled={scale >= 3}
               >
@@ -257,10 +252,10 @@ export default function PengaturanBeranda() {
                 Zoom: {Math.round(scale * 100)}%
               </span>
             </div>
-            
+
             {/* Area Crop dengan Scroll */}
             <div className="flex-1 overflow-auto mb-4 border rounded">
-              <div 
+              <div
                 style={{
                   transform: `scale(${scale})`,
                   transformOrigin: 'top left',
@@ -280,8 +275,8 @@ export default function PengaturanBeranda() {
                     src={imageUrl}
                     ref={imgRef}
                     alt="to crop"
-                    style={{ 
-                      maxHeight: '70vh', 
+                    style={{
+                      maxHeight: '70vh',
                       width: 'auto',
                       display: 'block',
                       transform: `translate(${position.x}px, ${position.y}px)`
@@ -292,16 +287,16 @@ export default function PengaturanBeranda() {
             </div>
 
             <div className="flex justify-end gap-2">
-              <button 
+              <button
                 onClick={() => {
                   setCropMode(false);
                   setImageUrl("");
-                }} 
+                }}
                 className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
               >
                 Batal
               </button>
-              <button 
+              <button
                 onClick={async () => {
                   if (croppedFile) {
                     const url = URL.createObjectURL(croppedFile);
@@ -314,7 +309,7 @@ export default function PengaturanBeranda() {
                       timer: 2000
                     });
                   }
-                }} 
+                }}
                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 Simpan Crop
