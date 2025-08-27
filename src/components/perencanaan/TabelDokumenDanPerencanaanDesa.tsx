@@ -7,9 +7,10 @@ import Pagination from "../Pagination";
 import { dokumenDanPerencaanType, dokumenDanPerencaanFilterType, dokumenDanPerencaanPartType } from "../../types/perencaan/DokumenDanPerencanaan";
 import { dokumenDanPerencanaanAction } from "../../hooks/perencaan/DokumenDanPerencanaanDesaReducer";
 import { AxiosAuth } from "../../utils/axios";
-import { BASE_API_URL } from "../../utils/api";
+import { BASE_API_URL, KODE_SLUG } from "../../utils/api";
 import DateRangeButton from "./DateRangeButton";
 import { Range } from "react-date-range";
+import { STRINGS } from "../../utils/strings";
 
 const getId = createIdGenerator();
 export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllData }: { allData: dokumenDanPerencaanType[], dispatchAllData: React.ActionDispatch<[action: dokumenDanPerencanaanAction]> }) {
@@ -80,7 +81,7 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
 
     return (
         <div className="bg-white p-5 mt-10 rounded shadow">
-            <span className="text-base font-bold">Tabel Dokumen dan Perencanaan Desa</span>
+            <span className="text-base font-bold">Dokumen Perencanaan Desa</span>
             <div className="flex gap-x-5 pt-2">
                 <select value={selectedFilter.tahun} onChange={filterTahunChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/5 outline-none pl-2 pr-4 py-2">
                     <option value="">Pilih Tahun</option>
@@ -99,7 +100,7 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
             <Pagination data={dataToDisplay} displayData={(paginatedData) => {
                 return <table className="rounded text-sm w-full mt-4 overflow-hidden">
                     <thead>
-                        <tr className="bg-[#AEDDF5] text-gray-700">
+                        <tr style={{backgroundColor: STRINGS[KODE_SLUG].theme.color_light}} className="text-gray-700">
                             <th className="border-2 border-neutral-100 text-center w-1/12 py-2">PIC</th>
                             <th className="border-2 border-neutral-100 text-center w-2/12 py-2">Nama Kecamatan</th>
                             <th className="border-2 border-neutral-100 text-center w-1/12 py-2">Nama Desa</th>

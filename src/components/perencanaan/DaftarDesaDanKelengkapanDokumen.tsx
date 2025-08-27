@@ -7,11 +7,12 @@ import {
   TransformedData,
 } from "../../types/perencaan/DaftarDesaDanKelengkapanDokumentTypes";
 import { AxiosAuth } from "../../utils/axios";
-import { BASE_API_URL } from "../../utils/api";
+import { BASE_API_URL, KODE_SLUG } from "../../utils/api";
 import Pagination from "../Pagination";
 import createIdGenerator from "../../utils/idGenerator";
 import { useGetInitialDesaFilter, useGetKecamatanFilter, useGetTahunFilter } from "../../hooks/perencaan/DaftarDesaDanKelengkapanDokumenHooks";
 import { calculateProgress } from "../../utils/perencanaan/DaftarDesaDanKelengkapanDokumenUtils";
+import { STRINGS } from "../../utils/strings";
 
 const initialFilter: FilterState = {
   tahun: "",
@@ -210,7 +211,7 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
       <Pagination data={dataToDisplay} displayData={(paginatedData) => {
         return <table className="rounded text-sm w-full mt-4">
           <thead>
-            <tr className="bg-[#AEDDF5] text-gray-700">
+            <tr style={{backgroundColor: STRINGS[KODE_SLUG].theme.color_light}} className="text-gray-700">
               <th className="border-2 border-gray-100 text-center w-2/12 py-2">
                 Nama Kecamatan
               </th>
@@ -272,9 +273,9 @@ export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: 
                     </span>
                   </td>
                   <td className="border border-neutral-200 px-2 py-3 text-center relative">
-                    <div className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
+                    <div style={{backgroundColor: STRINGS[KODE_SLUG].theme.color_light}} className="relative w-11/12 h-5 rounded-xl mx-auto bg-sky-200 overflow-hidden">
                       <div
-                        style={{ width: `${item.progress}%` }}
+                        style={{ width: `${item.progress}%`, backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}
                         className="bg-sky-400 h-full transition-all duration-300"
                       ></div>
                       <span className="absolute top-1/2 font-semibold -translate-y-1/2 right-3 text-xs">

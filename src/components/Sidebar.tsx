@@ -2,7 +2,7 @@ import { JSX, useState } from "react";
 import { motion } from "framer-motion";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { BiSolidDashboard } from "react-icons/bi";
-import { FaHandsHelping, FaRegCircle, FaUserCog, FaUserTie } from "react-icons/fa";
+import { FaHandsHelping, FaRegCircle, FaUserCog } from "react-icons/fa";
 import { GiBrickWall, GiVillage } from "react-icons/gi";
 import { MdTrendingUp } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
@@ -34,7 +34,9 @@ export default function Sidebar() {
             ]} />
             <Nav text="Profil Desa" url="profil-desa" icon={<GiVillage className="p-0 size-5" />} />
             <Nav text="Bansos" url="bansos" icon={<FaHandsHelping className="p-0 size-5" />} />
-            {KODE_SLUG === "ketapangkab" && <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />} />}
+            {(KODE_SLUG === "ketapangkab" || KODE_SLUG === "digikab") &&
+                <Nav text="Perencanaan" url="perencanaan" icon={<AiOutlineSchedule className="p-0 size-5" />}
+                />}
         </nav >
 
         {
@@ -55,9 +57,11 @@ export function SidebarPengaturan() {
         <nav className="flex flex-col mt-10 w-full gap-y-6">
             <span className="font-semibold">MENU</span>
 
-            <Nav text="Pengaturan Beranda" url="" icon={<FaUserTie className="p-0 size-5" />} />
+            {/* <Nav text="Pengaturan Beranda" url="" icon={<FaUserTie className="p-0 size-5" />} /> */}
+            {/* <Nav text="Manajemen Akun" url="manajemen-akun" icon={<FaUserCog className="p-0 size-5" />} /> */}
+
             {/* <Nav text="Template Dokumen" url="template-dokumen" icon={<IoDocumentTextSharp className="p-0 size-5" />} /> */}
-            <Nav text="Manajemen Akun" url="manajemen-akun" icon={<FaUserCog className="p-0 size-5" />} />
+            <Nav text="Manajemen Akun" url="" icon={<FaUserCog className="p-0 size-5" />} />
         </nav >
 
         <NavLink to={'/'} style={{ color: STRINGS[KODE_SLUG].theme.color_deep }} className="flex gap-x-6 mt-auto items-center mb-10 bg-white rounded-md w-4/5 mx-auto px-2 py-2">

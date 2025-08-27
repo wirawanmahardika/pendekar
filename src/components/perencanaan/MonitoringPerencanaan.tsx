@@ -1,4 +1,6 @@
 import { monitoringPerencanaanType } from "../../types/perencaan/MonitoringPerencanaan";
+import { KODE_SLUG } from "../../utils/api";
+import { STRINGS } from "../../utils/strings";
 
 const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: monitoringPerencanaanType | null }) => {
   const statusPerencanaan = monitoringData?.status_perencanaan;
@@ -21,14 +23,14 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: monitoringP
     <div className="bg-white p-5 rounded shadow">
       <span className="text-base font-bold">Monitoring Perencanaan Desa</span>
       <div className="grid grid-cols-3 gap-3 mb-16 mt-2">
-        <div className="bg-[#AEDDF5] p-3 rounded shadow-md text-[#056596] flex flex-col gap-y-1 py-4">
+        <div style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_light }} className="p-3 rounded shadow-md flex flex-col gap-y-1 py-4">
           <div className="bg-white p-1 rounded-md text-center w-full font-semibold">
             Ringkasan Perencanaan Desa
           </div>
 
           <div className="flex justify-between p-2">
             <div className="flex p-1 gap-x-3 items-center">
-              <span className="text-4xl font-bold">
+              <span style={{color: STRINGS[KODE_SLUG].theme.color_deep}} className="text-4xl font-bold">
                 {monitoringData?.ringkasan_perencaanaan?.desa_sudah_upload ?? 0}
               </span>
               <div className="flex flex-col text-sm">
@@ -38,7 +40,7 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: monitoringP
             </div>
 
             <div className="flex p-1 gap-x-3 items-center">
-              <span className="text-4xl font-bold">
+              <span style={{color: STRINGS[KODE_SLUG].theme.color_deep}} className="text-4xl font-bold">
                 {monitoringData?.ringkasan_perencaanaan?.desa_belum_upload ?? 0}
               </span>
               <div className="flex flex-col text-sm">
@@ -64,7 +66,7 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: monitoringP
           </div>
         </div>
 
-        <div className="bg-[#AEDDF5] flex flex-col rounded shadow-md">
+        <div style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_light }} className="flex flex-col rounded shadow-md">
           <div className="flex flex-col p-3 w-full gap-y-2">
             <span className="font-bold">Status Perencanaan</span>
             <div className="flex justify-around w-full mt-2">
@@ -149,7 +151,7 @@ const MonitoringPerencanaan = ({ monitoringData }: { monitoringData: monitoringP
           </div>
         </div>
 
-        <div className="bg-[#AEDDF5] flex flex-col p-5 rounded shadow-md gap-y-3">
+        <div style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_light }} className="flex flex-col p-5 rounded shadow-md gap-y-3">
           <span className="font-bold">Persentase Dokumen Yang Diunggah</span>
 
           <div className="flex justify-between">
