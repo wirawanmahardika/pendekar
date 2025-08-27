@@ -59,7 +59,7 @@ export default function useImageEditor() {
         });
     };
 
-    const handleUploadFileBgErase = async () => {
+    const handleUploadFileBgErase = async (setCropping: React.Dispatch<React.SetStateAction<boolean>>) => {
         if (!croppedFile) return;
 
         try {
@@ -91,6 +91,8 @@ export default function useImageEditor() {
             };
         } catch (err) {
             console.error("Gagal hapus background", err);
+        } finally {
+            setCropping(false)
         }
     };
 
@@ -109,19 +111,13 @@ export default function useImageEditor() {
     };
 
     const handleSave = async (nama: string, jabatan: string) => {
-        if (!uploadFile) return Swal.fire({
-            title: "Error",
-            text: "Pilih foto terlebih dahulu",
-            timer: 2000
-        });
-
         const formData = new FormData();
-        formData.append("image", uploadFile);
         formData.append("nama", nama);
         formData.append("jabatan", jabatan);
+        if (uploadFile) formData.append("image", uploadFile);
 
         try {
-            await AxiosAuth.post(BASE_API_URL + "profil/leader-info-upsert", formData);
+            await AxiosAuth.post(BASE_API_URL + "setting/leader-info-upsert", formData);
             Swal.fire({ text: "Berhasil update data pemimpin", title: "Sukses", icon: "success" });
         } catch (err) {
             console.error(err);

@@ -1,5 +1,7 @@
 import { JSX, useEffect, useState } from "react";
 import { exportReportButtonStyle } from "../utils/themeSetting";
+import { STRINGS } from "../utils/strings";
+import { KODE_SLUG } from "../utils/api";
 
 export default function Pagination<T>({ data, displayData }: { data: Array<T>, displayData: (pageData: T[]) => JSX.Element }) {
     const [currentPage, setCurrentPage] = useState(1);
@@ -57,9 +59,12 @@ export default function Pagination<T>({ data, displayData }: { data: Array<T>, d
                     return (
                         <button
                             key={item}
+                            style={{
+                                backgroundColor: item === currentPage ? STRINGS[KODE_SLUG].theme.color_normal : "white"
+                            }}
                             className={`join-item btn ${item === currentPage
-                                ? "bg-blue-500 text-white"
-                                : "bg-white text-gray-800 shadow-none"
+                                ? "text-white"
+                                : "text-gray-800 shadow-none"
                                 }`}
                             onClick={() => changePage(item)}
                         >

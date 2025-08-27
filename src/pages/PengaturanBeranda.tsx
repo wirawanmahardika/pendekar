@@ -18,8 +18,8 @@ export default function PengaturanBeranda() {
     setCrop, getCroppedImage, imgRef, setCropMode, setImageUrl, croppedFile
   } = useImageEditor()
 
-  const [nama, setNama] = useState("")
-  const [jabatan, setJabatan] = useState("")
+  const [nama, setNama] = useState<string | null>(null)
+  const [jabatan, setJabatan] = useState<string | null>(null)
 
   if (loading) return <LoadingDots />
   return <div className="p-6 bg-white">

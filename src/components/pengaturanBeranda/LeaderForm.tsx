@@ -1,11 +1,11 @@
 import { LeaderInfo } from "../../types/PengaturanBerandaTypes";
 
 type props = {
-    nama: string;
-    jabatan: string;
+    nama: string | null;
+    jabatan: string | null;
     leaderInfo: LeaderInfo | null;
-    setJabatan: React.Dispatch<React.SetStateAction<string>>
-    setNama: React.Dispatch<React.SetStateAction<string>>
+    setJabatan: React.Dispatch<React.SetStateAction<string | null>>
+    setNama: React.Dispatch<React.SetStateAction<string | null>>
     handleSave: (nama: string, jabatan: string) => void
 }
 
@@ -20,7 +20,7 @@ export default function LeaderForm({
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     placeholder="Masukkan nama"
-                    value={nama || leaderInfo?.nama || ""}
+                    value={nama === null ?  leaderInfo?.nama : nama}
                     onChange={(e) => setNama(e.target.value)}
                 />
             </div>
@@ -29,14 +29,14 @@ export default function LeaderForm({
                 <input
                     type="text"
                     onChange={(e) => setJabatan(e.target.value)}
-                    value={jabatan || leaderInfo?.jabatan || ""}
+                    value={jabatan === null ? leaderInfo?.jabatan : jabatan}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     placeholder="Masukkan jabatan"
                 />
             </div>
         </div>
         <div className="flex justify-center mt-4 py-6">
-            <button onClick={() => handleSave(nama, jabatan)} className="btn btn-info">
+            <button onClick={() => handleSave(nama || "", jabatan || "")} className="btn btn-info">
                 Simpan
             </button>
         </div>
