@@ -599,9 +599,7 @@ export const STRINGS: any = {
         logo_kab_url: CDN_URL + 'uploads/landing/logo-desa/karawang.png',
         logo_dss_url: '',
         // logo_background_image_login: 'rengasdengklok.png',
-        logo_background_image_login:
-            CDN_URL +
-            'uploads/pendekar/login-panel/rengasdengklok-karawangkab.webp',
+        logo_background_image_login: "/img/bg/rengasdengklok-karawangkab.png",
         nama_user: 'KEC. RENGASDENGKLOK',
         jabatan_user: 'Camat Rengasdengklok',
         background_color: '#327A6E',

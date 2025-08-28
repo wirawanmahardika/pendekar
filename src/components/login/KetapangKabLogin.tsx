@@ -11,7 +11,7 @@ export default function KetapangLoginPage() {
     const LeftPart = () => {
         return <div className="justify-center items-center flex flex-col w-full mx-auto relative">
             <div className="flex relative text-sm gap-x-16 w-5/6 justify-evenly font-bold px-3 py-1 rounded -translate-y-24">
-                <img src="/img/ketapangkab.png" className="w-4/5" />
+                <img src="/img/bg/ketapangkab.png" className="w-4/5" />
             </div>
         </div>
     }
