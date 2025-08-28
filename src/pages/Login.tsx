@@ -67,8 +67,8 @@ export default function Login() {
             style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}
         >
             <div className="flex z-20 absolute left-6 top-3 right-6 gap-x-4 h-fit items-center">
-                <img src={STRINGS[KODE_SLUG].logo_kab_url} alt="logo-ketapang" className={`${!STRINGS[KODE_SLUG].logo_kab_url && 'hidden'} w-14 xl:w-16`} />
-                <img src={STRINGS[KODE_SLUG].logo_dss_url} alt="logo-app" className={`${!STRINGS[KODE_SLUG].logo_dss_url && 'hidden'} w-10 xl:w-20`} />
+                <img src={STRINGS[KODE_SLUG].logo_kab_url} className={`${!STRINGS[KODE_SLUG].logo_kab_url && 'hidden'} w-14 xl:w-16`} />
+                <img src={STRINGS[KODE_SLUG].logo_dss_url} className={`${!STRINGS[KODE_SLUG].logo_dss_url && 'hidden'} w-10 xl:w-20`} />
 
                 <div className="border-l-3 rounded-xl border-white"></div>
 
