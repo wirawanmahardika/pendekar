@@ -11,14 +11,14 @@ interface Kecamatan {
 }
 
 interface AnggaranDesaProps {
-  resultData: {
+  dataPembangunan: {
     list_kecamatan: Kecamatan[];
   };
   selectedKecamatan?: string;
 }
 
 const AnggaranDesa: React.FC<AnggaranDesaProps> = (props) => {
-  const { list_kecamatan } = props.resultData;
+  const { list_kecamatan } = props.dataPembangunan;
 
   const dataChart = useMemo(() => {
     const sortedData = list_kecamatan.map((desa: Kecamatan) => ({

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { formatCurrency } from "../../../utils/formatter";
 
-const RKPTable = ({ resultData }: { resultData: any }) => {
+const RKPTable = ({ dataPembangunan }: { dataPembangunan: any }) => {
   const [query, setQuery] = useState("");
-  const { list_rkpdes = [] } = resultData;
+  const { list_rkpdes = [] } = dataPembangunan;
   
   // Filter rows based on query
   const filteredRows = list_rkpdes.filter((item: any) => 

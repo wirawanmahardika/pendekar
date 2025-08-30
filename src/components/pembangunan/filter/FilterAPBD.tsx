@@ -3,7 +3,7 @@ import { formatCurrency } from '../../../utils/formatter';
 import { HiOutlineOfficeBuilding } from 'react-icons/hi';
 
 export interface FilterAPBDProps {
-  resultData: {
+  dataPembangunan: {
     tahun: string;
     last_updated?: string;
     list_kecamatan: {
@@ -24,7 +24,7 @@ export interface FilterAPBDProps {
 }
 
 const FilterAPBD: React.FC<FilterAPBDProps> = (props) => {
-  const { tahun, list_kecamatan } = props.resultData;
+  const { tahun, list_kecamatan } = props.dataPembangunan;
   const [selectedTahun, setSelectedTahun] = useState(tahun);
   
   // Determine if we're in kecamatan mode

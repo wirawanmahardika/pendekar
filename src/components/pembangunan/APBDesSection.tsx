@@ -3,9 +3,9 @@ import APBDTable from "./table/APBDesDataTable";
 import FilterAPBD, { FilterAPBDProps } from "./filter/FilterAPBD";
 import ExportReportButton from "../ExportReportButton";
 
-export const APBDesSection = ({ resultData }: FilterAPBDProps) => (
+export const APBDesSection = ({ dataPembangunan }: FilterAPBDProps) => (
   <div className={`transition-opacity duration-300 ease-in-out`} id="bordered-apbd" role="tabpanel" aria-labelledby="apbd-tab">
-    {resultData && <FilterAPBD resultData={resultData} />}
+    {dataPembangunan && <FilterAPBD dataPembangunan={dataPembangunan} />}
     <div className="mb-8">
       <div className="bg-white rounded-lg shadow-sm border border-gray-100">
         <div className="p-5">
@@ -19,12 +19,12 @@ export const APBDesSection = ({ resultData }: FilterAPBDProps) => (
               <h5 className="text-lg font-semibold text-gray-800">APBDes</h5>
             </div>
             <div className="p-4">
-              {resultData && <AnggaranDesa resultData={resultData as any} />}
+              {dataPembangunan && <AnggaranDesa dataPembangunan={dataPembangunan as any} />}
             </div>
           </div>
 
           <div>
-            {resultData && <APBDTable resultData={resultData as any} />}
+            {dataPembangunan && <APBDTable dataPembangunan={dataPembangunan as any} />}
           </div>
         </div>
       </div>

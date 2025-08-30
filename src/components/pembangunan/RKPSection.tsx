@@ -1,7 +1,7 @@
 import ExportReportButton from "../ExportReportButton";
 import RKPTable from "./table/RKPDataTable";
 
-const RKPSection = ({ resultData }: { resultData: any }) => (
+const RKPSection = ({ dataPembangunan }: { dataPembangunan: any }) => (
   <div className="hidden transition-opacity duration-300 ease-in-out" id="bordered-rkp" role="tabpanel" aria-labelledby="rkp-tab">
     <div className="mb-8">
       <div className="bg-white rounded-lg shadow-sm border border-gray-100">
@@ -11,7 +11,7 @@ const RKPSection = ({ resultData }: { resultData: any }) => (
             <ExportReportButton url="export/rkpdes" />
           </div>
 
-          {resultData && <RKPTable resultData={resultData} />}
+          {dataPembangunan && <RKPTable dataPembangunan={dataPembangunan} />}
         </div>
       </div>
     </div>

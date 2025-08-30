@@ -14,7 +14,7 @@ interface KecamatanData {
 }
 
 interface APBDTableProps {
-  resultData?: {
+  dataPembangunan?: {
     list_kecamatan: KecamatanData[];
   };
   showFilters?: boolean;
@@ -53,7 +53,7 @@ const generateFakeData = (): KecamatanData[] => {
 const APBDTable = (props: APBDTableProps) => {
   // Use fake data if no data is provided
   const fakeData = useMemo(() => generateFakeData(), []);
-  const list_kecamatan = props.resultData?.list_kecamatan || fakeData;
+  const list_kecamatan = props.dataPembangunan?.list_kecamatan || fakeData;
   const { showFilters = true } = props;
 
   // Filter on select kecamatan
