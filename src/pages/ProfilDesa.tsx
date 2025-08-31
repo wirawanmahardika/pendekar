@@ -1,48 +1,20 @@
 import { BiSearch } from "react-icons/bi";
 import PageTitle from "../components/PageTitle";
 import useAuth from "../hooks/useAuth";
-import { useEffect, useState } from "react";
-import { BASE_API_URL } from "../utils/api";
-import { desaProfilDesa, profilDesaDataType } from "../types/ProfileDesaTypes";
 import TabelDesaKecamatan from "../components/profilDesa/TableDesaKecamatan";
-import { AxiosAuth } from "../utils/axios";
 import LoadingDots from "../components/LoadingDots";
-import useGetResultData from "../hooks/useGetResultData";
 import HeadHtml from "../components/HeadHtml";
+import useProfilDesa from "../hooks/profilDesa/useProfilDesa";
 
 
 export default function ProfilDesa() {
   useAuth()
-
-  const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
-  const [dataTodisplay, setDataToDisplay] = useState<desaProfilDesa[]>()
-  const [isLoading, setIsLoading] = useState(false);
-  const resultData = useGetResultData<profilDesaDataType>(`${BASE_API_URL}profil?k3=&k4=&search=`, setIsLoading);
-
-  useEffect(() => {
-    AxiosAuth
-      .get(`${BASE_API_URL}profil?k3=&k4=&search=`)
-      .then((result) => setDataToDisplay(result.data.data.list_desa))
-      .catch((error) => alert(error.message))
-  }, []);
-
-  useEffect(() => {
-    const listDesa = resultData?.list_desa.filter(lb => {
-      let status: boolean = true;
-      if (search.kecamatan) status = status && lb.k3 === search.kecamatan
-      if (search.desa) status = status && lb.k4 === search.desa
-      if (search.text) status = status && lb.nama_deskel.toLowerCase().includes(search.text.toLowerCase())
-      return status
-    })
-    setDataToDisplay(listDesa)
-  }, [search])
-
-
+  const { isLoading, dataProfilDesa, setSearch, search, dataTodisplay } = useProfilDesa()
+  
   if (isLoading) return <LoadingDots />;
-
   return <div className="px-4 py-10">
     <HeadHtml title="Profil Desa" />
-    <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={resultData?.last_updated} />
+    <PageTitle title="PROFIL DESA/KELURAHAN" last_updated={dataProfilDesa?.last_updated} />
     <div className="p-4 bg-white rounded shadow mt-8">
       <div className="flex gap-x-5 pt-2">
         <div className="flex relative">
@@ -52,17 +24,15 @@ export default function ProfilDesa() {
 
         <select onChange={(e: any) => setSearch(prev => ({ ...prev, kecamatan: e.target.value, desa: "" }))} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
           <option value={""}>Semua Kecamatan</option>
-          {resultData?.list_kecamatan.map(d => <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>)}
+          {dataProfilDesa?.list_kecamatan.map(d => <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>)}
         </select>
 
         <select onChange={(e: any) => setSearch(prev => ({ ...prev, desa: e.target.value }))} className="focus:border-blue-400 focus:shadow border text-sm border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
-
           <option value={""}>Semua Desa</option>
-          {search.kecamatan && resultData?.list_desa.map(d => {
+          {search.kecamatan && dataProfilDesa?.list_desa.map(d => {
             if (d.k3 !== search.kecamatan) return;
             return <option key={d.kode_wilayah} value={d.k4}>{d.nama_deskel}</option>
           })}
-
         </select>
       </div>
 
