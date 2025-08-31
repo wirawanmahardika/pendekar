@@ -2,45 +2,19 @@ import { BiSearch } from "react-icons/bi";
 import ExportReportButton from "../components/ExportReportButton";
 import PageTitle from "../components/PageTitle";
 import useAuth from "../hooks/useAuth";
-import { useEffect, useState } from "react";
-import { AxiosAuth } from "../utils/axios";
-import { BASE_API_URL, CDN_URL } from "../utils/api";
-import useGetResultData from "../hooks/useGetResultData";
-import { wisataCardType, wisataDataType } from "../types/WisataTypes";
+import { CDN_URL } from "../utils/api";
 import LoadingDots from "../components/LoadingDots";
 import HeadHtml from "../components/HeadHtml";
+import useWisata from "../hooks/wisata/useWisata";
 
 export default function Wisata() {
     useAuth()
+    const { loading, setSearch, search, dataWisata, dataTodisplay } = useWisata()
 
-    const [loading, setIsLoading] = useState(false)
-    const resultData = useGetResultData<wisataDataType>(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`, setIsLoading)
-
-    const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
-    const [dataTodisplay, setDataToDisplay] = useState<wisataCardType[]>()
-
-    useEffect(() => {
-        AxiosAuth
-            .get(`${BASE_API_URL}wisata?k3=&k4=&search=&limit=100`)
-            .then((result) => setDataToDisplay(result.data.data.list_wisata))
-            .catch((error) => alert(error.message))
-    }, [])
-
-    useEffect(() => {
-        const listWisata = resultData?.list_wisata.filter(lb => {
-            let status: boolean = true;
-            if (search.kecamatan) status = status && lb.k3 === search.kecamatan
-            if (search.desa) status = status && lb.k4 === search.desa
-            if (search.text) status = status && lb.nama_deskel.toLowerCase().includes(search.text.toLowerCase())
-            return status
-        })
-        setDataToDisplay(listWisata)
-    }, [search])
     if (loading) return <LoadingDots />
-
     return <div className="px-4 py-10">
         <HeadHtml title="Wisata" />
-        <PageTitle title="WISATA DESA" last_updated={resultData?.last_updated} />
+        <PageTitle title="WISATA DESA" last_updated={dataWisata?.last_updated} />
 
         <div className="flex mt-9 flex-col">
             <div className="flex gap-x-5 pt-2">
@@ -51,12 +25,12 @@ export default function Wisata() {
 
                 <select onChange={(e) => setSearch(p => ({ ...p, kecamatan: e.target.value, desa: "" }))} className="focus:border-blue-400 focus:shadow border text-sm bg-white border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
                     <option value="">Semua Kecamatan</option>
-                    {resultData?.list_kecamatan.map(d => <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>)}
+                    {dataWisata?.list_kecamatan.map(d => <option key={d.kode_wilayah} value={d.k3}>{d.nama_kecamatan}</option>)}
                 </select>
 
                 <select onChange={(e) => setSearch(p => ({ ...p, desa: e.target.value }))} className="focus:border-blue-400 mr-auto focus:shadow border text-sm bg-white border-slate-300 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-1">
                     <option value="">Semua Desa</option>
-                    {resultData?.list_desa.map(d => { if (d.k3 === search.kecamatan) return <option key={d.kode_wilayah} value={d.k4}>{d.nama_deskel}</option> })}
+                    {dataWisata?.list_desa.map(d => { if (d.k3 === search.kecamatan) return <option key={d.kode_wilayah} value={d.k4}>{d.nama_deskel}</option> })}
                 </select>
 
                 <ExportReportButton url="export/wisata" />
