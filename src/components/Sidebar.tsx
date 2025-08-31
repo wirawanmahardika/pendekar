@@ -14,11 +14,11 @@ import { KODE_SLUG } from "../utils/api";
 
 
 export default function Sidebar() {
-    return <div className="flex flex-col items-center p-5 w-[20vw] text-white h-full">
+    return <div className="flex flex-col items-center p-5 w-[20vw] text-white h-full overflow-y-auto">
         <h2 className="font-semibold text-3xl mt-3">{STRINGS[KODE_SLUG].nama}</h2>
         <span className="text-yellow-300 text-sm text-center mt-3 capitalize">{STRINGS[KODE_SLUG].desc}</span>
 
-        <nav className="flex flex-col mt-10 w-full gap-y-6">
+        <nav className="flex flex-col my-10 w-full gap-y-6">
             <span className="font-semibold">MENU</span>
 
             <Nav text="Dashboard" url="/" icon={<BiSolidDashboard className="p-0 size-5" />} />
@@ -40,8 +40,8 @@ export default function Sidebar() {
         </nav >
 
         {
-            KODE_SLUG === "ketapangkab" && localStorage.getItem("role") === "Super Admin" &&
-            <NavLink to={'/setting'} style={{ color: STRINGS[KODE_SLUG].theme.color_deep }} className="flex gap-x-3 mt-auto items-center mb-10 bg-white rounded-md w-4/5 mx-auto px-2 py-2">
+            (KODE_SLUG === "ketapangkab" || KODE_SLUG === "digikab") && localStorage.getItem("role") === "Super Admin" &&
+            <NavLink to={'/setting'} style={{ color: STRINGS[KODE_SLUG].theme.color_deep }} className="flex gap-x-3 mt-auto items-center bg-white rounded-md w-4/5 mx-auto px-2 py-2">
                 <IoSettings size={20} />
                 <span className="font-semibold">Pengaturan</span>
             </NavLink>

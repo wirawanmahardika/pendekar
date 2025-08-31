@@ -4,72 +4,23 @@ import { LuSquarePen } from "react-icons/lu";
 import { BiTrash } from "react-icons/bi";
 import { BsArrowRepeat } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
-import { useEffect, useReducer, useState } from "react";
-import { AxiosAuth } from "../utils/axios";
-import { BASE_API_URL, KODE_SLUG } from "../utils/api";
-import Swal from "sweetalert2";
+import { KODE_SLUG } from "../utils/api";
 import { useAuthSuperAdmin } from "../hooks/useAuth";
 import HeadHtml from "../components/HeadHtml";
 import { STRINGS } from "../utils/strings";
-import { AkunType } from "../types/ManajemenAkunTypes";
 import LoadingDots from "../components/LoadingDots";
 import hapusAkun from "../utils/manajemenAkun/hapusAkun";
 import KelolaAkun from "../components/manajemenAkun/KelolaAkun";
-import manajemenAkunReducer from "../hooks/manajemenAkun/reducer";
 import { ManajemenAkunPagination } from "../utils/manajemenAkun/pagination";
+import useManajamenAkun from "../hooks/manajemenAkun/useManajemenAkun";
 
 export default function ManajemenAkun() {
     useAuthSuperAdmin()
-    const [loading, setIsLoading] = useState(true)
-    const [openFormKelola, setOpenFormKelola] = useState(false)
-    const [akun, dispatch] = useReducer(manajemenAkunReducer, [])
-    const [formMode, setFormMode] = useState<"add" | "update">("add")
-    const [akunToUpdate, setAkunToUpdate] = useState<AkunType | null>(null)
-    const [idChangePassword, setIdChangePassword] = useState<number | null>(null);
-    const [openChangePassword, setOpenChangePassword] = useState(false);
-
-    const [searchQuery, setSearchQuery] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
-    const filteredAkun = akun.filter(a => a.fullname.toLowerCase().includes(searchQuery.toLowerCase()));
-
-    const totalPages = Math.ceil(filteredAkun.length / itemsPerPage);
-    const paginatedAkun = filteredAkun.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-    );
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [searchQuery, akun]);
-
-    useEffect(() => {
-        AxiosAuth.post(BASE_API_URL + "auth")
-            .then(res => { dispatch({ type: "fill", payload: res.data.data }); })
-            .catch(err => { console.log(err) })
-            .finally(() => setIsLoading(false))
-    }, [])
-
-    const resetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        formData.append("id", idChangePassword?.toString() || "0");
-        try {
-            const res = await AxiosAuth.post(BASE_API_URL + "auth/ChangePassword", formData, { headers: { "Content-Type": "application/x-www-form-urlencoded" } })
-            Swal.fire({
-                title: res.data.message,
-                icon: "success",
-                draggable: true
-            })
-        } catch (err: any) {
-            Swal.fire({
-                title: "Gagal mereset password",
-                text: err.response?.data?.message || "Terjadi kesalahan",
-                icon: "error",
-                draggable: true
-            })
-        }
-        setOpenChangePassword(false);
-    }
+    const {
+        setOpenFormKelola, setFormMode, setSearchQuery, searchQuery,
+        paginatedAkun, loading, setOpenChangePassword, dispatch, resetPassword, setAkunToUpdate, setIdChangePassword,
+        currentPage, setCurrentPage, akunToUpdate, openChangePassword, openFormKelola, totalPages, formMode
+    } = useManajamenAkun()
 
     if (loading) return <LoadingDots />
     return <div className="p-3">
@@ -102,8 +53,8 @@ export default function ManajemenAkun() {
                         <tr className="text-black" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_normal }}>
                             <th className="w-1/6">No</th>
                             <th className="w-1/6">Level</th>
-                            <th className="w-2/6">Nama Lengkap</th>
-                            <th className="w-2/6">Tindakan</th>
+                            <th className="w-1/6">Nama Lengkap</th>
+                            <th className="w-3/6 text-center">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -113,7 +64,7 @@ export default function ManajemenAkun() {
                                 <td><span className="rounded px-2 py-1" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_normal }}>{akun.level}</span></td>
                                 <td>{akun.fullname}</td>
                                 <td>
-                                    <div className="flex gap-x-2 items-center">
+                                    <div className="flex gap-x-2 items-center justify-center">
                                         <button onClick={() => { setIdChangePassword(akun.id); setOpenChangePassword(true) }} className="btn border-blue-500 text-blue-500"><BsArrowRepeat size={24} /> Change Password</button>
                                         <button onClick={() => {
                                             setFormMode("update");

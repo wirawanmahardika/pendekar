@@ -12,7 +12,7 @@ export default function useGetResultData<T>(
       .then((result) => {
         setResultData(result.data.data);
       })
-      .catch((error) => alert(error.message))
+      .catch((error) => {console.log(error)})
       .finally(() => loadingStatusChange(false));
   }, []);
 
