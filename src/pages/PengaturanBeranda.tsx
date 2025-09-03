@@ -18,6 +18,9 @@ export default function PengaturanBeranda() {
     setCrop, getCroppedImage, imgRef, setCropMode, setImageUrl, croppedFile
   } = useImageEditor()
 
+  console.log(leaderInfo);
+  
+
   const [nama, setNama] = useState<string | null>(null)
   const [jabatan, setJabatan] = useState<string | null>(null)
 

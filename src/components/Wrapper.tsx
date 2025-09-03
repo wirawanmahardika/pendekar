@@ -1,18 +1,20 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion'
-import Sidebar, { SidebarPengaturan } from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { useState } from "react";
 import { sidebarStyle } from "../utils/themeSetting";
 import { KODE_SLUG } from "../utils/api";
 import { STRINGS } from "../utils/strings";
+import { IoBackspace, IoSettings } from "react-icons/io5";
+import { FaUserCog, FaUserTie } from "react-icons/fa";
 
 export default function Wrapper() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
-    const navigate= useNavigate()
-    
+    const navigate = useNavigate()
+
     const logout = () => {
         localStorage.clear()
-        navigate('/login')        
+        navigate('/login')
     }
 
     return <div className="h-screen w-screen bg-neutral-50 flex">
@@ -26,7 +28,7 @@ export default function Wrapper() {
                     <svg onClick={() => setSidebarOpen(prev => !prev)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="size-8 cursor-pointer">
                         <path fillRule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
                     </svg>
-                    <span style={{color: STRINGS[KODE_SLUG].theme.color_deep}} className="font-bold text-xl translate-y-0.5">Dashboard {STRINGS[KODE_SLUG].nama}</span>
+                    <span style={{ color: STRINGS[KODE_SLUG].theme.color_deep }} className="font-bold text-xl translate-y-0.5">Dashboard {STRINGS[KODE_SLUG].nama}</span>
                 </div>
 
                 <div className="dropdown">
@@ -66,26 +68,24 @@ export default function Wrapper() {
 }
 
 export function WrapperPengaturan() {
-    const [sidebarOpen, setSidebarOpen] = useState(true)
-    const navigate= useNavigate()
-    
+    const navigate = useNavigate()
+
     const logout = () => {
         localStorage.removeItem('token')
-        navigate('/login')        
+        navigate('/login')
     }
 
     return <div className="h-screen w-screen bg-neutral-50 flex">
-        <motion.div style={sidebarStyle} animate={{ width: sidebarOpen ? '20%' : '0' }} className="bg-[#0077B2] overflow-y-auto overflow-x-hidden">
-            <SidebarPengaturan />
-        </motion.div>
+        <div className={`flex flex-col w-full`}>
+            <div style={{ borderColor: STRINGS[KODE_SLUG].theme.color_deep}} className=" border-b-2 bg-white shadow-md py-3 flex items-center justify-between px-20">
+                <NavLink to={'/'} className="fixed bottom-10 left-12 flex p-2 rounded text-white items-center gap-x-4" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}>
+                    <IoBackspace size={25} />
+                    <span className="font-bold">Halaman Pengaturan</span>
+                </NavLink>
 
-        <motion.div animate={{ width: sidebarOpen ? '80%' : '100%' }} className={`bg-yellow-600 flex flex-col`}>
-            <div className="bg-white shadow-md py-3 flex items-center justify-between px-5">
-                <div className="flex items-center gap-x-4">
-                    <svg onClick={() => setSidebarOpen(prev => !prev)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" className="size-8 cursor-pointer">
-                        <path fillRule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
-                    </svg>
-                    <span style={{color: STRINGS[KODE_SLUG].theme.color_deep}} className="font-bold text-xl translate-y-0.5">Pengaturan</span>
+                <div className="flex items-center gap-x-4" style={{ color: STRINGS[KODE_SLUG].theme.color_deep }}>
+                    <IoSettings size={26} />
+                    <span className="font-bold text-xl">Halaman Pengaturan</span>
                 </div>
 
                 <div className="dropdown">
@@ -115,11 +115,23 @@ export function WrapperPengaturan() {
                 </div>
             </div>
             <div className="bg-gray-200 grow overflow-y-auto flex flex-col">
+                <div style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }} className="w-full text-white flex justify-around items-end pt-4">
+                    <NavLink to={"edit-leader"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
+                        <FaUserTie size={20} />
+                        <span>Leader Profile</span>
+                    </NavLink>
+                    <NavLink to={"manajemen-akun"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
+                        <FaUserCog size={20} />
+                        <span>Manajemen Akun</span>
+                    </NavLink>
+                </div>
+
+
                 <Outlet />
                 <div className="flex mt-auto justify-center items-center p-3 bg-white shadow text-blue-900 text-sm">
                     <span>&copy; Powered By <span className="font-bold">PT Digital Desa Indonesia</span></span>
                 </div>
             </div>
-        </motion.div>
+        </div>
     </div>
 }

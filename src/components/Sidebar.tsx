@@ -41,7 +41,7 @@ export default function Sidebar() {
 
         {
             (KODE_SLUG === "ketapangkab" || KODE_SLUG === "digikab") && localStorage.getItem("role") === "Super Admin" &&
-            <NavLink to={'/setting'} style={{ color: STRINGS[KODE_SLUG].theme.color_deep }} className="flex gap-x-3 mt-auto items-center bg-white rounded-md w-4/5 mx-auto px-2 py-2">
+            <NavLink to={'/setting/edit-leader'} style={{ color: STRINGS[KODE_SLUG].theme.color_deep }} className="flex gap-x-3 mt-auto items-center bg-white rounded-md w-4/5 mx-auto px-2 py-2">
                 <IoSettings size={20} />
                 <span className="font-semibold">Pengaturan</span>
             </NavLink>

@@ -10,8 +10,12 @@ export default function useLeaderInfo() {
     useEffect(() => {
         AxiosAuth.get(BASE_API_URL + "setting/get-leader-info/" +  KODE_SLUG)
             .then(res => {
+                console.log(res.data);
+                
                 setLeaderInfo(res.data.data);
-            }).finally(() => setLoading(false));
+            })
+            .catch(err => console.log(err))
+            .finally(() => setLoading(false));
     }, [])
 
     return { leaderInfo, loading }
