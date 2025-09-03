@@ -77,7 +77,7 @@ export function WrapperPengaturan() {
 
     return <div className="h-screen w-screen bg-neutral-50 flex">
         <div className={`flex flex-col w-full`}>
-            <div style={{ borderColor: STRINGS[KODE_SLUG].theme.color_deep}} className=" border-b-2 bg-white shadow-md py-3 flex items-center justify-between px-20">
+            <div style={{ borderColor: STRINGS[KODE_SLUG].theme.color_deep }} className=" border-b-2 bg-white shadow-md py-3 flex items-center justify-between px-20">
                 <NavLink to={'/'} className="fixed bottom-10 left-12 flex p-2 rounded text-white items-center gap-x-4" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}>
                     <IoBackspace size={25} />
                     <span className="font-bold">Halaman Pengaturan</span>
@@ -120,10 +120,13 @@ export function WrapperPengaturan() {
                         <FaUserTie size={20} />
                         <span>Leader Profile</span>
                     </NavLink>
-                    <NavLink to={"manajemen-akun"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
-                        <FaUserCog size={20} />
-                        <span>Manajemen Akun</span>
-                    </NavLink>
+                    {
+                        (KODE_SLUG === "ketapangkab" || KODE_SLUG === "digikab") && localStorage.getItem("role") === "Super Admin" &&
+                        <NavLink to={"manajemen-akun"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
+                            <FaUserCog size={20} />
+                            <span>Manajemen Akun</span>
+                        </NavLink>
+                    }
                 </div>
 
 

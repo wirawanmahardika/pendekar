@@ -8,12 +8,8 @@ export default function useLeaderInfo() {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        AxiosAuth.get(BASE_API_URL + "setting/get-leader-info/" +  KODE_SLUG)
-            .then(res => {
-                console.log(res.data);
-                
-                setLeaderInfo(res.data.data);
-            })
+        AxiosAuth.get(BASE_API_URL + "setting/get-leader-info/" + KODE_SLUG)
+            .then(res => { setLeaderInfo(res.data.data); })
             .catch(err => console.log(err))
             .finally(() => setLoading(false));
     }, [])

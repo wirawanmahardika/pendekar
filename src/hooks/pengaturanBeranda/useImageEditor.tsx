@@ -3,7 +3,7 @@ import { removeBackground } from "@imgly/background-removal";
 import Swal from "sweetalert2";
 import { Crop, PixelCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import { BASE_API_URL } from "../../utils/api";
+import { BASE_API_URL, KODE_SLUG } from "../../utils/api";
 import { AxiosAuth } from "../../utils/axios";
 import { fileToWebP } from "../../utils/fileToWebp";
 
@@ -117,7 +117,7 @@ export default function useImageEditor() {
         if (uploadFile) formData.append("image", uploadFile);
 
         try {
-            await AxiosAuth.post(BASE_API_URL + "setting/leader-info-upsert", formData);
+            await AxiosAuth.post(BASE_API_URL + "setting/leader-info-upsert/"+KODE_SLUG, formData);
             Swal.fire({ text: "Berhasil update data pemimpin", title: "Sukses", icon: "success" });
         } catch (err) {
             console.error(err);
