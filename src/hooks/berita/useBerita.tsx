@@ -4,7 +4,7 @@ import { AxiosAuth } from "../../utils/axios"
 import { BASE_API_URL } from "../../utils/api"
 
 export default function useBerita() {
-    const [loading, setIsLoading] = useState(false)
+    const [loading, setIsLoading] = useState(true)
     const [resultData, setResultData] = useState<beritaDataType>()
     const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
     const [dataTodisplay, setDataToDisplay] = useState<beritaCardType[]>()
@@ -14,7 +14,6 @@ export default function useBerita() {
         AxiosAuth
             .get(`${BASE_API_URL}berita?k3=&k4=&search=&limit=`)
             .then((result) => {
-                setIsLoading(false)
                 setDataToDisplay(result.data.data.list_berita)
                 setResultData(result.data.data)
             })

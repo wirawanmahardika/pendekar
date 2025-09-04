@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import ExportReportButton from "../../ExportReportButton";
 import { exportReportButtonStyle, tableHeaderStyle } from "../../../utils/themeSetting";
 import { dashboardResultDataType, idmDataTypes, sdgsDataTypes } from "../../../types/DashboardTypes";
-import { CDN_URL } from "../../../utils/api";
+import { CDN_URL, KODE_SLUG } from "../../../utils/api";
 import axios from "axios";
+import { STRINGS } from "../../../utils/strings";
 
 export default function RekomendasiPembangunan({ resultData }: { resultData?: dashboardResultDataType; }) {
   const [idmOpen, setIdmOpen] = useState(false)
@@ -261,7 +262,7 @@ export default function RekomendasiPembangunan({ resultData }: { resultData?: da
                 {"<"}
               </button>
 
-              <button className="join-item btn bg-blue-500 text-white">
+              <button style={{backgroundColor: STRINGS[KODE_SLUG].theme.color_normal}} className="join-item btn text-white">
                 {currentPage}
               </button>
 

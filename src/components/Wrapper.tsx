@@ -80,7 +80,7 @@ export function WrapperPengaturan() {
             <div style={{ borderColor: STRINGS[KODE_SLUG].theme.color_deep }} className=" border-b-2 bg-white shadow-md py-3 flex items-center justify-between px-20">
                 <NavLink to={'/'} className="fixed bottom-10 left-12 flex p-2 rounded text-white items-center gap-x-4" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}>
                     <IoBackspace size={25} />
-                    <span className="font-bold">Halaman Pengaturan</span>
+                    <span className="font-bold">Halaman Dashboard</span>
                 </NavLink>
 
                 <div className="flex items-center gap-x-4" style={{ color: STRINGS[KODE_SLUG].theme.color_deep }}>

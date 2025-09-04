@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { GiWorld } from "react-icons/gi";
 import { desaProfilDesa, SortKeyProfilDesa } from "../../types/ProfileDesaTypes";
 import { exportReportButtonStyle } from "../../utils/themeSetting";
+import { STRINGS } from "../../utils/strings";
+import { KODE_SLUG } from "../../utils/api";
 
 
 export default function TabelDesaKecamatan({ data }: { data?: desaProfilDesa[] }) {
@@ -121,10 +123,11 @@ export default function TabelDesaKecamatan({ data }: { data?: desaProfilDesa[] }
             return (
               <button
                 key={item}
-                className={`join-item btn ${item === currentPage
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-gray-800 shadow-none"
-                  }`}
+                style={{
+                  backgroundColor: item === currentPage && STRINGS[KODE_SLUG].theme.color_normal,
+                  color: item === currentPage && "white" as any,
+                }}
+                className={`join-item btn`}
                 onClick={() => changePage(item)}
               >
                 {item}

@@ -11,7 +11,6 @@ export default function DataStunting({
 }) {
   // Ambil data stunting dari resultData
   const stuntingData = resultData?.stunting || [];
-  console.log(stuntingData);
   // Pastikan data diurutkan berdasarkan tahun
   const sortedStuntingData = [...stuntingData].sort(
     (a, b) => a.tahun - b.tahun,

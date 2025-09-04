@@ -1,6 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import { exportReportButtonStyle } from "../../utils/themeSetting";
 import { desaBansos, SortKeyBansos } from "../../types/BansosTypes";
+import { STRINGS } from "../../utils/strings";
+import { KODE_SLUG } from "../../utils/api";
 
 
 export default function TabelRekapPenerimaBansos({ data }: { data?: desaBansos[] }) {
@@ -111,10 +113,11 @@ export default function TabelRekapPenerimaBansos({ data }: { data?: desaBansos[]
             return (
               <button
                 key={item}
-                className={`join-item btn ${item === currentPage
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-gray-800 shadow-none"
-                  }`}
+                style={{
+                  backgroundColor: item === currentPage && STRINGS[KODE_SLUG].theme.color_normal,
+                  color: item === currentPage && "white" as any,
+                }}
+                className={`join-item btn`}
                 onClick={() => changePage(item)}
               >
                 {item}

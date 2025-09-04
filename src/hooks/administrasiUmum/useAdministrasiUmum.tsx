@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_API_URL } from "../../utils/api";
+import { AxiosAuth } from "../../utils/axios";
 
 export default function useAdministrasiUmum() {
     const [administrationData, setAdministrationData] = useState();
@@ -10,7 +10,7 @@ export default function useAdministrasiUmum() {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get(`${BASE_API_URL}administrasi-umum?k3=&k4=`, { headers: { Authorization: localStorage.getItem("token") }, })
+        AxiosAuth.get(`${BASE_API_URL}administrasi-umum?k3=&k4=`)
             .then(({ data: result }) => {
                 const data = result.data;
                 setAdministrationData(data);
