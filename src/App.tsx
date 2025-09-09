@@ -13,7 +13,7 @@ import Kependudukan from "./pages/Kependudukan"
 import AdministrasiUmum from "./pages/AdministrasiUmum"
 import NotFound from "./pages/NotFound"
 import ManajemenAkun from "./pages/ManajemenAkun"
-// import TemplateDokumen from "./pages/TemplateDokumen"
+import TemplateDokumen from "./pages/TemplateDokumen"
 import PengaturanBeranda from "./pages/PengaturanBeranda"
 
 const router = createBrowserRouter(
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
         <Route path="manajemen-akun" element={<ManajemenAkun />} />
         <Route path="edit-leader" element={<PengaturanBeranda />} />
         {/* <Route path="manajemen-akun" element={<ManajemenAkun />} /> */}
-        {/* <Route path="template-dokumen" element={<TemplateDokumen />} /> */}
+        <Route path="template-dokumen" element={<TemplateDokumen />} />
       </Route>
     </>
   )

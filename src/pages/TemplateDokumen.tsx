@@ -2,23 +2,47 @@ import { FaSearch } from "react-icons/fa";
 import { IoCloudUploadOutline, IoEyeSharp } from "react-icons/io5";
 import { BiTrash } from "react-icons/bi";
 import { RxCross2 } from "react-icons/rx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthSuperAdmin } from "../hooks/useAuth";
 import HeadHtml from "../components/HeadHtml";
 import { STRINGS } from "../utils/strings";
-import { KODE_SLUG } from "../utils/api";
+import { BASE_API_URL, KODE_SLUG } from "../utils/api";
+import { AxiosAuth } from "../utils/axios";
+
+export interface PerencanaanDokumenType {
+    filename: string;
+    iat: string;
+    id: string;
+    k1: string;
+    k2: string;
+    k3: string;
+    k4: string;
+    modul: string;
+    uat: string;
+}
+
 
 export default function TemplateDokumen() {
     useAuthSuperAdmin()
     const [openFormTambah, setOpenFormTambah] = useState(false)
 
+    const [documents, setDocuments] = useState<PerencanaanDokumenType[]>([])
+    const [modulType, setModulType] = useState<"APBDes" | "RKPDes" | "RPJMDes">('RPJMDes')
+
+
+    useEffect(() => {
+        AxiosAuth.get(BASE_API_URL + "perencanaan/get-document-perencanaan/" + modulType)
+            .then(res => { setDocuments(res.data.data) })
+    }, [modulType])
+
+
     return <div className="p-3">
         <HeadHtml title="Template Dokumen" />
         <div className="flex bg-white rounded shadow p-5 justify-between items-center">
             <div role="tablist" className="tabs tabs-border font-semibold">
-                <a role="tab" className="tab text-lg tab-active text-sky-600">RPJMDes</a>
-                <a role="tab" className="tab text-lg text-sky-600">RPJMDes</a>
-                <a role="tab" className="tab text-lg text-sky-600">RPJMDes</a>
+                <a role="tab" onClick={() => setModulType('RPJMDes')} className={`${modulType === "RPJMDes" && "tab-active"} tab text-lg text-sky-600`}>RPJMDes</a>
+                <a role="tab" onClick={() => setModulType('RKPDes')} className={`${modulType === "RKPDes" && "tab-active"} tab text-lg text-sky-600`}>RKPDes</a>
+                <a role="tab" onClick={() => setModulType('APBDes')} className={`${modulType === "APBDes" && "tab-active"} tab text-lg text-sky-600`}>APBDes</a>
             </div>
             <button onClick={() => setOpenFormTambah(true)} className="btn text-white" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}>Unggah Template</button>
         </div>
@@ -36,32 +60,27 @@ export default function TemplateDokumen() {
                     {/* head */}
                     <thead>
                         <tr className="text-black bg-sky-500">
-                            <th>No.</th>
-                            <th className="w-2/5">Nama Dokumen</th>
-                            <th className="w-2/5">Tindakan</th>
+                            <th className="w-1/12">No.</th>
+                            <th className="w-9/12">Nama Dokumen</th>
+                            <th className="w-2/12">Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Quality Control Specialist</td>
-                            <td>
-                                <div className="flex gap-x-2 items-center">
-                                    <button className="btn border-blue-500 text-blue-500"><IoEyeSharp size={24} /> Lihat Berkas</button>
-                                    <button className="btn border-red-500 text-red-500"><BiTrash size={24} /> Hapus</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>1</th>
-                            <td>Quality Control Specialist</td>
-                            <td>
-                                <div className="flex gap-x-2 items-center">
-                                    <button className="btn border-blue-500 text-blue-500"><IoEyeSharp size={24} /> Lihat Berkas</button>
-                                    <button className="btn border-red-500 text-red-500"><BiTrash size={24} /> Hapus</button>
-                                </div>
-                            </td>
-                        </tr>
+                        {documents.length !== 0 ? documents.map((d, i) => {
+                            return <tr key={i}>
+                                <td>{i + 1}</td>
+                                <td>{d.filename}</td>
+                                <td>
+                                    <div className="flex gap-x-2 items-center">
+                                        <button className="btn border-blue-500 text-blue-500"><IoEyeSharp size={24} /> Lihat Berkas</button>
+                                        <button className="btn border-red-500 text-red-500"><BiTrash size={24} /> Hapus</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }) :
+                            <tr>
+                                <td colSpan={3} className="text-red-400 text-center font-bold">Belum ada dokumen</td>
+                            </tr>}
                     </tbody>
                 </table>
             </div>

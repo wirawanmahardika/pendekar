@@ -122,10 +122,17 @@ export function WrapperPengaturan() {
                     </NavLink>
                     {
                         (KODE_SLUG === "ketapangkab" || KODE_SLUG === "digikab") && localStorage.getItem("role") === "Super Admin" &&
-                        <NavLink to={"manajemen-akun"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
-                            <FaUserCog size={20} />
-                            <span>Manajemen Akun</span>
-                        </NavLink>
+                        <>
+                            <NavLink to={"manajemen-akun"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
+                                <FaUserCog size={20} />
+                                <span>Manajemen Akun</span>
+                            </NavLink>
+
+                            <NavLink to={"template-dokumen"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
+                                <FaUserCog size={20} />
+                                <span>Template Dokumen</span>
+                            </NavLink>
+                        </>
                     }
                 </div>
 
