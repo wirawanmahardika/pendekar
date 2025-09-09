@@ -8,6 +8,7 @@ import HeadHtml from "../components/HeadHtml";
 import { STRINGS } from "../utils/strings";
 import { BASE_API_URL, KODE_SLUG } from "../utils/api";
 import { AxiosAuth } from "../utils/axios";
+import Swal from "sweetalert2";
 
 export interface PerencanaanDokumenType {
     filename: string;
@@ -34,6 +35,20 @@ export default function TemplateDokumen() {
         AxiosAuth.get(BASE_API_URL + "perencanaan/get-document-perencanaan/" + modulType)
             .then(res => { setDocuments(res.data.data) })
     }, [modulType])
+
+    const handleDeleteDokumen = (id: string) => async () => {
+        try {
+            const res = await AxiosAuth.post(BASE_API_URL + 'perencanaan/delete-document-perencanaan/' + id)
+            setDocuments(prev => prev.filter(d => d.id !== id))
+            Swal.fire({
+                text: res.data.message,
+                title: "Sukses",
+                icon: "success"
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     return <div className="p-3">
@@ -73,7 +88,7 @@ export default function TemplateDokumen() {
                                 <td>
                                     <div className="flex gap-x-2 items-center">
                                         <button className="btn border-blue-500 text-blue-500"><IoEyeSharp size={24} /> Lihat Berkas</button>
-                                        <button className="btn border-red-500 text-red-500"><BiTrash size={24} /> Hapus</button>
+                                        <button onClick={handleDeleteDokumen(d.id)} className="btn border-red-500 text-red-500"><BiTrash size={24} /> Hapus</button>
                                     </div>
                                 </td>
                             </tr>
