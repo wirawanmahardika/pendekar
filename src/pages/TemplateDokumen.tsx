@@ -28,18 +28,27 @@ export default function TemplateDokumen() {
     useAuthSuperAdmin()
     const [openFormTambah, setOpenFormTambah] = useState(false)
 
-    const [filter, setFilter] = useState('')
     const [documents, setDocuments] = useState<PerencanaanDokumenType[]>([])
-    const [filteredDocument, setFilteredDocument] = useState<PerencanaanDokumenType[]>([])
+    const [filteredDocuments, setFilteredDocuments] = useState<PerencanaanDokumenType[]>([])
+    const [filter, setFilter] = useState('')
 
     const [modulType, setModulType] = useState<"APBDes" | "RKPDes" | "RPJMDes">('RPJMDes')
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         AxiosAuth.get(BASE_API_URL + "perencanaan/get-document-perencanaan/" + modulType)
-            .then(res => { setDocuments(res.data.data); setFilteredDocument(res.data.data) })
+            .then(res => { setDocuments(res.data.data); setFilteredDocuments(res.data.data); setFilter('') })
             .finally(() => setLoading(false))
     }, [modulType])
+
+    useEffect(() => {
+        const idTimeout = setTimeout(() => {
+            const data = documents.filter(d => d.filename.toLowerCase().includes(filter.toLocaleLowerCase()))
+            setFilteredDocuments(data)
+        }, 300);
+
+        return () => clearTimeout(idTimeout)
+    }, [filter])
 
     const handleDeleteDokumen = (id: string) => async () => {
         try {
@@ -60,9 +69,9 @@ export default function TemplateDokumen() {
         <HeadHtml title="Template Dokumen" />
         <div className="flex bg-white rounded shadow p-5 justify-between items-center">
             <div role="tablist" className="tabs tabs-border font-semibold">
-                <a role="tab" onClick={() => setModulType('RPJMDes')} className={`${modulType === "RPJMDes" && "tab-active"} tab text-lg text-sky-600`}>RPJMDes</a>
-                <a role="tab" onClick={() => setModulType('RKPDes')} className={`${modulType === "RKPDes" && "tab-active"} tab text-lg text-sky-600`}>RKPDes</a>
-                <a role="tab" onClick={() => setModulType('APBDes')} className={`${modulType === "APBDes" && "tab-active"} tab text-lg text-sky-600`}>APBDes</a>
+                <a role="tab" onClick={() => { setModulType('RPJMDes');}} className={`${modulType === "RPJMDes" && "tab-active"} tab text-lg text-sky-600`}>RPJMDes</a>
+                <a role="tab" onClick={() => { setModulType('RKPDes');}} className={`${modulType === "RKPDes" && "tab-active"} tab text-lg text-sky-600`}>RKPDes</a>
+                <a role="tab" onClick={() => { setModulType('APBDes');}} className={`${modulType === "APBDes" && "tab-active"} tab text-lg text-sky-600`}>APBDes</a>
             </div>
             <button onClick={() => setOpenFormTambah(true)} className="btn text-white" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}>Unggah Template</button>
         </div>
@@ -71,7 +80,7 @@ export default function TemplateDokumen() {
                 <h2 className="font-semibold text-lg">Unggah Template Dokumen</h2>
                 <div className="relative">
                     <FaSearch className="absolute top-1/2 text-gray-800 z-10 -translate-y-1/2 left-3" size={16} />
-                    <input onChange={(e) => setFilter(e.target.value)} type="search" className="input bg-gray-200 pl-10" placeholder="Cari Template..." />
+                    <input onChange={(e) => setFilter(e.target.value)} value={filter} type="search" className="input bg-gray-200 pl-10" placeholder="Cari Template..." />
                 </div>
             </div>
 
@@ -86,7 +95,7 @@ export default function TemplateDokumen() {
                         </tr>
                     </thead>
                     <tbody>
-                        {documents.length !== 0 ? documents.map((d, i) => {
+                        {filteredDocuments.length !== 0 ? filteredDocuments.map((d, i) => {
                             return <tr key={i}>
                                 <td>{i + 1}</td>
                                 <td>{d.filename}</td>
