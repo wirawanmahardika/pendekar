@@ -3,6 +3,7 @@ export type dokumenDanPerencaanType = {
   id_dokumen: string;
   pic: string;
   jenis_dokumen: string;
+  modul: string;
   tanggal_perubahan: string;
   insert_date: string;
   desa: string;
@@ -19,6 +20,7 @@ export type dokumenDanPerencaanFilterType = {
   tahun: string;
   kecamatan: string;
   desa: string;
+  modul: 'semua' | 'rpjmdes' | 'rpkdes' | 'apbdes';
 }
 
 export type dokumenDanPerencaanPartType = {

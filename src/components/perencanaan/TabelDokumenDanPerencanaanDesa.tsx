@@ -18,7 +18,8 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
     const [selectedFilter, setSelectedFilter] = useState<dokumenDanPerencaanFilterType>({
         tahun: "",
         kecamatan: "",
-        desa: ""
+        desa: "",
+        modul: "semua"
     });
     const [dateRange, setDateRange] = useState<Range | null>(null);
 
@@ -28,6 +29,7 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
             if (selectedFilter.tahun) status = status && selectedFilter.tahun === d.tahun.toString();
             if (selectedFilter.kecamatan) status = status && selectedFilter.kecamatan === d.kecamatan;
             if (selectedFilter.desa) status = status && selectedFilter.desa === d.desa;
+            if (selectedFilter.modul) status = status && selectedFilter.modul === d.modul.toLowerCase();
 
             // ✅ filter berdasarkan tanggal_perubahan jika ada dateRange
             if (dateRange?.startDate && dateRange?.endDate) {
@@ -38,7 +40,6 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
             return status;
         });
     }, [allData, selectedFilter, dateRange]);
-
 
     useEffect(() => {
         setDataToDisplay(filteredData)
@@ -78,6 +79,9 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
     const filterDesaChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedFilter(f => ({ ...f, desa: e.target.value }));
     }, []);
+    const filterModulChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedFilter(f => ({ ...f, modul: e.target.value as any }));
+    }, []);
 
     return (
         <div className="bg-white p-5 mt-10 rounded shadow">
@@ -95,12 +99,18 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
                     <option value="">Pilih Desa</option>
                     {desaOptions.map(f => <option key={f.id} value={f.desa}>{f.desa}</option>)}
                 </select>
+                <select value={selectedFilter.modul} onChange={filterModulChange} className="border-2 border-neutral-500 rounded text-neutral-600 w-1/4 outline-none pl-2 pr-4 py-2">
+                    <option value="">Jenis Berkas</option>
+                    <option value="rpjmdes">RPJMDes</option>
+                    <option value="rkpdes">RKPDes</option>
+                    <option value="apbdes">APBDes</option>
+                </select>
                 <DateRangeButton onChange={(range) => setDateRange(range)} />
             </div>
             <Pagination data={dataToDisplay} displayData={(paginatedData) => {
                 return <table className="rounded text-sm w-full mt-4 overflow-hidden">
                     <thead>
-                        <tr style={{backgroundColor: STRINGS[KODE_SLUG].theme.color_light}} className="text-gray-700">
+                        <tr style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_light }} className="text-gray-700">
                             <th className="border-2 border-neutral-100 text-center w-1/12 py-2">PIC</th>
                             <th className="border-2 border-neutral-100 text-center w-2/12 py-2">Nama Kecamatan</th>
                             <th className="border-2 border-neutral-100 text-center w-1/12 py-2">Nama Desa</th>

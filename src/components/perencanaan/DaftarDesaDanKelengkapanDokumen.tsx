@@ -23,7 +23,6 @@ const initialFilter: FilterState = {
 
 const getId = createIdGenerator()
 export default function DaftarDesaDanKelengkapanDokumen({ allData }: { allData: KelengkapanDokumen[] }) {
-  console.log(allData);
   const [filter, setFilter] = useState<FilterState>(initialFilter);
 
   const tahunOptions = useGetTahunFilter()
