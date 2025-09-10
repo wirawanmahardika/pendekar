@@ -19,7 +19,7 @@ export default function TabelDokumenDanPerencanaanDesa({ allData, dispatchAllDat
         tahun: "",
         kecamatan: "",
         desa: "",
-        modul: "semua"
+        modul: ""
     });
     const [dateRange, setDateRange] = useState<Range | null>(null);
 

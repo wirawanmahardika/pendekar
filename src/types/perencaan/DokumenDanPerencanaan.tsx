@@ -20,7 +20,7 @@ export type dokumenDanPerencaanFilterType = {
   tahun: string;
   kecamatan: string;
   desa: string;
-  modul: 'semua' | 'rpjmdes' | 'rpkdes' | 'apbdes';
+  modul: '' | 'rpjmdes' | 'rpkdes' | 'apbdes';
 }
 
 export type dokumenDanPerencaanPartType = {

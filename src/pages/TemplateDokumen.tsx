@@ -134,7 +134,6 @@ export default function TemplateDokumen() {
                         const res = await AxiosAuth.post(BASE_API_URL + 'perencanaan/post-document-perencanaan/' + KODE_SLUG, formData)
                         Swal.fire({ icon: 'success', text: res.data.message, title: "Sukses" })
                     } catch (error) {
-                        console.log(error);
                         Swal.fire({ icon: 'error', text: "Tidak dapat upload dokumen, terjadi kesalahan", title: "Error" })
                     }
                 }} className="flex flex-col gap-y-5 mt-3">
