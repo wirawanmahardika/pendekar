@@ -6,7 +6,7 @@ import { sidebarStyle } from "../utils/themeSetting";
 import { KODE_SLUG } from "../utils/api";
 import { STRINGS } from "../utils/strings";
 import { IoBackspace, IoSettings } from "react-icons/io5";
-import { FaUserCog } from "react-icons/fa";
+import { FaUserCog, FaUserTie } from "react-icons/fa";
 
 export default function Wrapper() {
     const [sidebarOpen, setSidebarOpen] = useState(true)
@@ -116,10 +116,10 @@ export function WrapperPengaturan() {
             </div>
             <div className="bg-gray-200 grow overflow-y-auto flex flex-col">
                 <div style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }} className="w-full text-white flex justify-around items-end pt-4">
-                    {/* <NavLink to={"edit-leader"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
+                    <NavLink to={"edit-leader"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
                         <FaUserTie size={20} />
                         <span>Leader Profile</span>
-                    </NavLink> */}
+                    </NavLink>
                     {
                         (KODE_SLUG === "ketapangkab" || KODE_SLUG === "digikab") && localStorage.getItem("role") === "Super Admin" &&
                         <>

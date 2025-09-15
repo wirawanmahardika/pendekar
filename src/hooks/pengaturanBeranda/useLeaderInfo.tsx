@@ -3,7 +3,7 @@ import { LeaderInfo } from "../../types/PengaturanBerandaTypes";
 import { AxiosAuth } from "../../utils/axios";
 import { BASE_API_URL, KODE_SLUG } from "../../utils/api";
 
-export default function useLeaderInfo() {
+export default function useLeaderInfo(mode: string) {
     const [leaderInfo, setLeaderInfo] = useState<LeaderInfo | null>(null);
     const [loading, setLoading] = useState(true)
 
@@ -12,7 +12,7 @@ export default function useLeaderInfo() {
             .then(res => { setLeaderInfo(res.data.data); })
             .catch(err => console.log(err))
             .finally(() => setLoading(false));
-    }, [])
+    }, [mode])
 
     return { leaderInfo, loading }
 }

@@ -1,16 +1,18 @@
 import { LeaderInfo } from "../../types/PengaturanBerandaTypes";
 
 type props = {
+    typeEdit: "wakil" | 'pemimpin';
     nama: string | null;
     jabatan: string | null;
     leaderInfo: LeaderInfo | null;
     setJabatan: React.Dispatch<React.SetStateAction<string | null>>
     setNama: React.Dispatch<React.SetStateAction<string | null>>
-    handleSave: (nama: string, jabatan: string) => void
+    handleSave: (nama: string, jabatan: string, typeEdit: "wakil" | 'pemimpin') => void
+    setMode: React.Dispatch<React.SetStateAction<'preview' | 'edit'>>
 }
 
 export default function LeaderForm({
-    nama, jabatan, leaderInfo, setNama, setJabatan, handleSave,
+    typeEdit, nama, jabatan, leaderInfo, setNama, setJabatan, handleSave, setMode
 }: props) {
     return <>
         <div className="space-y-4">
@@ -20,7 +22,7 @@ export default function LeaderForm({
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     placeholder="Masukkan nama"
-                    value={nama === null ?  leaderInfo?.nama : nama}
+                    value={nama === null ? leaderInfo?.nama : nama}
                     onChange={(e) => setNama(e.target.value)}
                 />
             </div>
@@ -35,8 +37,11 @@ export default function LeaderForm({
                 />
             </div>
         </div>
-        <div className="flex justify-center mt-4 py-6">
-            <button onClick={() => handleSave(nama || "", jabatan || "")} className="btn btn-info">
+        <div className="flex justify-center mt-4 py-6 gap-x-3">
+            <button onClick={() => setMode("preview")} className="btn btn-neutral">
+                Preview
+            </button>
+            <button onClick={() => handleSave(nama || "", jabatan || "", typeEdit)} className="btn btn-info">
                 Simpan
             </button>
         </div>

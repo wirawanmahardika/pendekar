@@ -110,14 +110,15 @@ export default function useImageEditor() {
         setPosition({ x: 0, y: 0 });
     };
 
-    const handleSave = async (nama: string, jabatan: string) => {
+    const handleSave = async (nama: string, jabatan: string, typeEdit: 'pemimpin' | "wakil") => {
         const formData = new FormData();
         formData.append("nama", nama);
         formData.append("jabatan", jabatan);
+        if (typeEdit === "pemimpin") formData.append("is_leader", "true");
         if (uploadFile) formData.append("image", uploadFile);
 
         try {
-            await AxiosAuth.post(BASE_API_URL + "setting/leader-info-upsert/"+KODE_SLUG, formData);
+            await AxiosAuth.post(BASE_API_URL + "setting/leader-info-upsert/" + KODE_SLUG, formData);
             Swal.fire({ text: "Berhasil update data pemimpin", title: "Sukses", icon: "success" });
         } catch (err) {
             console.error(err);
