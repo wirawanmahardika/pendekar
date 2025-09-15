@@ -5,24 +5,23 @@ import { BASE_API_URL } from "../../utils/api"
 
 export default function useBerita() {
     const [loading, setIsLoading] = useState(true)
-    const [resultData, setResultData] = useState<beritaDataType>()
+    const [dataBerita, setDataBerita] = useState<beritaDataType | null>(null)
     const [search, setSearch] = useState({ text: "", kecamatan: "", desa: "" })
     const [dataTodisplay, setDataToDisplay] = useState<beritaCardType[]>()
-
 
     useEffect(() => {
         AxiosAuth
             .get(`${BASE_API_URL}berita?k3=&k4=&search=&limit=`)
             .then((result) => {
                 setDataToDisplay(result.data.data.list_berita)
-                setResultData(result.data.data)
+                setDataBerita(result.data.data)
             })
             .catch((error) => alert(error.message))
             .finally(() => setIsLoading(false));
     }, [])
 
     useEffect(() => {
-        const listBerita = resultData?.list_berita.filter(lb => {
+        const listBerita = dataBerita?.list_berita.filter(lb => {
             let status: boolean = true;
             if (search.kecamatan) status = status && lb.nama_kecamatan === search.kecamatan
             if (search.desa) status = status && lb.nama_desa === search.desa
@@ -34,6 +33,6 @@ export default function useBerita() {
 
     return {
         loading, dataTodisplay, setSearch,
-        resultData, search
+        dataBerita, search
     }
 }
