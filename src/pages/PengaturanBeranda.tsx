@@ -11,17 +11,14 @@ import { BASE_API_URL, KODE_SLUG } from "../utils/api";
 
 export default function PengaturanBeranda() {
   useAuthSuperAdmin()
-  const [mode, setMode] = useState<'edit' | "preview">("preview")
   const [typeEdit, setTypeEdit] = useState<'wakil' | 'pemimpin'>("pemimpin")
-  const [nama, setNama] = useState<string | null>(null)
-  const [jabatan, setJabatan] = useState<string | null>(null)
+  const {
+    imageUrl, handleFileChange, uploadFile, handleUploadFileBgErase, nama, setNama, jabatan, setJabatan,
+    handleSave, cropMode, scale, position, resetZoom, handleZoom, crop,
+    setCrop, getCroppedImage, imgRef, setCropMode, setImageUrl, croppedFile, mode, setMode
+  } = useImageEditor()
 
   const { leaderInfo, loading } = useLeaderInfo(mode)
-  const {
-    imageUrl, handleFileChange, uploadFile, handleUploadFileBgErase,
-    handleSave, cropMode, scale, position, resetZoom, handleZoom, crop,
-    setCrop, getCroppedImage, imgRef, setCropMode, setImageUrl, croppedFile
-  } = useImageEditor()
 
   if (loading) return <LoadingDots />
   return <div className="p-6 bg-white">

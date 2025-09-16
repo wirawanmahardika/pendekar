@@ -22,7 +22,7 @@ export default function LeaderForm({
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     placeholder="Masukkan nama"
-                    value={nama === null ? leaderInfo?.nama : nama}
+                    value={nama === null ? (typeEdit === "pemimpin" ? leaderInfo?.nama : leaderInfo?.nama_wakil) : nama}
                     onChange={(e) => setNama(e.target.value)}
                 />
             </div>
@@ -31,7 +31,7 @@ export default function LeaderForm({
                 <input
                     type="text"
                     onChange={(e) => setJabatan(e.target.value)}
-                    value={jabatan === null ? leaderInfo?.jabatan : jabatan}
+                    value={jabatan === null ? (typeEdit === "pemimpin" ? leaderInfo?.jabatan : leaderInfo?.jabatan_wakil) : jabatan}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     placeholder="Masukkan jabatan"
                 />

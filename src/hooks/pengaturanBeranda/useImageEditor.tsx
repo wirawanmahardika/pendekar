@@ -8,6 +8,7 @@ import { AxiosAuth } from "../../utils/axios";
 import { fileToWebP } from "../../utils/fileToWebp";
 
 export default function useImageEditor() {
+    const [mode, setMode] = useState<'edit' | "preview">("preview")
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [cropMode, setCropMode] = useState(false)
     const [crop, setCrop] = useState<Crop>({
@@ -22,6 +23,8 @@ export default function useImageEditor() {
     const [scale, setScale] = useState(1); // State untuk zoom
     const [position, setPosition] = useState({ x: 0, y: 0 }); // State untuk pan
 
+    const [nama, setNama] = useState<string | null>(null)
+    const [jabatan, setJabatan] = useState<string | null>(null)
     const [uploadFile, setUploadFile] = useState<File | null>(null);
     const [imageUrl, setImageUrl] = useState("")
 
@@ -120,6 +123,12 @@ export default function useImageEditor() {
         try {
             await AxiosAuth.post(BASE_API_URL + "setting/leader-info-upsert/" + KODE_SLUG, formData);
             Swal.fire({ text: "Berhasil update data pemimpin", title: "Sukses", icon: "success" });
+            setImageUrl('')
+            setUploadFile(null)
+            setSelectedFile(null)
+            setNama(null)
+            setJabatan(null)
+            setMode('preview')
         } catch (err) {
             console.error(err);
         }
@@ -141,7 +150,9 @@ export default function useImageEditor() {
 
     return {
         crop, cropMode, imageUrl, uploadFile, scale, position,
-        imgRef, croppedFile,
+        imgRef, croppedFile, nama, jabatan, mode,
+        setMode,
+        setNama, setJabatan,
         setCrop, setCropMode, setImageUrl,
         getCroppedImage, handleUploadFileBgErase,
         handleFileChange,
