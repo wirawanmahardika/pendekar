@@ -116,13 +116,14 @@ export function WrapperPengaturan() {
             </div>
             <div className="bg-gray-200 grow overflow-y-auto flex flex-col">
                 <div style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }} className="w-full text-white flex justify-around items-end pt-4">
-                    <NavLink to={"edit-leader"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
-                        <FaUserTie size={20} />
-                        <span>Leader Profile</span>
-                    </NavLink>
                     {
                         (KODE_SLUG === "ketapangkab" || KODE_SLUG === "digikab") && localStorage.getItem("role") === "Super Admin" &&
                         <>
+                            <NavLink to={"edit-leader"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
+                                <FaUserTie size={20} />
+                                <span>Informasi Pejabat</span>
+                            </NavLink>
+
                             <NavLink to={"manajemen-akun"} className={({ isActive }) => `gap-x-3 flex text-sm items-center p-3 rounded-t-xl ${isActive && `bg-white text-black`}`}>
                                 <FaUserCog size={20} />
                                 <span>Manajemen Akun</span>
