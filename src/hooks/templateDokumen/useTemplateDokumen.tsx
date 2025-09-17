@@ -28,7 +28,7 @@ export default function useTemplateDokumen() {
         }, 300);
 
         return () => clearTimeout(idTimeout)
-    }, [filter])
+    }, [filter, documents])
 
     const handleDeleteDokumen = (id: string) => async () => {
         try {
