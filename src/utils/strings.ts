@@ -163,7 +163,6 @@ export const STRINGS: any = {
         slogan: "Luwu Wanua Mappatuo'e Naewai Alena, Toddo Puli Temmalara Te'bakke Tongengnge",
         logo_kab_url: CDN_URL + 'uploads/landing/logo-desa/luwu.png',
         logo_dss_url: '',
-        // logo_background_image_login: 'luwukab.png',
         logo_background_image_login:
             CDN_URL + 'uploads/pendekar/login-panel/luwukab.webp',
 

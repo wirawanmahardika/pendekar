@@ -38,8 +38,8 @@ export default function LeaderForm({
             </div>
         </div>
         <div className="flex justify-center mt-4 py-6 gap-x-3">
-            <button onClick={() => setMode("preview")} className="btn btn-neutral">
-                Preview
+            <button onClick={() => setMode("preview")} className="btn btn-error">
+                Batal
             </button>
             <button onClick={() => handleSave(nama || "", jabatan || "", typeEdit)} className="btn btn-info">
                 Simpan

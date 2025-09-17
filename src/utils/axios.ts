@@ -12,5 +12,7 @@ AxiosAuth.interceptors.response.use((response) => response, (error) => {
     localStorage.clear()
     window.location.href = '/login'
   }
+  console.log(error);
+  
   return Promise.reject(error)
 })
