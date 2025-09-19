@@ -10,10 +10,10 @@ type props = {
 
 export default function NavigationTabs({ setModulType, modulType, setOpenFormTambah }: props) {
     return <div className="flex bg-white rounded shadow p-5 justify-between items-center">
-        <div role="tablist" className="tabs tabs-border font-semibold">
-            <a role="tab" onClick={() => { setModulType('RPJMDes'); }} className={`${modulType === "RPJMDes" && "tab-active"} tab text-lg text-sky-600`}>RPJMDes</a>
-            <a role="tab" onClick={() => { setModulType('RKPDes'); }} className={`${modulType === "RKPDes" && "tab-active"} tab text-lg text-sky-600`}>RKPDes</a>
-            <a role="tab" onClick={() => { setModulType('APBDes'); }} className={`${modulType === "APBDes" && "tab-active"} tab text-lg text-sky-600`}>APBDes</a>
+        <div role="tablist" style={{color: STRINGS[KODE_SLUG].theme.color_deep}} className="tabs tabs-border font-semibold">
+            <a role="tab" onClick={() => { setModulType('RPJMDes'); }} className={`${modulType === "RPJMDes" && "tab-active"} tab text-lg`}>RPJMDes</a>
+            <a role="tab" onClick={() => { setModulType('RKPDes'); }} className={`${modulType === "RKPDes" && "tab-active"} tab text-lg`}>RKPDes</a>
+            <a role="tab" onClick={() => { setModulType('APBDes'); }} className={`${modulType === "APBDes" && "tab-active"} tab text-lg`}>APBDes</a>
         </div>
         <button onClick={() => setOpenFormTambah(true)} className="btn text-white" style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_deep }}>Unggah Template</button>
     </div>

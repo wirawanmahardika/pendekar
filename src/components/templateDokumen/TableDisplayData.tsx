@@ -4,6 +4,7 @@ import { SetStateAction } from "react";
 import { BiTrash } from "react-icons/bi";
 import { IoEyeSharp } from "react-icons/io5";
 import { PerencanaanDokumenType } from "../../types/templateDokumentypes";
+import { STRINGS } from "../../utils/strings";
 
 type props = {
     filter: string;
@@ -25,7 +26,7 @@ export default function TableDisplayDocuments({ filter, setFilter, filteredDocum
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6 overflow-y-auto">
             <table className="table text-center">
                 <thead>
-                    <tr className="text-black bg-sky-500">
+                    <tr style={{backgroundColor: STRINGS[KODE_SLUG].theme.color_normal}} className="text-black">
                         <th className="w-1/12">No.</th>
                         <th className="w-1/12">Tahun</th>
                         <th className="w-8/12 text-left">Nama Dokumen</th>
