@@ -11,16 +11,17 @@ import Berita from "./pages/Berita"
 import Wisata from "./pages/Wisata"
 import Kependudukan from "./pages/Kependudukan"
 import AdministrasiUmum from "./pages/AdministrasiUmum"
-import NotFound from "./pages/NotFound"
 import ManajemenAkun from "./pages/ManajemenAkun"
 import TemplateDokumen from "./pages/TemplateDokumen"
 import PengaturanBeranda from "./pages/PengaturanBeranda"
+import { ErrorElement, NotFound } from "./pages/ErrorHandler"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Wrapper />} errorElement={<NotFound />}>
+      <Route path="*" element={<NotFound />} />
+      <Route path="/login" element={<Login />} errorElement={<ErrorElement />} />
+      <Route path="/" element={<Wrapper />} errorElement={<ErrorElement />}>
         <Route index element={<Dashboard />} />
         <Route path="/bansos" element={<Bansos />} />
         <Route path="/profil-desa" element={<ProfilDesa />} />
@@ -32,7 +33,7 @@ const router = createBrowserRouter(
         <Route path="/kependudukan" element={<Kependudukan />} />
         <Route path="/umum" element={<AdministrasiUmum />} />
       </Route>
-      <Route path="/setting" element={<WrapperPengaturan />} errorElement={<NotFound />}>
+      <Route path="/setting" element={<WrapperPengaturan />} errorElement={<ErrorElement />}>
         <Route path="manajemen-akun" element={<ManajemenAkun />} />
         <Route path="edit-leader" element={<PengaturanBeranda />} />
         <Route path="template-dokumen" element={<TemplateDokumen />} />

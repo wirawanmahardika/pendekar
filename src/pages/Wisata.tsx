@@ -11,6 +11,8 @@ export default function Wisata() {
     useAuth()
     const { loading, setSearch, search, dataWisata, dataTodisplay } = useWisata()
 
+    if(true) throw "asdf"
+
     if (loading) return <LoadingDots />
     return <div className="px-4 py-10">
         <HeadHtml title="Wisata" />
