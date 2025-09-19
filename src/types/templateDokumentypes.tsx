@@ -6,6 +6,7 @@ export type PerencanaanDokumenType = {
     k2: string;
     k3: string;
     k4: string;
+    tahun: number | null;
     modul: string;
     uat: string;
 }

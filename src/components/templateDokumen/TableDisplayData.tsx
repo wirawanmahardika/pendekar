@@ -23,11 +23,12 @@ export default function TableDisplayDocuments({ filter, setFilter, filteredDocum
         </div>
 
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6 overflow-y-auto">
-            <table className="table">
+            <table className="table text-center">
                 <thead>
                     <tr className="text-black bg-sky-500">
                         <th className="w-1/12">No.</th>
-                        <th className="w-9/12">Nama Dokumen</th>
+                        <th className="w-1/12">Tahun</th>
+                        <th className="w-8/12 text-left">Nama Dokumen</th>
                         <th className="w-2/12">Tindakan</th>
                     </tr>
                 </thead>
@@ -35,7 +36,8 @@ export default function TableDisplayDocuments({ filter, setFilter, filteredDocum
                     {filteredDocuments.length !== 0 ? filteredDocuments.map((d, i) => {
                         return <tr key={i}>
                             <td>{i + 1}</td>
-                            <td>{d.filename}</td>
+                            <td className="text-center">{d.tahun ?? "-"}</td>
+                            <td className="text-left">{d.filename}</td>
                             <td>
                                 <div className="flex gap-x-2 items-center">
                                     <a href={BASE_API_URL + 'uploads/' + KODE_SLUG + '/document_perencanaan/' + d.filename} download={true} className="btn border-blue-500 text-blue-500"><IoEyeSharp size={24} /> Lihat Berkas</a>

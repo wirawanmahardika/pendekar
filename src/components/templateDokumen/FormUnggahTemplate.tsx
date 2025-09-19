@@ -11,6 +11,18 @@ type props = {
 }
 
 export default function FormUnggahTemplate({ openFormTambah, setOpenFormTambah }: props) {
+    const handleUnggalTemplate = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+
+        try {
+            const res = await AxiosAuth.post(BASE_API_URL + 'perencanaan/post-document-perencanaan/' + KODE_SLUG, formData)
+            Swal.fire({ icon: 'success', text: res.data.message, title: "Sukses" })
+        } catch (error) {
+            Swal.fire({ icon: 'error', text: "Tidak dapat upload dokumen, terjadi kesalahan", title: "Error" })
+        }
+    }
+
     return <div className={`${!openFormTambah && "hidden"} fixed inset-0 backdrop-brightness-70`}>
         <div className="absolute top-1/2 left-1/2 -translate-1/2 bg-white rounded flex flex-col gap-y-3 p-5 w-1/4">
             <div className="flex w-full items-center">
@@ -21,25 +33,19 @@ export default function FormUnggahTemplate({ openFormTambah, setOpenFormTambah }
 
             <hr className="border-none h-0.5 bg-gray-500 w-full" />
 
-            <form onSubmit={async (e) => {
-                e.preventDefault()
-                const formData = new FormData(e.currentTarget)
-
-                try {
-                    const res = await AxiosAuth.post(BASE_API_URL + 'perencanaan/post-document-perencanaan/' + KODE_SLUG, formData)
-                    Swal.fire({ icon: 'success', text: res.data.message, title: "Sukses" })
-                } catch (error) {
-                    Swal.fire({ icon: 'error', text: "Tidak dapat upload dokumen, terjadi kesalahan", title: "Error" })
-                }
-            }} className="flex flex-col gap-y-5 mt-3">
+            <form onSubmit={handleUnggalTemplate} className="flex flex-col gap-y-5 mt-3">
                 <div className="flex flex-col gap-y-1">
                     <label className="text-sm">Filename <sup className="text-red-500">*</sup></label>
-                    <input type="text" name="filename" className="input bg-yellow-100 w-full" />
+                    <input type="text" name="filename" className="input bg-yellow-100 w-full" required />
+                </div>
+                <div className="flex flex-col gap-y-1">
+                    <label className="text-sm">Tahun <sup className="text-red-500">*</sup></label>
+                    <input type="number" min={1} name="tahun" className="input bg-yellow-100 w-full" required />
                 </div>
                 <div className="flex flex-col gap-y-1">
                     <label className="text-sm">Upload File <sup className="text-red-500">*</sup></label>
-                    <input type="file" name="document_perencanaan" className="file-input bg-yellow-100 w-full" accept=".pdf" />
-                    <span className="text-xs font-light">Format File PDF Max 15</span>
+                    <input type="file" name="document_perencanaan" className="file-input bg-yellow-100 w-full" accept=".pdf" required />
+                    <span className="text-xs font-light">Format File PDF | Max 20 MB</span>
                 </div>
                 <div className="flex flex-col gap-y-1">
                     <label className="text-sm">Kategori Dokumen <sup className="text-red-500">*</sup></label>
