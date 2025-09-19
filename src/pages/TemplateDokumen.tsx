@@ -9,7 +9,7 @@ import TableDisplayDocuments from "../components/templateDokumen/TableDisplayDat
 export default function TemplateDokumen() {
     useAuthSuperAdmin()
     const {
-        openFormTambah, filter, filteredDocuments, modulType, loading,
+        openFormTambah, filter, filteredDocuments, modulType, loading, optionsFilterTahun,
         setModulType, setOpenFormTambah, setFilter, handleDeleteDokumen,
     } = useTemplateDokumen()
 
@@ -17,7 +17,7 @@ export default function TemplateDokumen() {
     return <div className="p-3">
         <HeadHtml title="Template Dokumen" />
         <NavigationTabs modulType={modulType} setModulType={setModulType} setOpenFormTambah={setOpenFormTambah} />
-        <TableDisplayDocuments filter={filter} setFilter={setFilter} filteredDocuments={filteredDocuments} handleDeleteDokumen={handleDeleteDokumen} />
+        <TableDisplayDocuments optionsFilterTahun={optionsFilterTahun} filter={filter} setFilter={setFilter} filteredDocuments={filteredDocuments} handleDeleteDokumen={handleDeleteDokumen} />
         <FormUnggahTemplate openFormTambah={openFormTambah} setOpenFormTambah={setOpenFormTambah} />
     </div>
 }

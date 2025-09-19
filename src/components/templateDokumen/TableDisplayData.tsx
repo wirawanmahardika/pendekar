@@ -7,26 +7,36 @@ import { PerencanaanDokumenType } from "../../types/templateDokumentypes";
 import { STRINGS } from "../../utils/strings";
 
 type props = {
-    filter: string;
-    setFilter: React.Dispatch<SetStateAction<string>>;
+    optionsFilterTahun: string[];
+    filter: { search: string; tahun: string } | null;
+    setFilter: React.Dispatch<SetStateAction<{ search: string; tahun: string } | null>>;
     filteredDocuments: PerencanaanDokumenType[];
     handleDeleteDokumen: (id: string) => () => Promise<void>;
 }
 
-export default function TableDisplayDocuments({ filter, setFilter, filteredDocuments, handleDeleteDokumen }: props) {
+export default function TableDisplayDocuments({ optionsFilterTahun, filter, setFilter, filteredDocuments, handleDeleteDokumen }: props) {
     return <div className="flex flex-col bg-white rounded shadow p-5 mt-5">
         <div className="flex justify-between items-center ">
             <h2 className="font-semibold text-lg">Unggah Template Dokumen</h2>
-            <div className="relative">
-                <FaSearch className="absolute top-1/2 text-gray-800 z-10 -translate-y-1/2 left-3" size={16} />
-                <input onChange={(e) => setFilter(e.target.value)} value={filter} type="search" className="input bg-gray-200 pl-10" placeholder="Cari Template..." />
+
+            <div className="flex gap-x-4">
+                <div className="relative">
+                    <select onChange={(e) => setFilter(p => p ? ({ ...p, tahun: e.target.value }) : null)} className="select bg-gray-200">
+                        <option value={""}>--- Semua Tahun ---</option>
+                        {optionsFilterTahun.map(o => <option key={o} value={o}>{o}</option>)}
+                    </select>
+                </div>
+                <div className="relative">
+                    <FaSearch className="absolute top-1/2 text-gray-800 z-10 -translate-y-1/2 left-3" size={16} />
+                    <input onChange={(e) => setFilter(p => p ? ({ ...p, search: e.target.value }) : null)} value={filter?.search} type="search" className="input bg-gray-200 pl-10" placeholder="Cari Template..." />
+                </div>
             </div>
         </div>
 
         <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100 mt-6 overflow-y-auto">
             <table className="table text-center">
                 <thead>
-                    <tr style={{backgroundColor: STRINGS[KODE_SLUG].theme.color_normal}} className="text-black">
+                    <tr style={{ backgroundColor: STRINGS[KODE_SLUG].theme.color_normal }} className="text-black">
                         <th className="w-1/12">No.</th>
                         <th className="w-1/12">Tahun</th>
                         <th className="w-8/12 text-left">Nama Dokumen</th>

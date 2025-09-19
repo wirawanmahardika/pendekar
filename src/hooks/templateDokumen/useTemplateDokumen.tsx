@@ -9,21 +9,33 @@ export default function useTemplateDokumen() {
 
     const [documents, setDocuments] = useState<PerencanaanDokumenType[]>([])
     const [filteredDocuments, setFilteredDocuments] = useState<PerencanaanDokumenType[]>([])
-    const [filter, setFilter] = useState('')
+    const [filter, setFilter] = useState<{ search: string; tahun: string } | null>(null)
+    const [optionsFilterTahun, setOptionsFilterTahun] = useState<string[]>([])
 
     const [modulType, setModulType] = useState<"APBDes" | "RKPDes" | "RPJMDes">('RPJMDes')
     const [loading, setLoading] = useState(true)
 
-    useEffect(() => { 
+    useEffect(() => {
         setLoading(true)
         AxiosAuth.get(BASE_API_URL + "perencanaan/get-document-perencanaan/" + modulType)
-            .then(res => { setDocuments(res.data.data); setFilteredDocuments(res.data.data); setFilter('') })
+            .then(res => {
+                const optionsTahun = [...new Set(res.data.data.map((d: PerencanaanDokumenType) => (d.tahun)))].filter((d) => !!d) as string[]
+                setOptionsFilterTahun(optionsTahun)
+                setDocuments(res.data.data);
+                setFilteredDocuments(res.data.data);
+                setFilter({ tahun: "", search: "" })
+            })
             .finally(() => setLoading(false))
     }, [modulType])
 
     useEffect(() => {
         const idTimeout = setTimeout(() => {
-            const data = documents.filter(d => d.filename.toLowerCase().includes(filter.toLocaleLowerCase()))
+            const data = documents.filter(d => {
+                let status = true
+                if (filter?.search) status = status && d.filename.toLowerCase().includes(filter.search.toLocaleLowerCase())
+                if (filter?.tahun && d.tahun) status = status && d.tahun.includes(filter.tahun)
+                return status
+            })
             setFilteredDocuments(data)
         }, 300);
 
@@ -46,6 +58,6 @@ export default function useTemplateDokumen() {
 
     return {
         openFormTambah, filteredDocuments, setModulType, loading, handleDeleteDokumen, setOpenFormTambah, setFilter, filter,
-        modulType
+        modulType, optionsFilterTahun
     }
 }
